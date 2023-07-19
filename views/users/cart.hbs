@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- molla/cart.html  22 Nov 2019 09:55:06 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Molla - Bootstrap eCommerce Template</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="/images/icons/site.html">
+    <link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+
+    <style>
+        button:focus,
+input:focus{
+  outline: none;
+  box-shadow: none;
+}
+a,
+a:hover{
+  text-decoration: none;
+}
+
+/*--------------------------*/
+.qty-container{
+    padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qty-container .input-qty{
+  text-align: center;
+  padding: 6px 10px;
+  border: 1px solid #d4d4d4;
+  max-width: 70px;
+}
+.qty-container .qty-btn-minus,
+.qty-container .qty-btn-plus{
+  border: 1px solid #d4d4d4;
+  padding: 10px 13px;
+  font-size: 10px;
+  height: 38px;
+  width: 38px;
+  transition: 0.3s;
+}
+.qty-container .qty-btn-plus{
+  margin-left: -1px;
+}
+.qty-container .qty-btn-minus{
+  margin-right: -1px;
+}
+
+
+/*---------------------------*/
+.btn-cornered,
+.input-cornered{
+  border-radius: 4px;
+}
+.btn-rounded{
+  border-radius: 50%;
+}
+.input-rounded{
+  border-radius: 50px;
+}
+    </style>
+</head>
+
+<body>
+    <div class="page-wrapper">
+        
+
+        <main class="main">
+        	<div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+            	<div class="cart">
+	                <div class="container">
+	                	<div class="row">
+	                		<div class="col-lg-9">
+                                <div id="cart-table-container">
+	                			<table class="table table-cart table-mobile">
+									<thead>
+										<tr>
+											<th>Product</th>
+											<th>Price</th>
+											<th>Quantity</th>
+											<th>Total</th>
+											<th></th>
+										</tr>
+									</thead>
+
+									<tbody>
+                                        {{#each cart.products}}
+										<tr>
+                                            
+											<td class="product-col">
+												<div class="product">
+													<figure class="product-media">
+														<a href="#">
+															<img src="{{this.image}}" alt="Product image">
+														</a>
+													</figure>
+
+													<h3 class="product-title">
+														<a href="#">{{this.name}}</a>
+													</h3><!-- End .product-title -->
+												</div><!-- End .product -->
+											</td>
+											<td class="price-col">{{this.price}}</td>
+											<td class="quantity-col">
+                                            
+                                            <div class="col-md-4 mb-3">
+                                              <div class="qty-container">
+                                                <button class="qty-btn-minus btn-primary btn-rounded mr-1" id="buttonMinus" onclick="updateQuantityIncrease('{{this.productId}}','{{this.quanity}}')"><i
+                                                    class="fa fa-chevron-left"></i></button>
+                                                <input type="text" name="qty" value="{{this.quantity}}" class="input-qty input-rounded"
+                                                  oninput="validateQuantity(this)" onchange="updateQuantity(this, 0)" />
+                                                <button class="qty-btn-plus btn-primary btn-rounded ml-1" onclick="updateQuantity(this, 1)"><i
+                                                    class="fa fa-chevron-right"></i></button>
+                                              </div>
+                                            </div>
+
+                                            </td>
+ 
+                                            </td>
+
+											<td class="total-col" data-productId="{{this.productId}}"> {{this.total}} </td>
+
+                           <td class="remove-col">
+                          <button class="btn-remove">
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                        </td>
+ 
+										
+										</tr>
+                                        {{/each}}
+										
+									</tbody>
+								</table><!-- End .table table-wishlist -->
+                                </div>
+
+	                			<div class="cart-bottom">
+			            			<div class="cart-discount">
+			            				<form action="#">
+			            					<div class="input-group">
+				        						<input type="text" class="form-control" required placeholder="coupon code">
+				        						<div class="input-group-append">
+													<button class="btn btn-outline-primary-2" type="submit"><i class="icon-long-arrow-right"></i></button>
+												</div><!-- .End .input-group-append -->
+			        						</div><!-- End .input-group -->
+			            				</form>
+			            			</div><!-- End .cart-discount -->
+
+			            			<a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
+		            			</div><!-- End .cart-bottom -->
+	                		</div><!-- End .col-lg-9 -->
+	                		<aside class="col-lg-3">
+	                			<div class="summary summary-cart">
+	                				<h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
+
+	                				<table class="table table-summary">
+	                					<tbody>
+	                						<tr class="summary-subtotal">
+	                							 <tr class="summary-subtotal">
+                                <td>Subtotal:</td>
+                                    <td id="subtotal-amount-placeholder">$0.00</td>
+	                						</tr><!-- End .summary-subtotal -->
+	                						<tr class="summary-shipping">
+	                							<td>Shipping:</td>
+	                							<td>&nbsp;</td>
+	                						</tr>
+
+	                						<tr class="summary-shipping-row">
+	                							<td>
+													<div class="custom-control custom-radio">
+														<input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
+														<label class="custom-control-label" for="free-shipping">Free Shipping</label>
+													</div><!-- End .custom-control -->
+	                							</td>
+	                							<td>$0.00</td>
+	                						</tr><!-- End .summary-shipping-row -->
+
+	                						<tr class="summary-shipping-row">
+	                							<td>
+	                								<div class="custom-control custom-radio">
+														<input type="radio" id="standart-shipping" name="shipping" class="custom-control-input">
+														<label class="custom-control-label" for="standart-shipping">Standart:</label>
+													</div><!-- End .custom-control -->
+	                							</td>
+	                							<td>$10.00</td>
+	                						</tr><!-- End .summary-shipping-row -->
+
+	                						<tr class="summary-shipping-row">
+	                							<td>
+	                								<div class="custom-control custom-radio">
+														<input type="radio" id="express-shipping" name="shipping" class="custom-control-input">
+														<label class="custom-control-label" for="express-shipping">Express:</label>
+													</div><!-- End .custom-control -->
+	                							</td>
+	                							<td>$20.00</td>
+	                						</tr><!-- End .summary-shipping-row -->
+
+	                						<tr class="summary-shipping-estimate">
+	                							<td>Estimate for Your Country<br> <a href="dashboard.html">Change address</a></td>
+	                							<td>&nbsp;</td>
+	                						</tr><!-- End .summary-shipping-estimate -->
+
+	                						<tr class="summary-total">
+	                							<td>Total:</td>
+	                							<td id="total-amount">$160.00</td>
+	                						</tr><!-- End .summary-total -->
+	                					</tbody>
+	                				</table><!-- End .table table-summary -->
+
+	                				<a href="/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+	                			</div><!-- End .summary -->
+
+		            			<a href="/home" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
+	                		</aside><!-- End .col-lg-3 -->
+	                	</div><!-- End .row -->
+	                </div><!-- End .container -->
+                </div><!-- End .cart -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+        <footer class="footer">
+        	<div class="footer-middle">
+	            <div class="container">
+	            	<div class="row">
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget widget-about">
+	            				<img src="/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+
+	            				<div class="social-icons">
+	            					<a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+	            					<a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
+	            				</div><!-- End .soial-icons -->
+	            			</div><!-- End .widget about-widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="about.html">About Molla</a></li>
+	            					<li><a href="#">How to shop on Molla</a></li>
+	            					<li><a href="#">FAQ</a></li>
+	            					<li><a href="contact.html">Contact us</a></li>
+	            					<li><a href="login.html">Log in</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="#">Payment Methods</a></li>
+	            					<li><a href="#">Money-back guarantee!</a></li>
+	            					<li><a href="#">Returns</a></li>
+	            					<li><a href="#">Shipping</a></li>
+	            					<li><a href="#">Terms and conditions</a></li>
+	            					<li><a href="#">Privacy Policy</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="#">Sign In</a></li>
+	            					<li><a href="cart.html">View Cart</a></li>
+	            					<li><a href="#">My Wishlist</a></li>
+	            					<li><a href="#">Track My Order</a></li>
+	            					<li><a href="#">Help</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+	            	</div><!-- End .row -->
+	            </div><!-- End .container -->
+	        </div><!-- End .footer-middle -->
+
+	        <div class="footer-bottom">
+	        	<div class="container">
+	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+	        		<figure class="footer-payments">
+	        			<img src="/images/payments.png" alt="Payment methods" width="272" height="20">
+	        		</figure><!-- End .footer-payments -->
+	        	</div><!-- End .container -->
+	        </div><!-- End .footer-bottom -->
+        </footer><!-- End .footer -->
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+    
+
+    <!-- Sign in / Register Modal -->
+    
+
+    <!-- Plugins JS File -->
+     <script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/jquery.hoverIntent.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/superfish.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/bootstrap-input-spinner.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Main JS File -->
+<script src="/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+ 
+
+
+
+
+
+
+<script>
+
+  
+   $('.qty-btn-minus').on('click', function () {
+    var input = $(this).siblings('.input-qty');
+    var quantity = parseInt(input.val());
+
+    if (!isNaN(quantity) && quantity > 1) {
+      input.val(quantity - 1);
+      updateQuantityDecrease(input);
+    }
+  });
+
+  $('.qty-btn-plus').on('click', function () {
+    var input = $(this).siblings('.input-qty');
+    var quantity = parseInt(input.val());
+
+    if (!isNaN(quantity) && quantity < 50) {
+      input.val(quantity + 1);
+      updateQuantityOnServer(input);
+    }
+  });
+
+  $('.input-qty').on('input', function () {
+    validateQuantity(this);
+  });
+
+  $('.input-qty').on('change', function () {
+    updateQuantityOnServer($(this));
+  }); 
+
+  calculateSubtotal();
+
+
+  function validateQuantity(input) {
+    var quantity = parseInt($(input).val());
+
+    if (isNaN(quantity) || quantity < 1) {
+      $(input).val(1);
+    } else if (quantity > 50) {
+      $(input).val(50);
+    }
+  }
+
+  function updateQuantityOnServer(input) {
+    var productId = input.closest('tr').find('.total-col').data('productid'); // Corrected attribute name
+    var quantity = input.val();
+
+    var container = $(input).closest('.qty-container');
+    var plusButton = container.find('.qty-btn-plus');
+    var minusButton = container.find('.qty-btn-minus');
+
+     
+
+    // Send an AJAX request to update the quantity on the server
+    $.ajax({
+      url: '/update-quantity',
+      method: 'POST',
+      data: { productId: productId, quantity: quantity },
+      success: function (response) {
+        if(response.error){
+          plusButton.prop('disabled', true);
+        }else{
+
+
+             plusButton.prop('disabled', false);
+           // Update the total on the client-side based on the response
+          var totalElement = input.closest('tr').find('.total-col');
+          totalElement.text(response.cart.products.find(p => p.productId === productId).total);
+
+          // Update the input value to reflect the updated quantity (optional)
+          input.val(response.cart.products.find(p => p.productId === productId).quantity);
+          calculateSubtotal();
+        }
+        }
+      ,
+      error: function (error) {
+        // Handle the error response
+        console.log(error);
+      }
+    });
+  }
+
+
+//decrement
+  function updateQuantityDecrease(input) {
+    var productId = input.closest('tr').find('.total-col').data('productid'); // Corrected attribute name
+    var quantity = input.val();
+
+      var container = $(input).closest('.qty-container');
+    var plusButton = container.find('.qty-btn-plus');
+    var minusButton = container.find('.qty-btn-minus');
+
+    // Send an AJAX request to update the quantity on the server
+    $.ajax({
+      url: '/update-quantity-Decrease',
+      method: 'POST',
+      data: { productId: productId, quantity: quantity },
+      success: function (response) {
+        // Update the total on the client-side based on the response
+       plusButton.prop('disabled', false);
+             var totalElement = input.closest('tr').find('.total-col');
+          totalElement.text(response.cart.products.find(p => p.productId === productId).total);
+
+          // Update the input value to reflect the updated quantity (optional)
+          input.val(response.cart.products.find(p => p.productId === productId).quantity);
+          calculateSubtotal();
+        
+     
+      },
+      error: function (error) {
+        // Handle the error response
+        console.log(error);
+      }
+    });
+  }
+
+
+
+
+  function calculateSubtotal() {
+    var subtotal = 0;
+
+    $('.total-col').each(function () {
+      var productTotal = parseFloat($(this).text());
+      if (!isNaN(productTotal)) {
+        subtotal += productTotal;
+      }
+    });
+
+    $('#subtotal-amount-placeholder').text('₹' + subtotal.toFixed(2));
+    $('#total-amount').text('₹' + subtotal.toFixed(2));
+
+    // Redirect to the checkout page with the cart total
+  }
+
+
+
+</script>

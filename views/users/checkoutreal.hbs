@@ -1,0 +1,610 @@
+<style>
+    .product-image {
+        max-width: 100px;
+        /* Adjust the value as needed */
+        height: auto;
+    }
+</style>
+
+<body>
+    <div class="page-wrapper">
+
+
+        <main class="main">
+            <div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
+                <div class="container">
+                    <h1 class="page-title">Checkout<span>Shop</span></h1>
+                </div><!-- End .container -->
+            </div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+                <div class="checkout">
+                    <div class="container">
+                        <div class="checkout-discount">
+                            <form action="#">
+                                <input type="text" class="form-control" required id="checkout-discount-input">
+                                <label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click
+                                        here to enter your code</span></label>
+                            </form>
+                        </div><!-- End .checkout-discount -->
+
+                        {{#if user}}
+                        <form id="addressForm" action="/placeOrder" method="post">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <h2 class="checkout-title">Add a new address??</h2><!-- End .checkout-title -->
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>Name *</label>
+                                            <input type="text" id="nameInput" value="{{address.[0].name}}" name="name"
+                                                class="form-control" required>
+                                        </div><!-- End .col-sm-6 -->
+                                    </div><!-- End .row -->
+                                    <label>Street address *</label>
+                                    <input type="text" id="streetAddressInput" style="height: 8rem;"
+                                        name="streetAddress" class="form-control" value="{{address.[0].streetAddress}}"
+                                        placeholder="House number and Street name" required>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>Pincode*</label>
+                                            <input type="text" id="pincodeInput" name="pincode"
+                                                value="{{address.[0].pincode}}" class="form-control" required>
+
+                                        </div><!-- End .col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <label>Phone*</label>
+                                            <input type="text" id="phoneInput" name="phone"
+                                                value="{{address.[0].phone}}" class="form-control" required>
+                                        </div><!-- End .col-sm-6 -->
+                                    </div><!-- End .row -->
+                                    <label>Order notes (optional)</label>
+                                    <textarea class="form-control" id="orderNotesInput" name="ordernote" cols="30"
+                                        rows="4"
+                                        placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+                                </div><!-- End .col-lg-9 -->
+
+                                <aside class="col-lg-3">
+                                    <div class="summary">
+                                        <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+                                        <div class="table-responsive">
+                                            <table class="table table-summary">
+                                                <thead>
+                                                    <tr>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="product-details">
+                                                    {{#each products}}
+                                                    <tr>
+                                                        <td>{{this.name}}</td>
+                                                        <td>₹{{this.price}}<span>&times;</span> {{this.quantity}}</td>
+                                                        <td></td>
+                                                        <td> </td>
+                                                        <td><img src="{{this.image}}" alt="{{this.name}}"
+                                                                style="width: 60px;height: 40px;padding-left: 20px;" "product-image" />
+                                                        </td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr class="summary-total">
+                                                        <td colspan="4">Subtotal:</td>
+                                                        <td>₹{{cartTotal}}.00</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
+
+                                            <div class="accordion-summary" id="accordion-payment">
+
+
+                                                <div class="card">
+                                                    <div class="card-header" id="heading-3">
+                                                        <h2 class="card-title">
+                                                            <label class="collapsed" role="button"
+                                                                data-toggle="collapse" href="#collapse-3"
+                                                                aria-expanded="false" aria-controls="collapse-3">
+                                                                <input type="radio" name="payment-method" value="COD">
+                                                                Cash on delivery
+                                                            </label>
+                                                        </h2>
+                                                    </div><!-- End .card-header -->
+
+
+                                                    <div id="collapse-3" class="collapse" aria-labelledby="heading-3"
+                                                        data-parent="#accordion-payment">
+                                                        <div class="card-body">Shop now with Cash on Delivery. Pay when
+                                                            your order arrives. No online
+                                                            transactions required. Simple and convenient
+                                                        </div><!-- End .card-body -->
+                                                    </div><!-- End .collapse -->
+                                                </div><!-- End .card -->
+
+
+                                                <div class="card">
+                                                    <div class="card-header" id="heading-5">
+                                                        <h2 class="card-title">
+
+
+
+                                                            <label class="collapsed" role="button"
+                                                                data-toggle="collapse" href="#collapse-5"
+                                                                aria-expanded="false" aria-controls="collapse-5">
+                                                                <input type="radio" name="payment-method"
+                                                                    value="ONLINE">
+                                                                Pay Online
+                                                            </label>
+
+                                                        </h2>
+                                                    </div><!-- End .card-header -->
+                                                    <div id="collapse-5" class="collapse" aria-labelledby="heading-5"
+                                                        data-parent="#accordion-payment">
+                                                        <div class="card-body"> Securely shop and pay online with ease.
+                                                            Choose from trusted payment
+                                                            methods for a seamless checkout experience.
+
+                                                        </div><!-- End .card-body -->
+                                                    </div><!-- End .collapse -->
+                                                </div><!-- End .card -->
+                                            </div><!-- End .accordion -->
+
+
+                                            <button type="submit"
+                                                class="btn btn-outline-primary-2 btn-order btn-block btn btn-info">
+                                                Proceed to checkout
+                                            </button>
+
+                                        </div><!-- End .summary -->
+                                </aside><!-- End .col-lg-3 -->
+
+
+
+
+
+
+
+
+                            </div><!-- End .row -->
+
+
+                        </form>
+
+                        {{else}}
+
+
+                        <form id="addressForm" action="/placeOrder" method="post">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <h2 class="checkout-title">Add a new address??</h2><!-- End .checkout-title -->
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>Name *</label>
+                                            <input type="text" id="nameInput" name="name" class="form-control" required>
+                                        </div><!-- End .col-sm-6 -->
+                                    </div><!-- End .row -->
+
+                                    <label>Street address *</label>
+                                    <input type="text" id="streetAddressInput" style="height: 8rem;"
+                                        name="streetAddress" class="form-control" required>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>Pincode*</label>
+                                            <input type="text" id="pincodeInput" class="form-control" name="pincode"
+                                                required>
+                                        </div><!-- End .col-sm-6 -->
+                                        <div class="col-sm-6">
+                                            <label>Phone*</label>
+                                            <input type="text" id="phoneInput" name="phone" class="form-control"
+                                                required>
+                                        </div><!-- End .col-sm-6 -->
+                                    </div><!-- End .row -->
+                                    <label>Order notes (optional)</label>
+                                    <textarea class="form-control" id="orderNotesInput" name="ordernote" cols="30"
+                                        rows="4"
+                                        placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+                                </div><!-- End .col-lg-9 -->
+
+                                <aside class="col-lg-3">
+                                    <div class="summary">
+                                        <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+                                        <div class="table-responsive">
+                                            <table class="table table-summary">
+                                                <thead>
+                                                    <tr>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="product-details">
+                                                    {{#each products}}
+                                                    <tr>
+                                                        <td>{{this.name}}</td>
+                                                        <td>₹{{this.price}}<span>&times;</span> {{this.quantity}}</td>
+                                                        <td></td>
+                                                        <td> </td>
+                                                        <td><img src="{{this.image}}" alt="{{this.name}}"
+                                                                style="width: 60px;height: 40px;padding-left: 20px;" "product-image" />
+                                                        </td>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr class="summary-total">
+                                                        <td colspan="4">Subtotal:</td>
+                                                        <td>₹{{cartTotal}}.00</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+
+
+                                            <div class="accordion-summary" id="accordion-payment">
+
+
+                                                <div class="card">
+                                                    <div class="card-header" id="heading-3">
+                                                        <h2 class="card-title">
+                                                            <label class="collapsed" role="button"
+                                                                data-toggle="collapse" href="#collapse-3"
+                                                                aria-expanded="false" aria-controls="collapse-3">
+                                                                <input type="radio" name="payment-method" value="COD">
+                                                                Cash on delivery
+                                                            </label>
+                                                        </h2>
+                                                    </div><!-- End .card-header -->
+
+
+                                                    <div id="collapse-3" class="collapse" aria-labelledby="heading-3"
+                                                        data-parent="#accordion-payment">
+                                                        <div class="card-body">Shop now with Cash on Delivery. Pay when
+                                                            your order arrives. No online transactions required. Simple
+                                                            and convenient
+                                                        </div><!-- End .card-body -->
+                                                    </div><!-- End .collapse -->
+                                                </div><!-- End .card -->
+
+
+                                                <div class="card">
+                                                    <div class="card-header" id="heading-5">
+                                                        <h2 class="card-title">
+
+
+
+                                                            <label class="collapsed" role="button"
+                                                                data-toggle="collapse" href="#collapse-5"
+                                                                aria-expanded="false" aria-controls="collapse-5">
+                                                                <input type="radio" name="payment-method"
+                                                                    value="ONLINE">
+                                                                Pay Online
+                                                            </label>
+
+                                                        </h2>
+                                                    </div><!-- End .card-header -->
+                                                    <div id="collapse-5" class="collapse" aria-labelledby="heading-5"
+                                                        data-parent="#accordion-payment">
+                                                        <div class="card-body"> Securely shop and pay online with ease.
+                                                            Choose from trusted payment methods for a seamless checkout
+                                                            experience.
+
+                                                        </div><!-- End .card-body -->
+                                                    </div><!-- End .collapse -->
+                                                </div><!-- End .card -->
+                                            </div><!-- End .accordion -->
+
+
+                                            <button type="submit"
+                                                class="btn btn-outline-primary-2 btn-order btn-block btn btn-info">
+                                                Proceed to checkout
+                                            </button>
+
+                                        </div><!-- End .summary -->
+                                </aside><!-- End .col-lg-3 -->
+
+
+
+
+
+
+
+                            </div><!-- End .row -->
+
+
+                        </form>
+
+
+                        {{/if}}
+
+
+                        {{#if user}}
+
+                        <div class="col-lg-6">
+                            <div
+                                style="display:flex;background-color:rgb(246, 245, 221);overflow-x:scroll;overflow-y:hidden;height:25rem;width:30rem">
+                                {{#each address}}
+                                <div class="card-body" style="display: block;">
+                                    <h3 class="card-title">User Addresses</h3><!-- End .card-title -->
+
+                                    <p>
+                                        {{this.name}}<br>
+                                        {{this.streetAddress}}<br>
+                                        {{this.phone}}<br>
+                                        {{this.pincode}}<br>
+
+                                        <a href="#">Edit <i class="icon-edit"></i></a>
+                                    </p>
+                                    {{!-- <button id="makeDefaultBtn-{{this._id}}" class="btn btn-danger"
+                                        onclick="makeDefaultAddress('{{this._id}}')">Make Default Address</button> --}}
+                                    <a href="/useAddressCheckout/{{this._id}}" class="btn btn-success"> Selected
+                                        address</a>
+                                </div><!-- End .card-body -->
+                                {{/each}}
+
+                            </div>
+                        </div><!-- End .col-lg-6 -->
+
+                        {{else}}
+
+                        <div class="col-lg-6">
+                            <div
+                                style="display:flex;background-color:white;overflow-x:scroll;overflow-y:hidden;height:25rem">
+                                {{#each address}}
+                                <div class="card-body" style="display: block;">
+                                    <h3 class="card-title">User Addresses</h3><!-- End .card-title -->
+
+                                    <p>
+                                        {{this.name}}<br>
+                                        {{this.streetAddress}}<br>
+                                        {{this.phone}}<br>
+                                        {{this.pincode}}<br>
+
+                                        <a href="#">Edit <i class="icon-edit"></i></a>
+                                    </p>
+
+                                    <a href="/useAddressCheckout/{{this._id}}" class="btn btn-info">Use address</a>
+                                </div><!-- End .card-body -->
+                                {{/each}}
+
+                            </div>
+                        </div><!-- End .col-lg-6 -->
+
+
+
+
+                        {{/if}}
+                    </div><!-- End .container -->
+                </div><!-- End .checkout -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+        <footer class="footer">
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget widget-about">
+                                <img src="/images/homescape-logo.png" class="footer-logo" alt="Footer Logo" width="105"
+                                    height="25">
+                                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
+                                    magna eros eu erat. </p>
+
+                                <div class="social-icons">
+                                    <a href="#" class="social-icon" target="_blank" title="Facebook"><i
+                                            class="icon-facebook-f"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Twitter"><i
+                                            class="icon-twitter"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Instagram"><i
+                                            class="icon-instagram"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Youtube"><i
+                                            class="icon-youtube"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
+                                            class="icon-pinterest"></i></a>
+                                </div><!-- End .soial-icons -->
+                            </div><!-- End .widget about-widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="about.html">About Molla</a></li>
+                                    <li><a href="#">How to shop on Molla</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="login.html">Log in</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="#">Payment Methods</a></li>
+                                    <li><a href="#">Money-back guarantee!</a></li>
+                                    <li><a href="#">Returns</a></li>
+                                    <li><a href="#">Shipping</a></li>
+                                    <li><a href="#">Terms and conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+                                <ul class="widget-list">
+                                    <li><a href="#">Sign In</a></li>
+                                    <li><a href="cart.html">View Cart</a></li>
+                                    <li><a href="#">My Wishlist</a></li>
+                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-middle -->
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+                    <!-- End .footer-copyright -->
+                    <figure class="footer-payments">
+                        <img src="/images/payments.png" alt="Payment methods" width="272" height="20">
+                    </figure><!-- End .footer-payments -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-bottom -->
+        </footer><!-- End .footer -->
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+    <div class="mobile-menu-container">
+        <div class="mobile-menu-wrapper">
+            <span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+            <form action="#" method="get" class="mobile-search">
+                <label for="mobile-search" class="sr-only">Search</label>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
+                    placeholder="Search in..." required>
+                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+            </form>
+
+
+
+            <div class="social-icons">
+                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+            </div><!-- End .social-icons -->
+        </div><!-- End .mobile-menu-wrapper -->
+    </div><!-- End .mobile-menu-container -->
+
+    <!-- Sign in / Register Modal -->
+    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#signin"
+                                        role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab"
+                                        aria-controls="register" aria-selected="false">Register</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5">
+
+                                <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label for="register-email">Your email address *</label>
+                                            <input type="email" class="form-control" id="register-email"
+                                                name="register-email" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-group">
+                                            <label for="register-password">Password *</label>
+                                            <input type="password" class="form-control" id="register-password"
+                                                name="register-password" required>
+                                        </div><!-- End .form-group -->
+
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>SIGN UP</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="register-policy"
+                                                    required>
+                                                <label class="custom-control-label" for="register-policy">I agree to the
+                                                    <a href="#">privacy policy</a> *</label>
+                                            </div><!-- End .custom-checkbox -->
+                                        </div><!-- End .form-footer -->
+                                    </form>
+                                    <div class="form-choice">
+                                        <p class="text-center">or sign in with</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login btn-g">
+                                                    <i class="icon-google"></i>
+                                                    Login With Google
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                            <div class="col-sm-6">
+                                                <a href="#" class="btn btn-login  btn-f">
+                                                    <i class="icon-facebook-f"></i>
+                                                    Login With Facebook
+                                                </a>
+                                            </div><!-- End .col-6 -->
+                                        </div><!-- End .row -->
+                                    </div><!-- End .form-choice -->
+                                </div><!-- .End .tab-pane -->
+                            </div><!-- End .tab-content -->
+                        </div><!-- End .form-tab -->
+                    </div><!-- End .form-box -->
+                </div><!-- End .modal-body -->
+            </div><!-- End .modal-content -->
+        </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+
+    <!-- Plugins JS File -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <script>
+        var orderId;
+        $(document).ready(function () {
+            var settings = {
+                "url": "/create/orderId",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "data": JSON.stringify({
+                    "amount": "50000"
+                }),
+            };
+
+            //creates new orderId everytime
+            $.ajax(settings).done(function (response) {
+
+                orderId = response.orderId;
+                console.log(orderId);
+                $("button").show();
+            });
+        });
+    </script>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery.hoverIntent.min.js"></script>
+    <script src="/js/jquery.waypoints.min.js"></script>
+    <script src="/js/superfish.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <!-- Main JS File -->
+    <script src="/js/main.js"></script>
+
+</body>

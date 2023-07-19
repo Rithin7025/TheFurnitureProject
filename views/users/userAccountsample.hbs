@@ -1,0 +1,419 @@
+
+
+<body>
+    <div class="page-wrapper">
+        
+        <main class="main">
+        	<div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
+        		<div class="container">
+        			<h1 class="page-title">My Account<span>Shop</span></h1>
+        		</div><!-- End .container -->
+        	</div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My Account</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content">
+            	<div class="dashboard">
+	                <div class="container">
+	                	<div class="row">
+	                		<aside class="col-md-4 col-lg-3">
+	                			<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+								    <li class="nav-item">
+								        <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">Dashboard</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-downloads-link" data-toggle="tab" href="#tab-downloads" role="tab" aria-controls="tab-downloads" aria-selected="false">Downloads</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
+								    </li>
+								    <li class="nav-item">
+								        <a class="nav-link" href="#">Sign Out</a>
+								    </li>
+								</ul>
+	                		</aside><!-- End .col-lg-3 -->
+
+	                		<div class="col-md-8 col-lg-9">
+	                			<div class="tab-content">
+								    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+                                         <!-- Dashboard content goes here -->
+                                      
+                                            <div class="account-details">
+                                                    <h4>Personal Information</h4>
+                                                    <table>
+                                                        <tr>
+                                                        <td>Name:</td>
+                                                        <td id="name">{{userData.name}}</td>
+                                                        
+                                                        </tr>
+                                                        <tr>
+                                                        <td>Phone:</td>
+                                                        <td id="phone">{{userData.mobile}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                        <td>Email:</td>
+                                                        <td id="email">{{userData.email}}</td>
+                                                        </tr>
+                                                        <td>Address</td>
+                                                        <td id="address">
+                                                           {{shipping.name}}<br>
+                                                            {{shipping.streetAddress}}<br>
+                                                            {{shipping.phone}}<br>
+                                                            {{shipping.pincode}}<br>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <div class="pt-3">
+                                                        
+                                                        <button id="edit-button" >Edit</button>
+                                                    </div>
+                                             </div>
+
+                                       </div>
+								    </div><!-- .End .tab-pane -->
+<!--ordres page goes here-->
+								    <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+
+                                         <div class="container mt-5">
+                                                <h2>User Orders</h2>
+                                                <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Image</th>
+                                                        <th>Product name</th>
+                                                        <th>Quantity</th>
+                                                        <th>Price</th>
+                                                        <th>Total</th>
+                                                        <th>Address</th>
+                                                        <th>Order Note</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    {{#each orders}}
+                                                        {{#each this.products}}
+                                                        <tr>
+                                                            <td><img src="{{image}}" alt="Product Image" class="product-image" style="height:50px;width: 50px;"></td>
+                                                            <td class="product-name" style="font-size: small;">{{name}} </td>
+                                                            <td>{{quantity}}</td>
+                                                            <td>{{price}}</td>
+                                                        
+                                                            <td>{{../streetAddress}}, <br>{{../pincode}}</td>
+                                                            <td>{{../ordernote}}</td>
+                                                            <td>{{../status}}</td>
+                                                        </tr>
+                                                        {{/each}}
+                                                    {{/each}}
+                                                    </tbody>
+                                                </table>
+                                                </div>
+                                            </div>
+								    	<a href="" class="btn btn-outline-primary-2"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
+								    </div><!-- .End .tab-pane -->
+
+								    
+                                    <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+                                        <p>The following addresses will be used on the checkout page by default.</p>
+                                    
+                                    
+                                        <div>
+                                            <div class="row h-2 mt-5 col-lg-10" style="max-height:1rem,overflow:hidden; ">
+                                                <div class="col-lg-6">
+                                                    <div style="display:flex;background-color:white;overflow-x:scroll;overflow-y:hidden;height:25rem">
+                                                        {{#each addr}}
+                                                        <div class="card-body" style="display: block;">
+                                                            <h3 class="card-title">User Addresses</h3><!-- End .card-title -->
+                                    
+                                                            <p>{{this.name}}<br>
+                                                                {{this.streetAddress}}<br>
+                                                                {{this.phone}}<br>
+                                                                {{this.pincode}}<br>
+                                    
+                                                                <a href="#">Edit <i class="icon-edit"></i></a>
+                                                            </p>
+                                                            <button id="makeDefaultBtn-{{this._id}}" class="btn btn-danger"
+                                                                onclick="makeDefaultAddress('{{this._id}}')">Make Default Address</button>
+                                    
+                                                        </div><!-- End .card-body -->
+                                                        {{/each}}
+                                    
+                                                    </div>
+                                                </div><!-- End .col-lg-6 -->
+                                            </div>
+                                            <div class="row mt-5 col-lg-10">
+                                                <div class="col-lg-6">
+                                                    <div class="card card-dashboard">
+                                                        <div class="card-body">
+                                                            <h3 class="card-title">Shipping Address</h3><!-- End .card-title -->
+                                    
+                                                            <p>{{shipping.name}}<br>
+                                                                {{shipping.streetAddress}}<br>
+                                                                {{shipping.phone}}<br>
+                                                                {{shipping.pincode}}<br>
+                                                                {{!-- <a href="#">Edit <i class="icon-edit"></i></a></p> --}}
+                                                        </div><!-- End .card-body -->
+                                                    </div><!-- End .card-dashboard -->
+                                                </div><!-- End .col-lg-6 -->
+                                            </div>
+                                            <!-- Button to trigger the modal -->
+                                            <button type="button" class="btn btn-primary" style="margin-left: 1rem;" data-toggle="modal"
+                                                data-target="#addAddressModal" class="ml-5">
+                                                Add Address
+                                            </button>
+                                        </div><!-- End .row -->
+                                    </div><!-- .End .tab-pane -->
+ <!----------------------------------------------------------------------------->
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addAddressModalLabel">Add Address</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/add-address/{{userData._id}}" method="post" id="address-form"
+                                                        class="d-flex flex-column align-items-center">
+                                    
+                                                        <div class="form-group">
+                                                            <label for="name">Name:</label>
+                                                            <input type="text" class="form-control" id="name" name="name" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="streetAddress">Street Address:</label>
+                                                            <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
+                                                        </div>
+                                    
+                                                        <div class="form-group">
+                                                            <label for="pincode">Pincode:</label>
+                                                            <input type="number" class="form-control" id="pincode" name="pincode" required>
+                                                        </div>
+                                    
+                                                        <div class="form-group">
+                                                            <label for="phone">Phone:</label>
+                                                            <input type="number" class="form-control" id="phone" name="phone" required>
+                                                        </div>
+                                    
+                                                        <button type="submit" class="btn btn-primary m-4">Save Address</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+								    
+								</div>
+	                		</div><!-- End .col-lg-9 -->
+	                	</div><!-- End .row -->
+	                </div><!-- End .container -->
+                </div><!-- End .dashboard -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+
+        <footer class="footer footer-dark">
+        	<div class="footer-middle">
+	            <div class="container">
+	            	<div class="row">
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget widget-about">
+	            				<img src="/images/homescape-logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+
+	            				<div class="social-icons">
+	            					<a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+	            					<a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+	            					<a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+	            					<a href="#" class="social-icon" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+	            					<a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+	            				</div><!-- End .soial-icons -->
+	            			</div><!-- End .widget about-widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="about.html">About Molla</a></li>
+	            					<li><a href="#">How to shop on Molla</a></li>
+	            					<li><a href="#">FAQ</a></li>
+	            					<li><a href="contact.html">Contact us</a></li>
+	            					<li><a href="login.html">Log in</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="#">Payment Methods</a></li>
+	            					<li><a href="#">Money-back guarantee!</a></li>
+	            					<li><a href="#">Returns</a></li>
+	            					<li><a href="#">Shipping</a></li>
+	            					<li><a href="#">Terms and conditions</a></li>
+	            					<li><a href="#">Privacy Policy</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+
+	            		<div class="col-sm-6 col-lg-3">
+	            			<div class="widget">
+	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+	            				<ul class="widget-list">
+	            					<li><a href="#">Sign In</a></li>
+	            					<li><a href="cart.html">View Cart</a></li>
+	            					<li><a href="#">My Wishlist</a></li>
+	            					<li><a href="#">Track My Order</a></li>
+	            					<li><a href="#">Help</a></li>
+	            				</ul><!-- End .widget-list -->
+	            			</div><!-- End .widget -->
+	            		</div><!-- End .col-sm-6 col-lg-3 -->
+	            	</div><!-- End .row -->
+	            </div><!-- End .container -->
+	        </div><!-- End .footer-middle -->
+
+	        <div class="footer-bottom">
+	        	<div class="container">
+	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+	        		<figure class="footer-payments">
+	        			<img src="/images/payments.png" alt="Payment methods" width="272" height="20">
+	        		</figure><!-- End .footer-payments -->
+	        	</div><!-- End .container -->
+	        </div><!-- End .footer-bottom -->
+        </footer><!-- End .footer -->
+    </div><!-- End .page-wrapper -->
+    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+
+    <div class="mobile-menu-container">
+        <div class="mobile-menu-wrapper">
+            <span class="mobile-menu-close"><i class="icon-close"></i></span>
+
+            <form action="#" method="get" class="mobile-search">
+                <label for="mobile-search" class="sr-only">Search</label>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+            </form>
+            
+            
+
+            <div class="social-icons">
+                <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+            </div><!-- End .social-icons -->
+        </div><!-- End .mobile-menu-wrapper -->
+    </div><!-- End .mobile-menu-container -->
+
+    <!-- Sign in / Register Modal -->
+    
+
+    <!-- Plugins JS File -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery.hoverIntent.min.js"></script>
+    <script src="/js/jquery.waypoints.min.js"></script>
+    <script src="/js/superfish.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <!-- Main JS File -->
+    <script src="/js/main.js"></script>
+    <script>
+        {
+            {
+                !-- function makeDefaultAddress(addressId) {
+                    //send the address id when clicked along with the addressId
+                    console.log('the address id in the hbs page', addressId)
+
+                    //reset the previously clicked button to red
+                    const previousButton = document.querySelector('.btn-success');
+                    if (previousButton) {
+                        previousButton.classList.remove('btn-success');
+                        previousButton.classList.add('btn-danger');
+                        previousButton.textContent = 'Make Default Address'
+                    }
+
+
+
+
+                    const url = `/makeDefaultAddress/${addressId}`;
+                    window.location.href = url;
+
+                    //change the button color after it is clicked
+
+                    const button = document.getElementById(`makeDefaultBtn-${addressId}`);
+                    button.classList.remove('btn-danger');
+                    button.classList.add('btn-success');
+                    button.textContent = 'Default Address'
+
+                } --}
+        }
+
+        function makeDefaultAddress(addressId) {
+            // Reset the previously clicked button to red
+            const previousButton = document.querySelector('.btn-success');
+            if (previousButton) {
+                previousButton.classList.remove('btn-success');
+                previousButton.classList.add('btn-danger');
+                previousButton.textContent = 'Make Default Address';
+            }
+
+            // Change the button color after it is clicked
+            const button = document.getElementById(`makeDefaultBtn-${addressId}`);
+            button.classList.remove('btn-danger');
+            button.classList.add('btn-success');
+            button.textContent = 'Default Address';
+
+            // Store the state in local storage
+            localStorage.setItem('defaultButton', addressId);
+
+            // Send the addressId to the server to update the default address state
+            const url = `/makeDefaultAddress/${addressId}`;
+            window.location.href = url;
+        }
+
+        // Check the local storage on page load and update the button if needed
+        document.addEventListener('DOMContentLoaded', function () {
+            const defaultButtonId = localStorage.getItem('defaultButton');
+            if (defaultButtonId) {
+                const button = document.getElementById(`makeDefaultBtn-${defaultButtonId}`);
+                button.classList.remove('btn-danger');
+                button.classList.add('btn-success');
+                button.textContent = 'Default Address';
+            }
+        });
+
+
+
+    </script>
+</body>
+
+
+<!-- molla/dashboard.html  22 Nov 2019 10:03:13 GMT -->
+</html>
