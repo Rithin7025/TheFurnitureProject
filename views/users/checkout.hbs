@@ -626,6 +626,63 @@
     </script> --}}
 
     <script>
+
+        function makeRazorpayPayment(serverOrderData) {
+            let razorpayKeyId = serverOrderData.razorpayKeyId;
+            let orderDetails = serverOrderData.orderDetails;
+            let userDetails = serverOrderData.userDetails;
+            let userOrderRequestData = serverOrderData.userOrderRequestData;
+            console.log("orde", orderDetails.id)
+            let paymentDataToRazorpayServer = {
+                "key": razorpayKeyId,
+                "amount": orderDetails.amount,
+                "currency": "INR",
+                "name": "fv-project",
+                "description": "Test Transaction",
+                "order_id": orderDetails.id,
+                "handler": function (response) {
+                    verifyPayment(response, orderDetails);
+                },
+                "prefill": {
+                    "name": userDetails.name,
+                    "email": userDetails.email,
+                    "contact": userOrderRequestData.mobile
+                },
+                "notes": {
+                    "Customer Address": userOrderRequestData.homeAddress
+                }
+            };
+
+            var razorpayPayment = new Razorpay(paymentDataToRazorpayServer);
+            razorpayPayment.open();
+
+            // If the payment failed for any reason, calling the pre-defined function "on" in Razorpay module using the object of Razorpay
+        }
+
+        function verifyPayment(razorpayServerPaymentResponse, serverOrderDetails) {
+            $.ajax({
+                url: '/verify-payment',
+                data: {
+
+                    razorpayServerPaymentResponse,
+
+                    serverOrderDetails
+
+                },
+                method: 'POST',
+
+                success: (response) => {
+                    if (response.status) {
+                        location.href = '/orderPlaced'
+                    } else {
+                        location.href = '/orderFailed'
+                    }
+                }
+            })
+        }
+    </script>
+
+    <script>
         const form = document.getElementById('addressForm');
         console.log(form);
         form.addEventListener('submit', (e) => {
@@ -637,7 +694,12 @@
             formData.forEach((value, key) => {
                 data[key] = value;
             });
-            sendCheckoutRequest(data);
+            try {
+                sendCheckoutRequest(data);
+            }
+            catch (err) {
+                console.error(err)
+            }
         });
 
         async function sendCheckoutRequest(data) {
@@ -650,7 +712,7 @@
             });
             const resBody = await response.json();
 
-            if (!resBody.COD_CHECKOUT) {
+            if (!resBody.isOk) {
                 console.log('Some error occurred');
                 return;
             }

@@ -650,7 +650,7 @@ const submitCheckout = async (req, res) => {
 
           if (req.body["payment-method"] === "COD") {
             console.log("cod_is true here");
-            res.json({ COD_CHECKOUT: true });
+            res.json({ isOk: true,  COD_CHECKOUT: true });
           } else if (req.body["payment-method"] === "ONLINE") {
             productHelper
               .generateRazorPayOrder(orderId, totalOrderValue)
@@ -662,6 +662,7 @@ const submitCheckout = async (req, res) => {
                 const user = await User.findById({ _id: userId }).lean();
                 console.log(RAZORPAY_ID_KEY, "RAZORPAY_ID_KEY");
                 res.json({
+                  isOk: true,
                   ONLINE_CHECKOUT: true,
                   userOrderRequestData: orderDetails,
                   orderDetails: razorpayOrderDetails,
@@ -670,11 +671,14 @@ const submitCheckout = async (req, res) => {
                   userDetails: user,
                 });
               });
+          } else {
+            res.send({isOk: false});
           }
         });
     }
   } catch (error) {
     console.log(error.message);
+    res.send({isOk: false});
   }
 };
 
