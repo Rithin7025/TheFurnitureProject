@@ -1,77 +1,3 @@
-// const Cart = require("../models/cartModel");
-// const Product = require("../models/productModel");
-// const mongoose = require("mongoose");
-
-// const addToCart = async (req, res) => {
-//   try {
-//     const productId = req.params.productId;
-//     if (!mongoose.Types.ObjectId.isValid(productId)) {
-//       // Handle the case when productId is not a valid ObjectId
-//       // Return an error response or perform appropriate actions
-//       console.log("error");
-//       // ...
-//     }
-//     const userId = req.session.user_id;
-
-//     // Find the cart for the user
-//     let cart = await Cart.findOne({ user_id: userId });
-
-//     // If there is no cart, create a new one for the user
-//     if (!cart) {
-//       cart = new Cart({ user_id: userId, products: [] });
-//     }
-
-//     // Check if the product is already in the cart
-//     const existingProductIndex = cart.products.findIndex((product) =>
-//       product.productId.equals(productId)
-//     );
-
-//     if (existingProductIndex !== -1) {
-//       // If it's already there, update the quantity
-//       cart.products[existingProductIndex].quantity += 1;
-
-//       // Calculate and assign the total value for the updated product
-//       cart.products[existingProductIndex].total =
-//         cart.products[existingProductIndex].price *
-//         cart.products[existingProductIndex].quantity;
-//     } else {
-//       // If not there, add it
-//       const newProduct = await Product.findById(productId);
-//       console.log("product price", newProduct.price);
-//       cart.products.push({
-//         productId,
-//         quantity: 1,
-//         price: newProduct.price,
-//         total: newProduct.price,
-//       });
-//     };
-
-//     // Calculate and assign the total value for each product
-//     cart.products.forEach((product) => {
-//       product.total = product.price * product.quantity;
-//     });
-
-//     // Calculate the total for the cart
-//     cart.total = cart.products.reduce((total, product) => {
-//       return total + product.total;
-//     }, 0);
-
-//     // Save the updated cart to the database
-//     const updatedCart = await cart.save();
-//     console.log("updatedCart: ", updatedCart);
-
-//     res.status(200).json({ message: "Product added to cart successfully" });
-//   } catch (error) {
-//     console.log(error.message);
-//     // Handle the error and send an appropriate response
-//     // ...
-//   }
-// };
-
-// module.exports = {
-//   addToCart,
-// };
-
 
 
 
@@ -79,6 +5,7 @@
 
 //========================================================================================================================================
 
+const userHelpers = require("../helpers/userHelpers");
 const Cart = require("../models/cartModel");
 const Product = require("../models/productModel");
 const mongoose = require("mongoose");
@@ -86,6 +13,7 @@ const mongoose = require("mongoose");
 const addToCart = async (req, res) => {
   try {
     const productId = req.body.productId;
+
     console.log(productId)
     if (!mongoose.Types.ObjectId.isValid(productId)) {
       // Handle the case when productId is not a valid ObjectId
@@ -108,18 +36,43 @@ const addToCart = async (req, res) => {
       product.productId.equals(productId)
     );
 
+    
+
+
+
+
     if (existingProductIndex !== -1) {
       // If it's already there, update the quantity
+      const product = await Product.findById(productId);
+
+      console.log('------------------------------')
+
+const cartQuantity = parseFloat(cart.products[existingProductIndex].quantity);
+const stockQuantity = parseFloat(product.stockQuantity);
+
+if (cartQuantity > stockQuantity) {
+  
+  return res.status(400).json({ message: 'out of stock' });
+
+
+}
+
+        
+        console.log('after')
       cart.products[existingProductIndex].quantity += 1;
 
       // Calculate and assign the total value for the updated product
       cart.products[existingProductIndex].total =
         cart.products[existingProductIndex].price *
         cart.products[existingProductIndex].quantity;
+
+
+
     } else {
       // If not there, add it
       const newProduct = await Product.findById(productId);
       console.log("product price", newProduct.price);
+
       cart.products.push({
         productId,
         quantity: 1,
@@ -154,46 +107,161 @@ const addToCart = async (req, res) => {
 };
 
 
-
+   
 const getCartPage = async(req,res)=>{
+
       try {
+    
+
         const userId = req.session.user_id;
-        
 
-         let cart = await Cart.findOne({user_id : userId}).lean();
-        //check if the cart exists if it doesn't create an empty cart object
-        if(!cart){
-          cart = { products : []};
-        } else { 
-          //fetch the product details for each cart item
-           const productIds =  cart.products.map((product)=> product.productId);
-           const products = await Product.find({_id : {$in : productIds}}).lean();
-
-           //Map product details to cart items
+        console.log(userId)
 
 
-              cart.products.forEach((product) => {
-        const matchingProduct = products.find(
-          (p) => p._id.toString() === product.productId.toString()
-        );
+         const isUserLoggedIn = req.session.user_id !== undefined;
+
+
+        const cartCheck = await Cart.findOne({ user_id: userId });
+
+          console.log('cartCheck found==================',cartCheck);
+
+        if(cartCheck){
+                     
+          //populate the feilds from the product
+          const cart = await Cart.findOne({ user_id: req.session.user_id })
+            .populate({
+              path: "products.productId",
+              populate: { path: "category", select: "categoryOffer" },
+            })
+            .lean()
+            .exec();
+
+          console.log(cart,'cart is found after populating------------------------------------xxxx')
+          
+
+          
+
+
+          const products = cart.products.map((product)=>{
+
+            //total amount of all the products
+
+            const total = Number(product.quantity) * Number(product.productId.price)
+
+            //calculate the category and product offer 
+
+
+            const categoryOfferPercentage = product.productId.category.categoryOffer;
+            const productOfferPercentage = product.productId.productOffer;
+
+
+            const categoryDiscountAmount = (total * categoryOfferPercentage) /100;
+
+            const productDiscountAmount = (total * productOfferPercentage) / 100;
+
+            const final = total - productDiscountAmount - categoryDiscountAmount;
+           const finalAmount = Math.floor(final)
+
+            return {
+              _id : product.productId._id.toString(),
+              name: product.productId.name,
+              categoryOffer : product.productId.category.categoryOffer, //access the category feild directly
+              image: product.productId.image,
+              price: product.productId.price,
+              // description : product.productId.description
+              finalAmount: finalAmount,
+              discountAmount: categoryDiscountAmount + productDiscountAmount,
+              productOffer : product.productId.productOffer,
+              quantity : product.quantity,
+              total: total,
+              user_id : req.session.user_id,
+              totalDiscountPercentage: productOfferPercentage + categoryOfferPercentage
+
+            }
+          })
+
+          console.log("_____________________________________products");
+
+          console.log(products)
+
+          console.log("________________________________________________________products End");
+
+         // finding the total value of all products in the cart
+
+          const total = products.reduce((sum,product)=>{
+
+            return sum + Number(product.total)
+
+          },0)
+
+
+             console.log("________________________________________________________total");
+                console.log(total)
+
+              console.log("________________________________________________________total End");
+
+
+
+                // calculating total product offer discount
+
+                let totalProductDiscountAmount = 0 ;
+
+
+                const productDiscounts = cart.products.forEach((item)=>{
+                  const quantity = item.quantity;
+                  const price = item.productId.price;
+
+                  const productOffer = item.productId.productOffer;
+
+
+                  const discountAmount = (quantity * price  * productOffer) / 100;
+                  totalProductDiscountAmount += discountAmount;
+
+                })
+
+                // calculating total category offer discount Amount
+
+                let totalCategoryDiscountAmount = 0;
+
+                const categoryDiscounts = cart.products.forEach((item)=>{
+                  const actualProductAmount = item.productId.price * item.quantity;
+                  const categoryOffer = item.productId.category.categoryOffer;
+
+
+
+
+                  const categoryDiscountAmount = (actualProductAmount * categoryOffer) /100;
+                  totalCategoryDiscountAmount += categoryDiscountAmount
+
+
+                })
+
+                const TotalAmount =Math.floor(total - totalProductDiscountAmount - totalCategoryDiscountAmount);
+
+                 //get the total count of products
+               const totalCount = products.length;
+
+               res.render('users/cart', {
+                isUserLoggedIn,
+                products,
+                total,
+                totalCount,
+                subtotal : total,
+                TotalAmount,
+
+
+              });
+        }else{
+            const isUserLoggedIn = req.session.user_id !== undefined;
+
+            res.render("users/cart", {
+              isUserLoggedIn,
+            });
+        }
+
               
-           if (matchingProduct) {
-             product.name = matchingProduct.name;
-             product.image = matchingProduct.image[0];
-             product.price = matchingProduct.price;
 
 
-           }
-           });  
-
-          }
-
-          const isUserLoggedIn = req.session.user_id !== undefined;
-          const isGuest = !isUserLoggedIn;
-
-
-
-        res.render('users/cart.hbs',{cart,isUserLoggedIn,isGuest});
       } catch (error) {
         console.log(error.message);
       }
@@ -203,6 +271,12 @@ const updateQuantity = async(req,res)=>{
   const productId = req.body.productId;
   const quantity = req.body.quantity;
   const userId = req.session.user_id;
+
+
+console.log('entered into the updateQuantity-----------------------------------------------------xxxxxxxxxxxxxxxxxxx')
+
+
+
 
 console.log('increase success');
   
@@ -230,11 +304,13 @@ console.log(stockQuantityMain);
 
 //find the product in the cart's product array
 
-if(stockQuantityMain>=quantity){
+if(stockQuantityMain>quantity){
 
 
 const product = cart.products.find((product) => {
   return product.productId.toString() === productId;
+
+  
 });
 
 console.log("product is", product);
@@ -294,7 +370,9 @@ const updateQuantityDecrease = async (req, res) => {
 
   if (!cart) {
     //termporary error message
-    return res.status(404).json({ message: "Cart not found" });
+    //return res.status(404).json({ message: "Cart not found" });
+     return res.render("users/cartnotFounderror");
+
   }
 
   //find the product in the cart's product array
@@ -337,10 +415,21 @@ const deleteFromCart = async(req,res)=>{
     const productId = req.body.productId;
     const userId = req.session.user_id;
 
+    console.log("------------------------------------------***********************253");
+
+
+   console.log('entered into the detete form cart')
+
+
+  console.log("------------------------------------------*************************253");
+
+
     let cart = await Cart.findOne({ user_id: userId });
 
     if (!cart) {
-      return res.status(404).json({ message: "cart is not found" });
+      // return res.status(404).json({ message: "cart is not found" });
+            return res.render("users/cartnotFounderror");
+
     }
 
     //now that we found the cart for the user , extract the product index in the cart's products array
@@ -372,6 +461,19 @@ const deleteFromCart = async(req,res)=>{
 }
 
 
+const changeQuantity = async(req,res)=>{
+  try {
+
+    const response = await userHelpers.changeProductQuantity(req, res);
+
+    res.send(response);
+
+    
+  } catch (error) {
+     console.log(error.message);
+  }
+}
+
 
 
 
@@ -391,5 +493,6 @@ module.exports = {
   updateQuantity,
   deleteFromCart,
   updateQuantityDecrease,
+  changeQuantity,
 };
 

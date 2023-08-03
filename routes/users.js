@@ -3,6 +3,9 @@ var router = express.Router();
 const session = require('express-session')
 const userController = require('../controllers/userController');
 const cartController = require('../controllers/cartController');
+const addressController = require('../controllers/addressController');
+const orderController = require('../controllers/orderController');
+const couponController = require('../controllers/couponController')
 
 
 const auth = require('../middlewares/auth');
@@ -49,6 +52,8 @@ router.get('/productDetailPageLoad/:id',userController.productDetailPageLoad);
 
 router.post('/update-quantity',cartController.updateQuantity);
 
+router.post("/change-product-quantity",cartController.changeQuantity);
+
 router.post("/update-quantity-Decrease", cartController.updateQuantityDecrease);
 
 
@@ -62,19 +67,38 @@ router.post('/delete-product',cartController.deleteFromCart);
 
 router.get("/checkout", userController.checkoutPageLoad);
 
-router.post('/add-address/:id',userController.addAdress);
+router.post('/add-address/:id',addressController.addAdress);
 
-router.get("/makeDefaultAddress/:Id",userController.makeDefaultAddress);
+router.get("/makeDefaultAddress/:Id",addressController.makeDefaultAddress);
 
-router.get("/useAddressCheckout/:Id", userController.useAddressCheckout);
+router.get("/useAddressCheckout/:Id", addressController.useAddressCheckout);
 
 // router.post('/placeOrder',userController.placeOrder);
+
 
 router.post('/submit-checkout',auth.isLogin,userController.submitCheckout);
 
 router.post('/verify-payment',userController.verifyPayment);
 
-router.get("/orderDetailView1/:id", userController.orderDetailPageLoad);
+router.get("/orderDetailView1/:id", orderController.orderDetailPageLoad);
+
+router.post("/cancel-order", orderController.cancelOrder);
+
+
+router.get("/orderPlaced", userController.successPageLoad);
+
+router.post("/cancel-order", userController.cancelOrder);
+
+router.post("/return-order",orderController.returnOrderUser);
+
+router.post("/apply-coupon-request", couponController.applyCouponPOST);
+
+
+
+
+
+
+
 
 
 

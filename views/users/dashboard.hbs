@@ -285,7 +285,6 @@
                                                     <tr>
                                                         <th>Order id</th>
                                                         <th>Ordered Date</th>
-                                                        <th>products</th>
                                                         <th>Status</th>
                                                         <th></th>
                                                        
@@ -295,11 +294,7 @@
                                                 <tr style="height: 100px;background-color: rgb(242, 235, 235);">
                                                     <td style="width:30px">{{this._id}}</td>
                                                     <td>{{date}}</td>
-                                                    <td>
-                                                        {{#each this.products}}
-                                                        {{name}}{{#unless @last}}, {{/unless}}
-                                                        {{/each}}
-                                                    </td>
+                                                
                                                     <td>{{status}}</td>
                                                     <td><a href="/orderDetailView1/{{this._id}}">view</a></td>
                                                 </tr>

@@ -1,195 +1,521 @@
-
 <style>
-       .rectangle {
-      width: auto;
-      height: auto;
-      border: 2px solid black;
-      display: flex;
-      margin-top: 2rem;
+    body {
+        min-height: 100vh;
+        background-size: cover;
+        font-family: 'Lato', sans-serif;
+        color: rgba(116, 116, 116, 0.667);
     }
 
-    .inner-div {
-      flex-grow: 1;
-      border: 1px solid red;
-      margin: 5px;
-      height: 100%;
+    .container-fluid {
+        margin-top: 200px;
     }
-    .product-details{
-        margin-bottom: 9rem;
-        margin-top:9rem ;
+
+    p {
+        font-size: 14px;
+        margin-bottom: 7px;
+    }
+
+    .small {
+        letter-spacing: 0.5px !important;
+    }
+
+    .card-1 {
+        box-shadow: 2px 2px 10px 0px rgb(33, 33, 33);
+        border: 1px solid #000000;
+        /* Added black border */
+        width: 90%;
+        /* Increased the width of the card */
+        margin: auto;
+        /* Centered the card */
+    }
+
+    hr {
+        background-color: rgba(154, 154, 154, 0.667);
+    }
+
+    .bold {
+        font-weight: 500;
+    }
+
+    .change-color {
+        color: #f5d93a !important;
+    }
+
+    .card-2 {
+        box-shadow: 1px 1px 3px 0px rgb(112, 115, 139);
+    }
+
+    .fa-circle.active {
+        font-size: 8px;
+        color: #282829;
+    }
+
+    .fa-circle {
+        font-size: 8px;
+        color: #aaa;
+    }
+
+    .rounded {
+        border-radius: 2.25rem !important;
+    }
+
+    .progress-bar {
+        background-color: #f5d93a !important;
+    }
+
+    .progress {
+        height: 5px !important;
+        margin-bottom: 0;
+    }
+
+    .invoice {
+        position: relative;
+        top: -70px;
+    }
+
+    .Glasses {
+        position: relative;
+        top: -12px !important;
+    }
+
+    .card-footer {
+        background-color: #000000;
+        color: #020202;
+    }
+
+    h2 {
+        color: rgb(232, 199, 55);
+        letter-spacing: 2px !important;
+    }
+
+    .display-3 {
+        font-weight: 500 !important;
+    }
+
+    @media (max-width: 479px) {
+        .invoice {
+            position: relative;
+            top: 7px;
+        }
+
+        .border-line {
+            border-right: 0px solid rgb(226, 206, 226) !important;
+        }
+    }
+
+    @media (max-width: 700px) {
+        h2 {
+            color: rgb(0, 0, 0);
+            font-size: 17px;
+        }
+
+        .display-3 {
+            font-size: 28px;
+            font-weight: 500 !important;
+        }
+    }
+
+    .card-footer small {
+        letter-spacing: 7px !important;
+        font-size: 12px;
+    }
+
+    .border-line {
+        border-right: 1px solid rgb(226, 206, 226);
+    }
+
+    .outline-box {
+        display: inline-block;
+        padding: 4px 8px;
+        border: 1px solid #000;
+        border-radius: 4px;
+    }
+
+    .card-footer h2,
+    .card-footer h1 {
+        font-family: 'Lato', sans-serif;
+        font-weight: normal;
+    }
+
+    .card-footer {
+        background-color: #000000;
+        color: #000000;
     }
 </style>
+<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
 <body>
-    
-        <div class="container">
-            
-            <div class="order-container"  >
-                <div class="order-details">
-    
-                    {{!-- <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Replace this section with dynamic data from your backend -->
-                            <tr>
-                                <td>Product 1</td>
-                                <td>$10</td>
-                                <td>2</td>
-                                <td>$20</td>
-                            </tr>
-                            <tr>
-                                <td>Product 2</td>
-                                <td>$15</td>
-                                <td>1</td>
-                                <td>$15</td>
-                            </tr>
-                        </tbody>
-                    </table> --}}
+
+
+
+
+
+
+
+
+    <div class="container my-5  d-flex  justify-content-center">
+        <div class="card card-1">
+            <div class="card-header bg-white">
+                <div class="media flex-sm-row flex-column-reverse justify-content-between">
+                    <div class="col my-auto">
+                        <h4 class="mb-0">Thanks for your Order, <span
+                                class="change-color">{{deliveryAddress.name}}</span>!
+                        </h4>
+                    </div>
                 </div>
-                {{!-- <div class="order-tracker">
-                    <h2>Order Tracker</h2>
-                    <ul>
-                        <li>
-                            <span class="status">Processing</span>
-                            <p>Your order is being processed.</p>
-                        </li>
-                        <li>
-                            <span class="status">Shipped</span>
-                            <p>Your order has been shipped.</p>
-                        </li>
-                        <li>
-                            <span class="status">Delivered</span>
-                            <p>Your order has been delivered.</p>
-                        </li>
-                    </ul>
-                </div> --}}
             </div>
-            <div class="product-details" >
-                <!-- Add your product details here -->
-                {{#each products}}
-                <div class="rectangle">
-                    <div class="inner-div">
-                        <div style="height: 130px;width: 130px;display:flex">
-                            <img class="product-img" src="{{this.image}}" alt="">
-                            <p> {{this.name}}</p>
+            <div class="card-body">
+                <div class="row justify-content-between mb-3">
+                    <div class="col-auto">
+                        <h6 class="color-1 mb-0 change-color">Receipt</h6>
+                    </div>
+                    <div class="col-auto">
+                        <small>ORDER ID: {{orderId}}</small>
+                    </div>
+                </div>
+                {{#each orderDetails}}
+                <div class="row">
+                    <div class="col">
+                        <div class="card card-2">
+                            <div class="card-body">
+                                <div class="media">
+                                    <div class="sq align-self-center">
+                                        <img src="{{image.[0]}}" class="img-fluid" alt="Product Image" width="135"
+                                            height="135" />
+                                    </div>
+                                    <div class="media-body my-auto text-right">
+                                        <div class="row  my-auto flex-column flex-md-row">
+                                            <div class="col my-auto">
+                                                <h5 class="mb-0">{{this.name}}</h5>
+                                            </div>
+                                            <div class="col my-auto">
+                                                {{this.quantity}}
+                                            </div>
+                                            <div class="col my-auto">
+                                                Price: {{this.price}}
+                                            </div>
+
+                                            <div class="col my-auto">
+                                                <h4 class="mb-0">&#8377;{{this.total}}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-3">
+                                <div class="row align-items-center">
+                                    <div class="col mt-auto">
+                                        <div class="media row align-items-center">
+                                            <div class="col-auto">
+                                                <small style="margin-right: 10px;">Track Order <span><i
+                                                            class="ml-2 fa fa-refresh"
+                                                            aria-hidden="true"></i></span></small>
+                                                <small class="text-right">
+                                                    <span class="outline-box"
+                                                        style="padding: 5px 10px;">{{status}}</span>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-    
-    
-    
-    
-                    </div>
-                    <div class="inner-div">
-                        <p>here goes the description</p>
-                    </div>
-                    <div class="inner-div">
-                        <p>here the order-details</p>
-                        <p> {{this.quantity}}</p>
-                        <p>{{this.price}}</p>
-    
                     </div>
                 </div>
                 {{/each}}
+
+
+                <div class="row justify-content-end mt-3">
+                    <div class="col-auto">
+                        {{#if (eq cancellationStatus "Not requested")}}
+                        <button type="button" class="btn btn-danger btn-sm" id="cancelBtn"
+                            onclick="showCancelConfirmationModal('{{orderId}}')">Cancel</button>
+                        {{else if (eq cancellationStatus "cancellation requested")}}
+                        <button type="button" class="btn btn-danger btn-sm">Cancel requested</button>
+                        {{else if (eq cancellationStatus "cancelled")}}
+                        <button type="button" class="btn btn-danger btn-sm">Order cancelled</button>
+
+                        {{else if (eq cancellationStatus "Delivered")}}
+                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#returnConfirmationModal">
+                            Return Order
+                        </button>
+
+                        {{else if (eq cancellationStatus "Return requested")}}
+                        <button type="button" class="btn btn-primary btn-sm">Return requested</button>
+                        {{else if (eq cancellationStatus "Order returned")}}
+                        <button type="button" class="btn btn-primary btn-sm">Order returned</button>
+                        {{else if (eq cancellationStatus "Return rejected")}}
+                        <button type="button" class="btn btn-danger">Return rejected</button>
+
+                        {{/if}}
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="row mt-4">
+                    <div class="col">
+
+                        <div class="row justify-content-between">
+                            <div class="flex-sm-col text-right col">
+                                <p class="mb-1"><b>Coupon Discount</b></p>
+                            </div>
+                            {{#if couponApplied}}
+                            <div class="flex-sm-col col-auto">
+                                <p class="mb-1"><span style="color: red;">-&#8377;</span></p>
+                            </div>
+                            {{else if couponError}}
+                            <div class="flex-sm-col col-auto">
+                                <p class="mb-1"><span style="color: red;">0</span></p>
+                            </div>
+                            {{/if}}
+                        </div>
+
+
+                        <div class="row justify-content-between">
+                            <div class="flex-sm-col text-right col">
+                                <p class="mb-1"><b>Delivery Fee</b></p>
+                            </div>
+                            <div class="flex-sm-col col-auto">
+                                <p class="mb-1"><span style="color: red;">&#8377;</span></p>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between">
+                            <div class="flex-sm-col text-right col">
+                                <p class="mb-1"><b>Grand Total</b></p>
+                            </div>
+                            <div class="flex-sm-col col-auto">
+                                <p class="mb-1"><span style="color: red;">&#8377;</span>{{subtotal}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row invoice">
+                    <div class="col">
+                        <p class="mb-1">ORDER ID: {{orderId}}</p>
+                        <p class="mb-1">ORDER DATE: {{orderDate}}</p>
+                        <!-- Add delivery address below -->
+                        <div class="delivery-address-card">
+                            <h6>DELIVERY ADDRESS</h6>
+                            <div class="delivery-address-details">
+                                <p class="mb-0">{{deliveryAddress.name}}</p>
+                                <p class="mb-0">{{deliveryAddress.streetAddress}}</p>
+                                <p class="mb-0">{{deliveryAddress.pincode}}</p>
+                                <p class="mb-0">{{deliveryAddress.phone}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-            <footer class="footer">
-                <div class="footer-middle">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="widget widget-about">
-                                    <img src="/images/homescape-logo.png" class="footer-logo" alt="Footer Logo" width="105"
-                                        height="25">
-                                    <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
-                                        magna eros
-                                        eu erat. </p>
-    
-                                    <div class="social-icons">
-                                        <a href="#" class="social-icon" target="_blank" title="Facebook"><i
-                                                class="icon-facebook-f"></i></a>
-                                        <a href="#" class="social-icon" target="_blank" title="Twitter"><i
-                                                class="icon-twitter"></i></a>
-                                        <a href="#" class="social-icon" target="_blank" title="Instagram"><i
-                                                class="icon-instagram"></i></a>
-                                        <a href="#" class="social-icon" target="_blank" title="Youtube"><i
-                                                class="icon-youtube"></i></a>
-                                        <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
-                                                class="icon-pinterest"></i></a>
-                                    </div><!-- End .soial-icons -->
-                                </div><!-- End .widget about-widget -->
-                            </div><!-- End .col-sm-6 col-lg-3 -->
-    
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="widget">
-                                    <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
-    
-                                    <ul class="widget-list">
-                                        <li><a href="about.html">About Molla</a></li>
-                                        <li><a href="#">How to shop on Molla</a></li>
-                                        <li><a href="#">FAQ</a></li>
-                                        <li><a href="contact.html">Contact us</a></li>
-                                        <li><a href="login.html">Log in</a></li>
-                                    </ul><!-- End .widget-list -->
-                                </div><!-- End .widget -->
-                            </div><!-- End .col-sm-6 col-lg-3 -->
-    
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="widget">
-                                    <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
-    
-                                    <ul class="widget-list">
-                                        <li><a href="#">Payment Methods</a></li>
-                                        <li><a href="#">Money-back guarantee!</a></li>
-                                        <li><a href="#">Returns</a></li>
-                                        <li><a href="#">Shipping</a></li>
-                                        <li><a href="#">Terms and conditions</a></li>
-                                        <li><a href="#">Privacy Policy</a></li>
-                                    </ul><!-- End .widget-list -->
-                                </div><!-- End .widget -->
-                            </div><!-- End .col-sm-6 col-lg-3 -->
-    
-                            <div class="col-sm-6 col-lg-3">
-                                <div class="widget">
-                                    <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
-    
-                                    <ul class="widget-list">
-                                        <li><a href="#">Sign In</a></li>
-                                        <li><a href="cart.html">View Cart</a></li>
-                                        <li><a href="#">My Wishlist</a></li>
-                                        <li><a href="#">Track My Order</a></li>
-                                        <li><a href="#">Help</a></li>
-                                    </ul><!-- End .widget-list -->
-                                </div><!-- End .widget -->
-                            </div><!-- End .col-sm-6 col-lg-3 -->
-                        </div><!-- End .row -->
-                    </div><!-- End .container -->
-                </div><!-- End .footer-middle -->
-    
-                <div class="footer-bottom">
-                    <div class="container">
-                        <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
-                        <!-- End .footer-copyright -->
-                        <figure class="footer-payments">
-                            <img src="/images/payments.png" alt="Payment methods" width="272" height="20">
-                        </figure><!-- End .footer-payments -->
-                    </div><!-- End .container -->
-                </div><!-- End .footer-bottom -->
-            </footer><!-- End .footer -->
-    
-    
+            <div class="card-footer">
+                <div class="jumbotron-fluid">
+                    <div class="row justify-content-between">
+                        <div class="col-auto my-auto">
+                            <h2 class="mb-0 font-weight-bold">TOTAL PAID</h2>
+                        </div>
+                        <div class="col-auto my-auto ml-auto">
+                            <h1 class="display-3" style="color: #f5d93a;">{{subtotal}}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal" id="cancelConfirmationModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cancel Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to cancel the order?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <form action="/cancel-order" method="post">
+
+                        <button type="submit" class="btn btn-danger" id="confirmCancelBtn" name="orderId"
+                            value="{{orderId}}">Yes, Cancel</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- Modal -->
+
+
+<!-- Modal for Return Confirmation -->
+<div class="modal fade" id="returnConfirmationModal" tabindex="-1" aria-labelledby="returnConfirmationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="returnConfirmationModalLabel">Return Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to return the order?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <form action="/return-order" method="post">
+                    <button type="submit" class="btn btn-danger" id="confirmReturnBtn" name="orderId"
+                        value="{{orderId}}">Yes, Return</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer class="footer">
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget widget-about">
+                            <img src="/images/homescape-logo.png" class="footer-logo" alt="Footer Logo" width="105"
+                                height="25">
+                            <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
+                                magna eros
+                                eu erat. </p>
+
+                            <div class="social-icons">
+                                <a href="#" class="social-icon" target="_blank" title="Facebook"><i
+                                        class="icon-facebook-f"></i></a>
+                                <a href="#" class="social-icon" target="_blank" title="Twitter"><i
+                                        class="icon-twitter"></i></a>
+                                <a href="#" class="social-icon" target="_blank" title="Instagram"><i
+                                        class="icon-instagram"></i></a>
+                                <a href="#" class="social-icon" target="_blank" title="Youtube"><i
+                                        class="icon-youtube"></i></a>
+                                <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
+                                        class="icon-pinterest"></i></a>
+                            </div><!-- End .soial-icons -->
+                        </div><!-- End .widget about-widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="about.html">About Molla</a></li>
+                                <li><a href="#">How to shop on Molla</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="login.html">Log in</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="#">Payment Methods</a></li>
+                                <li><a href="#">Money-back guarantee!</a></li>
+                                <li><a href="#">Returns</a></li>
+                                <li><a href="#">Shipping</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+                            <ul class="widget-list">
+                                <li><a href="#">Sign In</a></li>
+                                <li><a href="cart.html">View Cart</a></li>
+                                <li><a href="#">My Wishlist</a></li>
+                                <li><a href="#">Track My Order</a></li>
+                                <li><a href="#">Help</a></li>
+                            </ul><!-- End .widget-list -->
+                        </div><!-- End .widget -->
+                    </div><!-- End .col-sm-6 col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-middle -->
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+                <!-- End .footer-copyright -->
+                <figure class="footer-payments">
+                    <img src="/images/payments.png" alt="Payment methods" width="272" height="20">
+                </figure><!-- End .footer-payments -->
+            </div><!-- End .container -->
+        </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->
+
+
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<script>
+    function showCancelConfirmationModal(orderId) {
+        var confirmCancelBtn = document.getElementById("confirmCancelBtn");
+        confirmCancelBtn.value = orderId;
+        var modal = new bootstrap.Modal(document.getElementById("cancelConfirmationModal"));
+        modal.show();
+    }
+
+  
+
+
+
+</script>

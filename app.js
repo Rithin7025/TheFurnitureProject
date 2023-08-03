@@ -9,13 +9,13 @@ require('dotenv').config();
 const session = require('express-session');
 const handlebars = require('express-handlebars');
 const mongoose = require('./database/db');
-
+const handlebarsHelpers = require("handlebars-helpers")();
+const handlebar = require("hbs");
 
 const adminRouter = require('./routes/admin');
 const usersRouter = require('./routes/users');
 
 const app = express();
-
 
 const hbs = handlebars.create({
   extname: 'hbs',
@@ -25,7 +25,8 @@ const hbs = handlebars.create({
   runtimeOptions: {
     allowProtoPropertiesByDefault: true,
     allowProtoMethodsByDefault: true
-  }
+  },
+ 
 });
 
 
@@ -35,6 +36,7 @@ const hbs = handlebars.create({
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 app.engine('hbs', hbs.engine)
+handlebar.registerHelper(handlebarsHelpers);
 
 app.use(logger('dev'));
 app.use(express.json());

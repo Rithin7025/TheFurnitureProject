@@ -579,3 +579,105 @@
 <!-- molla/dashboard.html  22 Nov 2019 10:03:13 GMT -->
 
 </html> --}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Successful</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container mt-14">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h1>Order Successful</h1>
+        <p>Your order has been placed successfully.</p>
+        <p>Happy Shopping.</p>
+        <a href="/home" class="btn btn-primary">Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  const createError = require('http-errors');
+  const express = require('express');
+  const path = require('path');
+  const cookieParser = require('cookie-parser');
+  const logger = require('morgan');
+  const multer = require('multer');
+  const errorMiddleware = require('./errorMiddleware');
+  require('dotenv').config();
+  const session = require('express-session');
+  const handlebars = require('express-handlebars');
+  const mongoose = require('./database/db');
+  const handlebarsHelpers = require("handlebars-helpers").comparison({ handlebars });
+  
+  const adminRouter = require('./routes/admin');
+  const usersRouter = require('./routes/users');
+  
+  const app = express();
+  
+  const hbs = handlebars.create({
+  extname: "hbs",
+  defaultLayout: "layout",
+  layoutsDir: path.join(__dirname, "views/layouts"),
+  partialsDir: path.join(__dirname, "views/partials"),
+  runtimeOptions: {
+  allowProtoPropertiesByDefault: true,
+  allowProtoMethodsByDefault: true,
+  },
+  helpers: handlebarsHelpers.helpers, // Register the helpers directly here
+  });
+  
+  // view engine setup
+  app.set('view engine', 'hbs');
+  app.set('views', path.join(__dirname, 'views'));
+  app.engine('hbs', hbs.engine);
+  
+  app.use(logger('dev'));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  app.use(cookieParser());
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
+  
+  app.use(session({
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: false
+  }));
+  
+  app.use('/admin', adminRouter);
+  app.use('/', usersRouter);
+  
+  // catch 404 and forward to error handler
+  app.use(function(req, res, next) {
+  next(createError(404));
+  });
+  
+  // error handler
+  app.use(errorMiddleware);
+  
+  app.listen(3000, () => {
+  console.log('🚀 Server is Launched');
+  });

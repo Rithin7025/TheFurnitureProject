@@ -300,14 +300,14 @@
       var dropdownMenu = dropdowns[i].querySelector(".dropdown-menu");
 
       // Show the dropdown menu on click or hover
-      /*
-      dropdownToggle.addEventListener("mouseenter", function() {
+    
+      dropdownToggle?.addEventListener("mouseenter", function() {
         this.classList.add("active");
         var dropdownMenu = this.nextElementSibling;
         dropdownMenu.style.display = "block";
       });
 
-      dropdownToggle.addEventListener("click", function(e) {
+      dropdownToggle?.addEventListener("click", function(e) {
         e.preventDefault(); // Prevent default anchor behavior
         var dropdownMenu = this.nextElementSibling;
         if (dropdownMenu.style.display === "block") {
@@ -316,13 +316,15 @@
           dropdownMenu.style.display = "block";
         }
       });
-      */
+    
 
       // Hide the dropdown menu when cursor moves away
       dropdowns[i].addEventListener("mouseleave", function() {
         var dropdownToggle = this.querySelector(".dropdown-toggle");
         var dropdownMenu = this.querySelector(".dropdown-menu");
-        dropdownMenu.style.display = "none";
+        if(dropdownMenu?.style?.display) {
+            dropdownMenu.style.display = "none";
+        }
         dropdownToggle.classList.remove("active");
       });
     }

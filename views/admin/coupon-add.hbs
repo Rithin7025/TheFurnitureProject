@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>DASHMIN - Bootstrap Admin Template</title>
@@ -6,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="/admin/img/favicon.ico" rel="icon">
+    <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,21 +21,59 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="/admin/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="/admin/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="/admin/css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+
+
+
+    <style>
+        .logout {
+            position: fixed;
+            bottom: 10px;
+            left: 15px;
+        }
+
+        /* Custom styling for the coupon form */
+        .coupon-form {
+            padding: 20px;
+            background-color: #f5f5f5;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .coupon-form input,
+        .coupon-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .coupon-form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .coupon-form button:hover {
+            background-color: #0069d9;
+        }
+    </style>
 </head>
 
 <body>
-    <style>
-
-    </style>
-    <div class="container-xxl position-relative bg-white d-flex p-0">
+    <div class="container-xxl position-relative bg-white d-flex p-0" style="max-width: 1600px" ;>
         <!-- Spinner Start -->
         <div id="spinner"
             class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -47,43 +88,43 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <a href="index.html" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"> Admin </h3>
+                    <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>Admin side </h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="/admin/img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Jhon Doe</h6>
+                        <h6 class="mb-0">Admin</h6>
                         <span>Admin</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="/admin/home" class="nav-item nav-link "><i
-                            class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
 
+
+                   
+                    <a href="/admin/home" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <a href="category" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Category</a>
                     <a href="product" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Products</a>
                     <a href="usersList" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Users</a>
-                    <a href="allOrders" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>All orders</a>
+                    <a href="allOrders" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>All orders</a>
                     <a href="salesPage" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i></i>Sales Report</a>
+                    <a href="/admin/manage-coupons" class="nav-item nav-link"><i class="fa fa-tags me-2"></i>Coupons</a>
+                    <a href="/admin/add-coupon" class="nav-item nav-link"><i class="fa fa-plus-circle me-2"></i>Add
+                        Coupon</a>
 
-                    
 
                 </div>
             </nav>
         </div>
         <!-- Sidebar End -->
 
-        <!--table to show product -->
-
-
 
         <!-- Content Start -->
-        <div class="content" style="margin-left: 200px;width: calc(100% - 200px);">
+        <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -104,7 +145,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="/admin/img/user.jpg" alt=""
+                                    <img class="rounded-circle" src="img/user.jpg" alt=""
                                         style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
@@ -115,7 +156,7 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="/admin/img/user.jpg" alt=""
+                                    <img class="rounded-circle" src="img/user.jpg" alt=""
                                         style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
@@ -126,7 +167,7 @@
                             <hr class="dropdown-divider">
                             <a href="#" class="dropdown-item">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="/admin/img/user.jpg" alt=""
+                                    <img class="rounded-circle" src="img/user.jpg" alt=""
                                         style="width: 40px; height: 40px;">
                                     <div class="ms-2">
                                         <h6 class="fw-normal mb-0">Jhon send you a message</h6>
@@ -164,148 +205,114 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="/admin/img/user.jpg" alt=""
+                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">John Doe</span>
+                            <span class="d-none d-lg-inline-flex">Admin</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">Settings</a>
                             <a href="/admin/logout" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
-            <!-- Navbar End -->
+
+            <!-- Sidebar End -->
 
 
-            <!--Add orders table-->
-            <!-- admin.hbs -->
+            <!-- Content Start -->
 
 
 
-            {{!-- <div class="container">
-                <h2>Order Details</h2>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Order Id</th>
-                            <th >Date</th>
-                            <th>Payment-type</th>
-                            <th>price</th>
-                            <th>User</th>
-                            <th>Order</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                    {{#each orderData}}
-                        <tr>
 
-                            <td></td>
-                            <td>{{this.date}}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            
-                        </tr>
-                        {{/each}}
-                        
-                    </tbody>
-                </table>
-            </div> --}}
 
 
             <div class="container-fluid pt-4 px-4">
-                <div class="bg-light text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">All Orders</h6>
-                        
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-dark">
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Order Id</th>
-                                    <th scope="col">payment</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">User</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Details</th>
+                <div class="row justify-content-center ">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="form bg-light rounded h-100 p-4">
+                            <h1 class="mb-4">Add Coupon</h1>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each orderData}}
-                                <tr>
-                                    <td>{{this.date}}</td>
-                                    <td>{{this._id}}</td>
-                                    <td>{{this.paymentMethod}}</td>
-                                    <td>{{this.totalprice}}</td>
-                                    <td>{{this.name}}</td>
-                                    <td>{{this.status}}</td>
-                                    <td>
-                                        <!--the id is passing in query-->
-                                        <a href="/admin/adminOrderDetailView?id={{this._id}}" class="btn btn-primary btn-sm btn-block view-btn"
-                                            style="color: #ffffff;" type="button">Order Details</a>
 
-                                    </td>
-                                </tr>
-                                {{/each}}
-                               
-                            </tbody>
-                        </table>
+                            <form action="/admin/add-coupon" method="post">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Coupon code</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="couponCode"
+                                        placeholder="Enter Coupon Code" aria-describedby="emailHelp" required>
+
+                                </div>
+                                {{#if couponExistError}}
+                                <div>
+                                    <p style="color: red;">{{couponExistError}}</p>
+                                </div>
+                                {{/if}}
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Coupon Description</label>
+                                    <input type="text" class="form-control" placeholder="Write Description"
+                                        name="couponDescription" id="exampleInputPassword1" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Discount percentage</label>
+                                    <input type="number" class="form-control" placeholder="Discount percentage"
+                                        id="exampleInputPassword1" name="discountPercentage" min="1" max="99" step="1"
+                                        required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Max discount Amount</label>
+                                    <input type="number" class="form-control" placeholder="Enter discount amount"
+                                        name="maxDiscountAmount" id="exampleInputPassword1" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Min order value</label>
+                                    <input type="number" class="form-control" placeholder="Enter Min order"
+                                        name="minOrderValue" min="0" step="1" id="exampleInputPassword1" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Valid For</label>
+                                    <input type="number" class="form-control"
+                                        placeholder="Number of days for which coupon is valid" name="validFor" min="1"
+                                        max="180" step="1" id="exampleInputPassword1" required>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="Coupon Status">Activate Coupon</label>
+                                    <select class="form-control" id="activeCoupon" name="activeCoupon" required>
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Add Coupon</button>
+                                <button type="reset" class="btn btn-secondary ml-2">Reset</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Recent Sales End -->
 
 
 
 
 
-
-
-
-
-
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-            <script>
-                $(document).ready(function () {
-                    $('.dropdown-toggle').dropdown();
-                });
-            </script>
-
-
-
-
-
-
-
-
-
-
-
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
-
-        <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="/admin/lib/chart/chart.min.js"></script>
-        <script src="/admin/lib/easing/easing.min.js"></script>
-        <script src="/admin/lib/waypoints/waypoints.min.js"></script>
-        <script src="/admin/lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="/admin/lib/tempusdominus/js/moment.min.js"></script>
-        <script src="/admin/lib/tempusdominus/js/moment-timezone.min.js"></script>
-        <script src="/admin/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+        <script src="lib/chart/chart.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/tempusdominus/js/moment.min.js"></script>
+        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
         <!-- Template Javascript -->
-        <script src="/admin/js/main.js"></script>
+        <script src="js/main.js"></script>
 </body>
 
 </html>
+
+
+{{!-- <a href="/admin/user-order" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>COUPONS</a>
+<a href="" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>ADD-COUPONS</a> --}}

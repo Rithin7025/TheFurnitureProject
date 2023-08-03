@@ -62,12 +62,14 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="/admin/home" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="/admin/home" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
 
                     <a href="category" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Category</a>
-                    <a href="product" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Products</a>
+                    <a href="product" class="nav-item nav-link active"><i class="fa fa-table me-2"></i>Products</a>
                     <a href="usersList" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Users</a>
+                     <a href="salesPage" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i></i>Sales Report</a>
                      <a href="allOrders" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>All orders</a>
+
                     
                 </div>
             </nav>
@@ -192,18 +194,31 @@
           <label for="productImage">Product Image</label>
           <input type="file" class="form-control-file" id="productImage" name="productImage" required multiple>
         </div>
-        <div class="form-group">
+        <div class="form-group" style="margin-bottom: 20px;">
           <label for="productDescription">Product Description</label>
           <textarea class="form-control" id="productDescription" rows="3" placeholder="Enter product description" name="productDescription" required></textarea>
         </div>
-        <div class="form-group">
+
+        <div class="form-group" class="mt-5" style="margin-bottom: 20px;">
           <label for="productName">Product Category</label>
-          <input type="text" class="form-control" id="productCategory" placeholder="Enter product category" name="productCategory" required>
+          <select name="category" class="form-control" required>
+
+            {{#each categories}}
+            <option value="{{_id}}">{{this.categoryName}}</option>
+              {{/each}}
+          </select>
         </div>
-        <div class="form-group">
+
+
+        <div class="form-group" style="margin-bottom: 20px;">
           <label for="productName">Product Stock</label>
           <input type="text" class="form-control" id="productStock" placeholder="Update the stock here"
             name="productStock" required>
+        </div>
+        <div class="form-group" style="margin-top;10px">
+          <label for="productDiscount">Product Discount</label>
+          <input type="text" class="form-control" id="productStock" placeholder="Discount%" name="productDiscount"
+            >
         </div>
 
          
@@ -220,23 +235,28 @@
         <th>Product Name</th>
         <th>Product Price</th>
         <th>Image</th>
-        <th>Description</th>
+        {{!-- <th>Description</th> --}}
         <th>Category</th>
         <th>Blocked</th>
+        <th>stock</th>
+        <th>Discount%</th>
       </tr>
     </thead>
 
     <tbody>
-      {{!-- {{#each product}}
-     <tr>
+     {{#each products}}
+     {{!-- <tr>
         <td>{{{@index}}}</td>
         <td>{{this.name}}</td>
         <td>{{this.price}}</td>
         <td><img src="{{this.image.[0]}}" alt="" style="width: 40px;height:40px"></td>
-        <td>{{this.description}}</td>
         <td>{{this.category}}</td>
         <td>{{this.is_blocked}}</td>
+        <td>{{this.stockQuantity}}</td>
+        <td>{{this.productOffer}}</td>
+
         <td> 
+
       
         <button class="btn btn-sm hide-unhide-button" onclick="hideUnhideAction('{{this._id}}')"
           style="margin-right: 5px;"></button>
@@ -245,9 +265,9 @@
       
 
         
-        </td>
+        </td> --}}
       </tr>
-       {{/each}}  --}}
+       {{/each}} 
     </tbody>
   </table>
 </div>
@@ -321,7 +341,7 @@
   $(document).ready(function() {
     $('.dropdown-toggle').dropdown();
   });
- async function run(url){
+  async function run(url){
   try{
     let data = await fetch(url);
     let pr = await data.json();
@@ -333,12 +353,14 @@
       tBody.innerHTML+=`
          <tr>
           <td>${index+= 1}</td>
-          <td>${val.name}</td>
+          <td style="max-width : 140px">${val.name}</td>
           <td>${val.price}</td>
           <td><img src="${val.image[0]}" alt="" style="width: 40px;height:40px"></td>
-          <td>${val.description}</td>
-          <td>${val.category}</td>
+                
+         <td>${val.category}</td>
           <td>${val.is_blocked}</td>
+          <td>${val.stockQuantity}</td>
+          <td>${val.productOffer} %</td>
           <td> 
         
         ${val.is_blocked?`
@@ -351,12 +373,11 @@
           <button class="btn btn-sm btn-warning edit-button" onclick="editAction('/admin/editProduct/${val._id}')"
             style="margin-right: 5px;">Edit</button>
         
-
-          
           </td>
         </tr>
       `
-    })
+    }) 
+    
   }catch(err){
     console.log(err)
   }
@@ -367,9 +388,8 @@
   tBody.innerHTML=""
   run("/admin/productApi")
  })
+
 </script>
-
-
 
 
 

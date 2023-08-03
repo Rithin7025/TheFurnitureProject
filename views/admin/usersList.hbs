@@ -76,11 +76,13 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="/admin/home" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="/admin/home" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
 
                     <a href="category" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Category</a>
                     <a href="product" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Products</a>
-                    <a href="" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Users</a>
+                    <a href="" class="nav-item nav-link  active"><i class="fa fa-chart-bar me-2"></i>Users</a>
+                    <a href="allOrders" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>All orders</a>
+                    <a href="salesPage" class="nav-item nav-link"><i class="fa fa-chart-line me-2"></i></i>Sales Report</a>
 
                 </div>
             </nav>
@@ -153,8 +155,11 @@
                                             <td>{{this.is_verified}}</td>
                                             <td>{{this.is_blocked}}</tc>
                                             <td>
-                                                <a href="/admin/blockUser/{{this._id}}" class="btn btn-danger" >Block</a>
-                                                <a href="/admin/unblockUser/{{this._id}}" class="btn btn-success" style="margin-left: 5px; ">Unblock</a>
+                                                {{#if this.is_blocked}}
+                                                <a href="/admin/unblockUser/{{this._id}}" class="btn btn-success" style="width: 6rem;">Unblock</a>
+                                                {{else}}
+                                                <a href="/admin/blockUser/{{this._id}}" class="btn btn-danger" style="width: 6rem;">Block</a>
+                                                {{/if}}
                                             </td>
                                         </tr>
                                         {{/each}}

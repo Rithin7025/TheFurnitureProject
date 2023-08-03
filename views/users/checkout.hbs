@@ -29,13 +29,30 @@
             <div class="page-content">
                 <div class="checkout">
                     <div class="container">
+
+
                         <div class="checkout-discount">
-                            <form action="#">
-                                <input type="text" class="form-control" required id="checkout-discount-input">
-                                <label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click
-                                        here to enter your code</span></label>
-                            </form>
+                        <form class="card p-2" action="/apply-coupon-request" method="POST">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Coupon code" name="couponCodeFromUser">
+                                {{#if couponApplied}}
+                        
+                                <p style="color: #21b503;"><b>{{couponApplied}}</b></p>
+                        
+                                {{else if couponError}}
+                        
+                                <p style="color: red;"><b>{{couponError}}</b></p>
+                        
+                                {{/if}}
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary" >Redeem</button>
+                                </div>
+                            </div>
+                        </form>
                         </div><!-- End .checkout-discount -->
+
+
+
 
                         {{#if user}}
                         <form id="addressForm" action="/submit-checkout" method="post">
@@ -98,10 +115,23 @@
                                                 <tfoot>
                                                     <tr class="summary-total">
                                                         <td colspan="4">Subtotal:</td>
-                                                        <td>₹{{cartTotal}}.00</td>
+                                                        <td>₹{{this.finalAmount}}.00</td>
                                                     </tr>
                                                 </tfoot>
                                             </table>
+                                            <li class="list-group-item d-flex justify-content-between bg-light" style="margin-top: 1rem;">
+                                                <div class="text-success">
+                                                    <h6 class="my-0">Coupon code</h6>
+                                                    <small>EXAMPLECODE</small>
+                                                </div>
+                                                <span class="text-success">-₹{{this.couponDiscount}}</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>Total(INR)</span>
+                                                <strong>
+                                                    <h4>₹{{this.TotalAmount}}</h4>
+                                                </strong>
+                                            </li>
 
 
                                             <div class="accordion-summary" id="accordion-payment">
@@ -231,21 +261,35 @@
                                                     <tr>
                                                         <td>{{this.name}}</td>
                                                         <td>₹{{this.price}}<span>&times;</span> {{this.quantity}}</td>
-                                                        <td></td>
-                                                        <td> </td>
-                                                        <td><img src="{{this.image}}" alt="{{this.name}}"
-                                                                style="width: 60px;height: 40px;padding-left: 20px;" "product-image" />
+                                                        <td>   </td>
+                                                        <td>   </td>
+                                                        <td>
+                                                            <img src="{{this.image}}" alt="{{this.name}}" style="width: 60px;height: 40px;padding-left: 20px;" "product-image">
                                                         </td>
                                                     </tr>
-                                                    {{/each}}
+                                                  
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="summary-total">
                                                         <td colspan="4">Subtotal:</td>
-                                                        <td>₹{{cartTotal}}.00</td>
+                                                        <td>₹ {{this.finalAmount}}.00</td>
                                                     </tr>
+
                                                 </tfoot>
+                                                {{/each}}
+
                                             </table>
+                                                    <li class="list-group-item d-flex justify-content-between bg-light" style="margin-top: 1rem;">
+                                                        <div class="text-success">
+                                                            <h6 class="my-0">Coupon code</h6>
+                                                            <small>EXAMPLECODE</small>
+                                                        </div>
+                                                        <span class="text-success">-₹{{this.couponDiscount}}</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between">
+                                                        <span>Total(INR)</span>
+                                                        <strong><h4>₹{{this.TotalAmount}}</h4></strong>
+                                                    </li>
 
 
                                             <div class="accordion-summary" id="accordion-payment">
@@ -349,7 +393,7 @@
                                         address</a>
                                 </div><!-- End .card-body -->
                                 {{/each}}
-
+ 
                             </div>
                         </div><!-- End .col-lg-6 -->
 
@@ -628,30 +672,44 @@
     <script>
 
         function makeRazorpayPayment(serverOrderData) {
+
+            console.log('Called');
+            console.log('serverOrderData: -----------')
+            console.log(serverOrderData)
+            console.log('serverOrderData: -----------')
             let razorpayKeyId = serverOrderData.razorpayKeyId;
             let orderDetails = serverOrderData.orderDetails;
             let userDetails = serverOrderData.userDetails;
             let userOrderRequestData = serverOrderData.userOrderRequestData;
-            console.log("orde", orderDetails.id)
+
             let paymentDataToRazorpayServer = {
                 "key": razorpayKeyId,
                 "amount": orderDetails.amount,
                 "currency": "INR",
-                "name": "fv-project",
+                "name": "Homescape payment Gateway",
                 "description": "Test Transaction",
-                "order_id": orderDetails.id,
+                "order_id": orderDetails.razorpayOrder.id,
                 "handler": function (response) {
                     verifyPayment(response, orderDetails);
                 },
                 "prefill": {
-                    "name": userDetails.name,
-                    "email": userDetails.email,
-                    "contact": userOrderRequestData.mobile
+                    "name": orderDetails.order.user_id.name,
+                    "email": orderDetails.order.user_id.email,
+                    "contact": userOrderRequestData.phone
                 },
                 "notes": {
-                    "Customer Address": userOrderRequestData.homeAddress
+                    "Customer Address": {
+                        name: userOrderRequestData.name,
+                        streetAddress: userOrderRequestData.streetAddress,
+                        pincode: userOrderRequestData.pincode,
+                        phone: userOrderRequestData.phone
+                    }
                 }
             };
+
+            console.log('paymentDataToRazorpayServer -----------------')
+            console.log(paymentDataToRazorpayServer)
+            console.log('paymentDataToRazorpayServer -----------------')
 
             var razorpayPayment = new Razorpay(paymentDataToRazorpayServer);
             razorpayPayment.open();
@@ -673,7 +731,9 @@
 
                 success: (response) => {
                     if (response.status) {
+                        console.log('success is called ')
                         location.href = '/orderPlaced'
+
                     } else {
                         location.href = '/orderFailed'
                     }
@@ -682,11 +742,15 @@
         }
     </script>
 
+
+
     <script>
         const form = document.getElementById('addressForm');
         console.log(form);
         form.addEventListener('submit', (e) => {
+
             e.preventDefault();
+            
             const formData = new FormData(form);
             // For debuggin
             // console.log(Array.from(formData.entries()));
@@ -701,6 +765,7 @@
                 console.error(err)
             }
         });
+
 
         async function sendCheckoutRequest(data) {
             const response = await fetch('/submit-checkout', {
@@ -723,6 +788,10 @@
                 console.log("reached here");
                 location.href = '/orderPlaced';
             } else if (resBody.ONLINE_CHECKOUT) {
+                console.log('---------------------------------------------------------')
+                console.log(resBody)
+                console.log('---------------------------------------------------------')
+                
                 makeRazorpayPayment(resBody);
             } else if (resBody.WALLET_CHECKOUT) {
                 console.log(resBody.orderId);

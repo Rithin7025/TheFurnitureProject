@@ -1,8 +1,9 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 
 <!-- molla/index-2.html  22 Nov 2019 09:55:32 GMT -->
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,7 +30,7 @@
     <link rel="stylesheet" href="/css/plugins/magnific-popup/magnific-popup.css">
     <!-- Main CSS File -->
     <link rel="stylesheet" href="/css/style.css">
-    
+
 
 
 
@@ -39,50 +40,83 @@
         .dropdown-toggle {
             position: relative;
         }
-    
+
         .dropdown-menu {
             display: none;
             position: absolute;
             top: 100%;
             left: 0;
         }
-    
+
         .dropdown-toggle:hover .dropdown-menu {
             display: block;
         }
-    
+
         .dropdown-menu a {
             display: block;
             padding: 5px 0;
         }
-       
-
     </style>
     <style>
-         .product-image {
-  width: 100%; /* Set the desired width */
-  height: auto; /* Maintain the aspect ratio */
-  object-fit: cover; /* Preserve the image's aspect ratio and fill the container */
-}
+        .product-image {
+            width: 100%;
+            /* Set the desired width */
+            height: auto;
+            /* Maintain the aspect ratio */
+            object-fit: cover;
+            /* Preserve the image's aspect ratio and fill the container */
+        }
+
+        .categories-slider {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .slider-container {
+            display: flex;
+            flex-wrap: nowrap;
+            transition: transform 0.5s ease;
+        }
+
+        .category-item {
+            flex: 0 0 33.3333%;
+            /* Display three items in one row */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .slider-controls {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .prev-btn,
+        .next-btn {
+            cursor: pointer;
+            font-size: 34px;
+        }
+
+        /* Add additional styling as needed */
     </style>
-    
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  $(document).ready(function() {
-    $('.dropdown-toggle').click(function(e) {
-      e.preventDefault();
-      $(this).children('.dropdown-menu').slideToggle();
-    });
 
-    $('.dropdown-menu a[href="/logout"]').click(function(e) {
-      e.preventDefault();
-      window.location.href = '/logout';
-    });
 
-    // Hide the dropdown menu initially
-    $('.dropdown-menu').hide();
-  });
-</script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-toggle').click(function (e) {
+                e.preventDefault();
+                $(this).children('.dropdown-menu').slideToggle();
+            });
+
+            $('.dropdown-menu a[href="/logout"]').click(function (e) {
+                e.preventDefault();
+                window.location.href = '/logout';
+            });
+
+            // Hide the dropdown menu initially
+            $('.dropdown-menu').hide();
+        });
+    </script>
 
 
 
@@ -90,7 +124,7 @@
 
 <body>
     <div class="page-wrapper">
-        
+
 
         <main class="main">
             <div class="intro-section bg-lighter pt-5 pb-6">
@@ -98,7 +132,8 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="intro-slider-container slider-container-ratio slider-container-1 mb-2 mb-lg-0">
-                                <div class="intro-slider intro-slider-1 owl-carousel owl-simple owl-light owl-nav-inside" data-toggle="owl" data-owl-options='{
+                                <div class="intro-slider intro-slider-1 owl-carousel owl-simple owl-light owl-nav-inside"
+                                    data-toggle="owl" data-owl-options='{
                                         "nav": false, 
                                         "responsive": {
                                             "768": {
@@ -106,17 +141,23 @@
                                             }
                                         }
                                     }'>
+
+
+                                    {{#each banners}}
                                     <div class="intro-slide">
                                         <figure class="slide-image">
                                             <picture>
-                                                <source media="(max-width: 480px)" srcset="/images/slider/slide-1-480w.jpg">
-                                                <img src="/images/slider/slide-1.jpg" alt="Image Desc">
+                                                {{!-- <source media="(max-width: 480px)"
+                                                    srcset="/images/slider/slide-1-480w.jpg"> --}}
+                                                <img src="/{{this.image}}" alt="Image Desc">
                                             </picture>
                                         </figure><!-- End .slide-image -->
 
                                         <div class="intro-content">
-                                            <h3 class="intro-subtitle">Topsale Collection</h3><!-- End .h3 intro-subtitle -->
-                                            <h1 class="intro-title">Living Room<br>Furniture</h1><!-- End .intro-title -->
+                                            <h3 class="intro-subtitle">{{this.title}}</h3>
+                                            <!-- End .h3 intro-subtitle -->
+                                            <h1 class="intro-title">Living Room<br>Furniture</h1>
+                                            <!-- End .intro-title -->
 
                                             <a href="category.html" class="btn btn-outline-white">
                                                 <span>SHOP NOW</span>
@@ -125,45 +166,11 @@
                                         </div><!-- End .intro-content -->
                                     </div><!-- End .intro-slide -->
 
-                                    <div class="intro-slide">
-                                        <figure class="slide-image">
-                                            <picture>
-                                                <source media="(max-width: 480px)" srcset="/images/slider/slide-2-480w.jpg">
-                                                <img src="/images/slider/slide-2.jpg" alt="Image Desc">
-                                            </picture>
-                                        </figure><!-- End .slide-image -->
+                                    {{/each}}
 
-                                        <div class="intro-content">
-                                            <h3 class="intro-subtitle">News and Inspiration</h3><!-- End .h3 intro-subtitle -->
-                                            <h1 class="intro-title">New Arrivals</h1><!-- End .intro-title -->
-
-                                            <a href="category.html" class="btn btn-outline-white">
-                                                <span>SHOP NOW</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </a>
-                                        </div><!-- End .intro-content -->
-                                    </div><!-- End .intro-slide -->
-
-                                    <div class="intro-slide">
-                                        <figure class="slide-image">
-                                            <picture>
-                                                <source media="(max-width: 480px)" srcset="/images/slider/slide-3-480w.jpg">
-                                                <img src="/images/slider/slide-3.jpg" alt="Image Desc">
-                                            </picture>
-                                        </figure><!-- End .slide-image -->
-
-                                        <div class="intro-content">
-                                            <h3 class="intro-subtitle">Outdoor Furniture</h3><!-- End .h3 intro-subtitle -->
-                                            <h1 class="intro-title">Outdoor Dining <br>Furniture</h1><!-- End .intro-title -->
-
-                                            <a href="category.html" class="btn btn-outline-white">
-                                                <span>SHOP NOW</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </a>
-                                        </div><!-- End .intro-content -->
-                                    </div><!-- End .intro-slide -->
+                                    
                                 </div><!-- End .intro-slider owl-carousel owl-simple -->
-                                
+
                                 <span class="slider-loader"></span><!-- End .slider-loader -->
                             </div><!-- End .intro-slider-container -->
                         </div><!-- End .col-lg-8 -->
@@ -177,9 +184,12 @@
                                             </a>
 
                                             <div class="banner-content">
-                                                <h4 class="banner-subtitle text-darkwhite"><a href="#">Clearence</a></h4><!-- End .banner-subtitle -->
-                                                <h3 class="banner-title text-white"><a href="#">Chairs & Chaises <br>Up to 40% off</a></h3><!-- End .banner-title -->
-                                                <a href="#" class="btn btn-outline-white banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
+                                                <h4 class="banner-subtitle text-darkwhite"><a href="#">Clearence</a>
+                                                </h4><!-- End .banner-subtitle -->
+                                                <h3 class="banner-title text-white"><a href="#">Chairs & Chaises <br>Up
+                                                        to 40% off</a></h3><!-- End .banner-title -->
+                                                <a href="#" class="btn btn-outline-white banner-link">Shop Now<i
+                                                        class="icon-long-arrow-right"></i></a>
                                             </div><!-- End .banner-content -->
                                         </div><!-- End .banner -->
                                     </div><!-- End .col-md-6 col-lg-12 -->
@@ -191,9 +201,12 @@
                                             </a>
 
                                             <div class="banner-content">
-                                                <h4 class="banner-subtitle text-darkwhite"><a href="#">New in</a></h4><!-- End .banner-subtitle -->
-                                                <h3 class="banner-title text-white"><a href="#">Best Lighting <br>Collection</a></h3><!-- End .banner-title -->
-                                                <a href="#" class="btn btn-outline-white banner-link">Discover Now<i class="icon-long-arrow-right"></i></a>
+                                                <h4 class="banner-subtitle text-darkwhite"><a href="#">New in</a></h4>
+                                                <!-- End .banner-subtitle -->
+                                                <h3 class="banner-title text-white"><a href="#">Best Lighting
+                                                        <br>Collection</a></h3><!-- End .banner-title -->
+                                                <a href="#" class="btn btn-outline-white banner-link">Discover Now<i
+                                                        class="icon-long-arrow-right"></i></a>
                                             </div><!-- End .banner-content -->
                                         </div><!-- End .banner -->
                                     </div><!-- End .col-md-6 col-lg-12 -->
@@ -202,37 +215,42 @@
                         </div><!-- End .col-lg-4 -->
                     </div><!-- End .row -->
 
-                   
 
-                    
+
+
                 </div><!-- End .container -->
             </div><!-- End .bg-lighter -->
 
-           
+
             <div class="container">
                 <div class="heading heading-center mb-3">
                     <h2 class="title-lg">Discover the Newest Arrivals</h2><!-- End .title -->
 
-                  <ul class="nav nav-pills justify-content-center" role="tablist">
+                    <ul class="nav nav-pills justify-content-center" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="trendy-all-link" data-toggle="tab" href="#trendy-all-tab" role="tab" aria-controls="trendy-all-tab" aria-selected="true">All</a>
+                            <a class="nav-link active" id="trendy-all-link" data-toggle="tab" href="#trendy-all-tab"
+                                role="tab" aria-controls="trendy-all-tab" aria-selected="true">All</a>
                         </li>
-                       {{!-- <li class="nav-item">
-                            <a class="nav-link" id="trendy-fur-link" data-toggle="tab" href="#trendy-fur-tab" role="tab" aria-controls="trendy-fur-tab" aria-selected="false">Furniture</a>
+                        {{!-- <li class="nav-item">
+                            <a class="nav-link" id="trendy-fur-link" data-toggle="tab" href="#trendy-fur-tab" role="tab"
+                                aria-controls="trendy-fur-tab" aria-selected="false">Furniture</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="trendy-decor-link" data-toggle="tab" href="#trendy-decor-tab" role="tab" aria-controls="trendy-decor-tab" aria-selected="false">Decor</a>
+                            <a class="nav-link" id="trendy-decor-link" data-toggle="tab" href="#trendy-decor-tab"
+                                role="tab" aria-controls="trendy-decor-tab" aria-selected="false">Decor</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="trendy-light-link" data-toggle="tab" href="#trendy-light-tab" role="tab" aria-controls="trendy-light-tab" aria-selected="false">Lighting</a>
+                            <a class="nav-link" id="trendy-light-link" data-toggle="tab" href="#trendy-light-tab"
+                                role="tab" aria-controls="trendy-light-tab" aria-selected="false">Lighting</a>
                         </li> --}}
                     </ul>
                 </div><!-- End .heading -->
 
                 <div class="tab-content tab-content-carousel">
-                    <div class="tab-pane p-0 fade show active" id="trendy-all-tab" role="tabpanel" aria-labelledby="trendy-all-link">
-                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
-                            data-owl-options='{
+                    <div class="tab-pane p-0 fade show active" id="trendy-all-tab" role="tabpanel"
+                        aria-labelledby="trendy-all-link">
+                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow"
+                            data-toggle="owl" data-owl-options='{
                                 "nav": false, 
                                 "dots": true,
                                 "margin": 20,
@@ -257,39 +275,71 @@
                                     }
                                 }
                             }'>
+
                             {{#each products}}
-                             <div class="product product-11 text-center">
+                            <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="/productDetailPageLoad">
-                                        <img src="{{this.image.[0]}}" alt="Product image" class="product-image" style="width :100%;height:auto;object-fit: cover;">
+
+                                  {{#if (gt this.productOffer 0)}}
+                                       <span class="product-label label-sale">{{this.productOffer}}% OFF</span>
+                                    {{/if}} 
+
+                                        <img src="{{this.image.[0]}}" alt="Product image" class="product-image"
+                                            style="width :100%;height:auto;object-fit: cover;">
                                     </a>
 
                                     <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to wishlist</span></a>
+                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to
+                                                wishlist</span></a>
                                     </div><!-- End .product-action-vertical -->
                                 </figure><!-- End .product-media -->
 
                                 <div class="product-body">
-                                    <h3 class="product-title"><a href="/productDetailPageLoad/{{this._id}}">{{this.name}}</a></h3><!-- End .product-title -->
+                                    <h3 class="product-title"><a
+                                            href="/productDetailPageLoad/{{this._id}}">{{this.name}}</a></h3>
+
+                                    <!-- End .product-title -->
                                     <div class="product-price">
-                                      <span>₹ &nbsp</span> {{this.price}}
+
+
+                                        {{!-- <span>₹&nbsp</span>{{this.price}} --}}
+                                                                          
+
+
+
+
+                                
+                                {{#if (gt this.productOffer 0)}}
+                                <span class="new-price"> ₹&nbsp{{ this.discountedPrice}}</span><br>
+                                <span class="old-price"><s>{{this.price}}</s></span>
+                                {{else}}
+                                <span class="new-price"> ₹&nbsp{{this.price}}</span><br>
+                                {{/if}}
+
+
+
                                     </div><!-- End .product-price -->
                                 </div><!-- End .product-body -->
                                 <div class="product-action">
-                                <a href="" class="btn-product btn-cart" onclick='addToCart("{{this._id}}", event); showSweetAlert();'>
-                                    <span>add to cart</span>
-                                </a>
+                                    <a href="" class="btn-product btn-cart"
+
+                                        onclick='addToCart("{{this._id}}", event); showSweetAlert();'>
+                                        <span>add to cart</span>
+
+                                    </a>
                                 </div>
                             </div><!-- End .product -->
 
                             {{/each}}
 
- 
+
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
-                    <div class="tab-pane p-0 fade" id="trendy-fur-tab" role="tabpanel" aria-labelledby="trendy-fur-link">
-                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
-                            data-owl-options='{
+                    <div class="tab-pane p-0 fade" id="trendy-fur-tab" role="tabpanel"
+                        aria-labelledby="trendy-fur-link">
+                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow"
+                            data-toggle="owl" data-owl-options='{
                                 "nav": false, 
                                 "dots": true,
                                 "margin": 20,
@@ -314,22 +364,27 @@
                                     }
                                 }
                             }'>
+
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <span class="product-label label-new">NEW</span>
                                     <a href="product.html">
-                                        <img src="/images/demos/demo-2/products/product-3-1.jpg" alt="Product image" class="product-image">
-                                        <img src="/images/demos/demo-2/products/product-3-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="/images/demos/demo-2/products/product-3-1.jpg" alt="Product image"
+                                            class="product-image">
+                                        <img src="/images/demos/demo-2/products/product-3-2.jpg" alt="Product image"
+                                            class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to wishlist</span></a>
+                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to
+                                                wishlist</span></a>
                                     </div><!-- End .product-action-vertical -->
 
                                 </figure><!-- End .product-media -->
 
                                 <div class="product-body">
-                                    <h3 class="product-title"><a href="product.html">Flow Slim Armchair</a></h3><!-- End .product-title -->
+                                    <h3 class="product-title"><a href="product.html">Flow Slim Armchair</a></h3>
+                                    <!-- End .product-title -->
                                     <div class="product-price">
                                         $970,00
                                     </div><!-- End .product-price -->
@@ -343,26 +398,32 @@
                                 <figure class="product-media">
                                     <span class="product-label label-sale">30% OFF</span>
                                     <a href="product.html">
-                                        <img src="/images/demos/demo-2/products/product-4-1.jpg" alt="Product image" class="product-image">
-                                        <img src="/images/demos/demo-2/products/product-4-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="/images/demos/demo-2/products/product-4-1.jpg" alt="Product image"
+                                            class="product-image">
+                                        <img src="/images/demos/demo-2/products/product-4-2.jpg" alt="Product image"
+                                            class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to wishlist</span></a>
+                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to
+                                                wishlist</span></a>
                                     </div><!-- End .product-action-vertical -->
 
                                 </figure><!-- End .product-media -->
 
                                 <div class="product-body">
-                                    <h3 class="product-title"><a href="product.html">Roots Sofa Bed</a></h3><!-- End .product-title -->
+                                    <h3 class="product-title"><a href="product.html">Roots Sofa Bed</a></h3>
+                                    <!-- End .product-title -->
                                     <div class="product-price">
                                         <span class="new-price">$337,00</span>
                                         <span class="old-price">Was $449,00</span>
                                     </div><!-- End .product-price -->
 
                                     <div class="product-nav product-nav-dots">
-                                        <a href="#" class="active" style="background: #878883;"><span class="sr-only">Color name</span></a>
-                                        <a href="#" style="background: #dfd5c2;"><span class="sr-only">Color name</span></a>
+                                        <a href="#" class="active" style="background: #878883;"><span
+                                                class="sr-only">Color name</span></a>
+                                        <a href="#" style="background: #dfd5c2;"><span class="sr-only">Color
+                                                name</span></a>
                                     </div><!-- End .product-nav -->
                                 </div><!-- End .product-body -->
                                 <div class="product-action">
@@ -371,9 +432,10 @@
                             </div><!-- End .product -->
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
-                    <div class="tab-pane p-0 fade" id="trendy-decor-tab" role="tabpanel" aria-labelledby="trendy-decor-link">
-                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
-                            data-owl-options='{
+                    <div class="tab-pane p-0 fade" id="trendy-decor-tab" role="tabpanel"
+                        aria-labelledby="trendy-decor-link">
+                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow"
+                            data-toggle="owl" data-owl-options='{
                                 "nav": false, 
                                 "dots": true,
                                 "margin": 20,
@@ -401,17 +463,21 @@
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="/images/demos/demo-2/products/product-1-1.jpg" alt="Product image" class="product-image">
-                                        <img src="/images/demos/demo-2/products/product-1-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="/images/demos/demo-2/products/product-1-1.jpg" alt="Product image"
+                                            class="product-image">
+                                        <img src="/images/demos/demo-2/products/product-1-2.jpg" alt="Product image"
+                                            class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to wishlist</span></a>
+                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to
+                                                wishlist</span></a>
                                     </div><!-- End .product-action-vertical -->
                                 </figure><!-- End .product-media -->
 
                                 <div class="product-body">
-                                    <h3 class="product-title"><a href="product.html">Butler Stool Ladder</a></h3><!-- End .product-title -->
+                                    <h3 class="product-title"><a href="product.html">Butler Stool Ladder</a></h3>
+                                    <!-- End .product-title -->
                                     <div class="product-price">
                                         $251,00
                                     </div><!-- End .product-price -->
@@ -423,18 +489,22 @@
                             <div class="product product-11 text-center">
                                 <figure class="product-media">
                                     <a href="product.html">
-                                        <img src="/images/demos/demo-2/products/product-6-1.jpg" alt="Product image" class="product-image">
-                                        <img src="/images/demos/demo-2/products/product-6-2.jpg" alt="Product image" class="product-image-hover">
+                                        <img src="/images/demos/demo-2/products/product-6-1.jpg" alt="Product image"
+                                            class="product-image">
+                                        <img src="/images/demos/demo-2/products/product-6-2.jpg" alt="Product image"
+                                            class="product-image-hover">
                                     </a>
 
                                     <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to wishlist</span></a>
+                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to
+                                                wishlist</span></a>
                                     </div><!-- End .product-action-vertical -->
 
                                 </figure><!-- End .product-media -->
 
                                 <div class="product-body">
-                                    <h3 class="product-title"><a href="product.html">Elephant Armchair</a></h3><!-- End .product-title -->
+                                    <h3 class="product-title"><a href="product.html">Elephant Armchair</a></h3>
+                                    <!-- End .product-title -->
                                     <div class="product-price">
                                         $457,00
                                     </div><!-- End .product-price -->
@@ -445,137 +515,88 @@
                             </div><!-- End .product -->
                         </div><!-- End .owl-carousel -->
                     </div><!-- .End .tab-pane -->
-                    <div class="tab-pane p-0 fade" id="trendy-light-tab" role="tabpanel" aria-labelledby="trendy-light-link">
-                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
-                            data-owl-options='{
-                                "nav": false, 
-                                "dots": true,
-                                "margin": 20,
-                                "loop": false,
-                                "responsive": {
-                                    "0": {
-                                        "items":2
-                                    },
-                                    "480": {
-                                        "items":2
-                                    },
-                                    "768": {
-                                        "items":3
-                                    },
-                                    "992": {
-                                        "items":4
-                                    },
-                                    "1200": {
-                                        "items":4,
-                                        "nav": true,
-                                        "dots": false
-                                    }
-                                }
-                            }'>
-                            <div class="product product-11 text-center">
-                                <figure class="product-media">
-                                    <a href="product.html">
-                                        <img src="/images/demos/demo-2/products/product-2-1.jpg" alt="Product image" class="product-image">
-                                        <img src="/images/demos/demo-2/products/product-2-2.jpg" alt="Product image" class="product-image-hover">
-                                    </a>
 
-                                    <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to wishlist</span></a>
-                                    </div><!-- End .product-action-vertical -->
-                                </figure><!-- End .product-media -->
-
-                                <div class="product-body">
-                                    <h3 class="product-title"><a href="product.html">Octo 4240</a></h3><!-- End .product-title -->
-                                    <div class="product-price">
-                                        $746,00
-                                    </div><!-- End .product-price -->
-
-                                    <div class="product-nav product-nav-dots">
-                                        <a href="#" class="active" style="background: #1f1e18;"><span class="sr-only">Color name</span></a>
-                                        <a href="#" style="background: #e8e8e8;"><span class="sr-only">Color name</span></a>
-                                    </div><!-- End .product-nav -->
-                                </div><!-- End .product-body -->
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div><!-- End .product-action -->
-                            </div><!-- End .product -->
-                            <div class="product product-11 text-center">
-                                <figure class="product-media">
-                                    <a href="product.html">
-                                        <img src="/images/demos/demo-2/products/product-5-1.jpg" alt="Product image" class="product-image">
-                                        <img src="/images/demos/demo-2/products/product-5-2.jpg" alt="Product image" class="product-image-hover">
-                                    </a>
-
-                                    <div class="product-action-vertical">
-                                        <a href="#" class="btn-product-icon btn-wishlist"><span>add to wishlist</span></a>
-                                    </div><!-- End .product-action-vertical -->
-
-                                </figure><!-- End .product-media -->
-
-                                <div class="product-body">
-                                    <h3 class="product-title"><a href="product.html">Petite Table Lamp</a></h3><!-- End .product-title -->
-                                    <div class="product-price">
-                                        $675,00
-                                    </div><!-- End .product-price -->
-
-                                    <div class="product-nav product-nav-dots">
-                                        <a href="#" class="active" style="background: #74543e;"><span class="sr-only">Color name</span></a>
-                                        <a href="#" style="background: #e8e8e8;"><span class="sr-only">Color name</span></a>
-                                    </div><!-- End .product-nav -->
-                                </div><!-- End .product-body -->
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                </div><!-- End .product-action -->
-                            </div><!-- End .product -->
-                        </div><!-- End .owl-carousel -->
-                    </div><!-- .End .tab-pane -->
                 </div><!-- End .tab-content -->
             </div><!-- End .container -->
             <div>
-                                   <div class="heading heading-center mb-3">
+                <div class="heading heading-center mb-3">
                     <h2 class="title-lg">Categories</h2><!-- End .title -->
 
-                    
+
                 </div><!-- End .heading -->
 
             </div>
-<div>
- <div class="category-listing" style="display: flex; justify-content: center;">
-  {{#each categories}}    
-    <div class="card" style="flex: 0 0 18rem; margin-right: 6rem;">
-      <img class="card-img-top" src="/{{this.image}}" alt="Card image cap" style="object-fit: cover; width: 100%; height: 200px;">
-      <div class="card-body">
-        <h5 class="card-title">{{this.name}}</h5>
-        <a href="/productPage/{{this.name}}" class="btn btn-primary">shop now</a>
-      </div>
-    </div>
-  {{/each}}
-</div>
-
-</div>
 
 
-    	
+
+            {{!-- <div>
+                <div class="category-listing" style="display: flex; justify-content: center;">
+                    {{#each categories}}
+                    <div class="card" style="flex: 0 0 18rem; margin-right: 6rem;">
+                        <img class="card-img-top" src="/{{this.image}}" alt="Card image cap"
+                            style="object-fit: cover; width: 100%; height: 200px;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{this.name}}</h5>
+                            <a href="/productPage/{{this.name}}" class="btn btn-primary">shop now</a>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+
+            </div> --}}
+
+            <div class="categories-slider">
+                <div class="slider-container">
+                    {{#each categories}}
+                    <div class="category-item">
+                        <div class="banner banner-overlay">
+                            <a href="#">
+                                <img src="/{{this.image}}" alt="Banner">
+
+                            </a>
+                            <div class="banner-content banner-content-top">
+                                <h4 class="banner-subtitle text-grey">On sale</h4>
+                                <h3 class="banner-title text-white">{{this.name}}</h3>
+                                
+
+                                <a href="/productPage/{{this.name}}" class="btn btn-outline-white banner-link">Discover
+                                    Now<i class="icon-long-arrow-right"></i></a>
+
+                            </div><!-- End .banner-content -->
+                        </div><!-- End .banner -->
+                    </div><!-- End .category-item -->
+
+                    {{/each}}
+
+                </div><!-- End .slider-container -->
+
+                <div class="slider-controls">
+
+                    <span class="prev-btn">&lt;</span>
+                    <span class="next-btn">&gt;</span>
+
+                </div><!-- End .slider-controls -->
+            </div><!-- End .categories-slider -->
 
 
-            <div class="mb-5"></div><!-- End .mb-6 -->
 
-            
-            
-            
-            </div>
-            <div class="cta cta-display bg-image pt-4 pb-4" style="background-image: url(/images/backgrounds/cta/bg-6.jpg);">
+
+
+            <div class="cta cta-display bg-image pt-4 pb-4"
+                style="background-image: url(/images/backgrounds/cta/bg-6.jpg);">
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-md-10 col-lg-9 col-xl-8">
                             <div class="row no-gutters flex-column flex-sm-row align-items-sm-center">
                                 <div class="col">
                                     <h3 class="cta-title text-white">Sign Up & Get 10% Off</h3><!-- End .cta-title -->
-                                    <p class="cta-desc text-white">Molla presents the best in interior design</p><!-- End .cta-desc -->
+                                    <p class="cta-desc text-white">Molla presents the best in interior design</p>
+                                    <!-- End .cta-desc -->
                                 </div><!-- End .col -->
 
                                 <div class="col-auto">
-                                    <a href="/register" class="btn btn-outline-white"><span>SIGN UP</span><i class="icon-long-arrow-right"></i></a>
+                                    <a href="/register" class="btn btn-outline-white"><span>SIGN UP</span><i
+                                            class="icon-long-arrow-right"></i></a>
                                 </div><!-- End .col-auto -->
                             </div><!-- End .row no-gutters -->
                         </div><!-- End .col-md-10 col-lg-9 -->
@@ -585,78 +606,86 @@
         </main><!-- End .main -->
 
         <footer class="footer footer-dark">
-        	<div class="footer-middle">
-	            <div class="container">
-	            	<div class="row">
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget widget-about">
-	            				<img src="/images/homescape-logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
-	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget widget-about">
+                                <img src="/images/homescape-logo.png" class="footer-logo" alt="Footer Logo" width="105"
+                                    height="25">
+                                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
+                                    magna eros eu erat. </p>
 
-	            				<div class="social-icons">
-	            					<a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-	            					<a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-	            					<a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-	            					<a href="#" class="social-icon" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
-	            					<a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
-	            				</div><!-- End .soial-icons -->
-	            			</div><!-- End .widget about-widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                                <div class="social-icons">
+                                    <a href="#" class="social-icon" title="Facebook" target="_blank"><i
+                                            class="icon-facebook-f"></i></a>
+                                    <a href="#" class="social-icon" title="Twitter" target="_blank"><i
+                                            class="icon-twitter"></i></a>
+                                    <a href="#" class="social-icon" title="Instagram" target="_blank"><i
+                                            class="icon-instagram"></i></a>
+                                    <a href="#" class="social-icon" title="Youtube" target="_blank"><i
+                                            class="icon-youtube"></i></a>
+                                    <a href="#" class="social-icon" title="Pinterest" target="_blank"><i
+                                            class="icon-pinterest"></i></a>
+                                </div><!-- End .soial-icons -->
+                            </div><!-- End .widget about-widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="about.html">About Molla</a></li>
-	            					<li><a href="#">How to shop on Molla</a></li>
-	            					<li><a href="#">FAQ</a></li>
-	            					<li><a href="contact.html">Contact us</a></li>
-	            					<li><a href="login.html">Log in</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                                <ul class="widget-list">
+                                    <li><a href="about.html">About Molla</a></li>
+                                    <li><a href="#">How to shop on Molla</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="login.html">Log in</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="#">Payment Methods</a></li>
-	            					<li><a href="#">Money-back guarantee!</a></li>
-	            					<li><a href="#">Returns</a></li>
-	            					<li><a href="#">Shipping</a></li>
-	            					<li><a href="#">Terms and conditions</a></li>
-	            					<li><a href="#">Privacy Policy</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                                <ul class="widget-list">
+                                    <li><a href="#">Payment Methods</a></li>
+                                    <li><a href="#">Money-back guarantee!</a></li>
+                                    <li><a href="#">Returns</a></li>
+                                    <li><a href="#">Shipping</a></li>
+                                    <li><a href="#">Terms and conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="#">Sign In</a></li>
-	            					<li><a href="cart.html">View Cart</a></li>
-	            					<li><a href="#">My Wishlist</a></li>
-	            					<li><a href="#">Track My Order</a></li>
-	            					<li><a href="#">Help</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
-	            	</div><!-- End .row -->
-	            </div><!-- End .container -->
-	        </div><!-- End .footer-middle -->
+                                <ul class="widget-list">
+                                    <li><a href="#">Sign In</a></li>
+                                    <li><a href="cart.html">View Cart</a></li>
+                                    <li><a href="#">My Wishlist</a></li>
+                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-middle -->
 
-	        <div class="footer-bottom">
-	        	<div class="container">
-	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
-	        		<figure class="footer-payments">
-	        			<img src="/images/payments.png" alt="Payment methods" width="272" height="20">
-	        		</figure><!-- End .footer-payments -->
-	        	</div><!-- End .container -->
-	        </div><!-- End .footer-bottom -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+                    <!-- End .footer-copyright -->
+                    <figure class="footer-payments">
+                        <img src="/images/payments.png" alt="Payment methods" width="272" height="20">
+                    </figure><!-- End .footer-payments -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-bottom -->
         </footer><!-- End .footer -->
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
@@ -670,30 +699,31 @@
 
             <form action="#" method="get" class="mobile-search">
                 <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
+                    placeholder="Search in..." required>
                 <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
             </form>
-            
+
             <nav class="mobile-nav">
                 <ul class="mobile-menu">
                     <li class="active">
                         <a href="index.html">Home</a>
 
                         <ul>
-                           
+
                         </ul>
                     </li>
                     <li>
                         <a href="category.html">Shop</a>
                         <ul>
-                            
+
                         </ul>
                     </li>
                     <li>
                         <a href="product.html" class="sf-with-ul">Product</a>
                         <ul>
                             <li><a href="product.html">Default</a></li>
-                           
+
                         </ul>
                     </li>
                     <li>
@@ -794,7 +824,7 @@
     </div><!-- End .mobile-menu-container -->
 
     <!-- Sign in / Register Modal -->
-    
+
 
     <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
         <div class="row justify-content-center">
@@ -804,10 +834,12 @@
                         <div class="banner-content text-center">
                             <img src="/images/popup/newsletter/logo.png" class="logo" alt="logo" width="60" height="15">
                             <h2 class="banner-title">get <span>25<light>%</light></span> off</h2>
-                            <p>Subscribe to the Molla eCommerce newsletter to receive timely updates from your favorite products.</p>
+                            <p>Subscribe to the Molla eCommerce newsletter to receive timely updates from your favorite
+                                products.</p>
                             <form action="#">
                                 <div class="input-group input-group-round">
-                                    <input type="email" class="form-control form-control-white" placeholder="Your Email Address" aria-label="Email Adress" required>
+                                    <input type="email" class="form-control form-control-white"
+                                        placeholder="Your Email Address" aria-label="Email Adress" required>
                                     <div class="input-group-append">
                                         <button class="btn" type="submit"><span>go</span></button>
                                     </div><!-- .End .input-group-append -->
@@ -815,7 +847,8 @@
                             </form>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="register-policy-2" required>
-                                <label class="custom-control-label" for="register-policy-2">Do not show this popup again</label>
+                                <label class="custom-control-label" for="register-policy-2">Do not show this popup
+                                    again</label>
                             </div><!-- End .custom-checkbox -->
                         </div>
                     </div>
@@ -826,32 +859,36 @@
             </div>
         </div>
     </div>
- 
-        
-    </body>
-    <!-- Plugins JS File -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/jquery.hoverIntent.min.js"></script>
-    <script src="/js/jquery.waypoints.min.js"></script>
-    <script src="/js/superfish.min.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/jquery.magnific-popup.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Main JS File -->
-    <script src="/js/main.js"></script>
-  
-   
+
+</body>
+<!-- Plugins JS File -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/jquery.hoverIntent.min.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/superfish.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Main JS File -->
+<script src="/js/main.js"></script>
+
+
 
 <script>
     function addToCart(productId, event) {
         event.preventDefault(); // Prevent the default behavior of the <a> tag
 
         // Send an AJAX request to the server
+
         const xhr = new XMLHttpRequest();
+
         xhr.open('POST', '/addToCart', true);
+
         xhr.setRequestHeader('Content-Type', 'application/json');
+
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 // Handle the server response here (if needed)
@@ -875,6 +912,7 @@
                 content: "swal-text",
                 confirmButton: "swal-button"
             },
+            
             onOpen: () => {
                 // Set the text color to white
                 const swalContainer = document.querySelector(".swal-container");
@@ -884,13 +922,42 @@
                 const okButton = document.querySelector(".swal-button");
                 okButton.style.border = "none";
             }
+
         });
     }
 </script>
 
+<script>
+    $(document).ready(function () {
+        const slider = $(".slider-container");
+        const categoryItems = $(".category-item");
+        const prevBtn = $(".prev-btn");
+        const nextBtn = $(".next-btn");
 
+        const itemWidth = categoryItems.outerWidth(true);
+        const visibleItems = Math.floor(slider.width() / itemWidth);
 
+        let currentPosition = 0;
+
+        nextBtn.click(function () {
+            if (currentPosition < categoryItems.length - visibleItems) {
+                currentPosition++;
+                slider.css("transform", `translateX(-${currentPosition * itemWidth}px)`);
+            }
+        });
+
+        prevBtn.click(function () {
+            if (currentPosition > 0) {
+                currentPosition--;
+                slider.css("transform", `translateX(-${currentPosition * itemWidth}px)`);
+            }
+        });
+    });
+</script>
+
+<!-- Include this script in your HTML file -->
 
 
 <!-- molla/index-2.html  22 Nov 2019 09:55:42 GMT -->
+
 </html>

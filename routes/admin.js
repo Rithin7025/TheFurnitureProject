@@ -5,7 +5,12 @@ const adminController = require('../controllers/adminController');
 const auth = require('../middlewares/adminAuth');
 const multer = require('multer');
 const upload = require('../middlewares/middlewareFileUpload')
-const adminAuth = require('../middlewares/adminAuth')
+const adminAuth = require('../middlewares/adminAuth');
+const categoryController = require('../controllers/categoryController')
+const productController = require('../controllers/productController')
+const orderController =  require('../controllers/orderController');
+const couponController = require('../controllers/couponController')
+const bannerContoller = require('../controllers/bannerController')
 
 
 
@@ -31,17 +36,17 @@ router.get('/blockUser/:id',adminAuth.isLogin, adminController.blockUser);
 
 router.get('/unblockUser/:id',adminAuth.isLogin,adminController.unblockUser);
 
-router.get('/category',adminController.showCategoryTable);
+router.get('/category',categoryController.showCategoryTable);
 
-router.post('/category',upload.single('categoryImage'),adminController.addCategory);
+router.post('/category',upload.single('categoryImage'),categoryController.addCategory);
     
-router.get('/product',adminController.ProductPageLoad);
+router.get('/product',productController.ProductPageLoad);
 
-router.post('/product',upload.array('productImage',4),adminController.addProduct);
+router.post('/product',upload.array('productImage',4),productController.addProduct);
 
-router.get('/unlist/:id',adminController.hideCategory);
+router.get('/unlist/:id',categoryController.hideCategory);
 
-router.get('/list/:id',adminController.unhideCategory);
+router.get('/list/:id',categoryController.unhideCategory);
 
 router.post("/hideUnhideProduct/:id",adminController.hideUnhideProduct);
 
@@ -50,19 +55,66 @@ router.post("/hideUnhideProduct/:id",adminController.hideUnhideProduct);
 
 // router.get('/displayProduct/:id',adminController.displayProduct);
 
-router.get('/editProduct/:id',adminController.editProductload);
+router.get('/editProduct/:id',productController.editProductload);
 
-router.post('/editProduct/:id',upload.array('newProductImage',4),adminController.editProduct);
+router.get("/editCategory/:id",categoryController.editCategoryload);
 
-router.get('/allOrders',adminController.getOrderDetails);
+router.post('/editCategory/:id',upload.single('categoryImage'),categoryController.editCategory)
+
+router.post('/editProduct/:id',upload.array('newProductImage',4),productController.editProduct);
+
+router.get('/allOrders',orderController.getOrderDetails);
+
+router.get("/adminOrderDetailView", orderController.adminOrderDetailView);
+
+router.post("/orderconfirmation", orderController.orderConfirmation);
+
+router.post("/deliver-by-admin", orderController.orderDeliver);
+
+router.post("/cancel-by-admin", orderController.cancelledByAdmin);
+
+router.post("/reject-by-admin", orderController.rejectCancellation);
+
+router.post("/accept-return",orderController.adminAcceptReturn);
+
+router.post("/reject-return", orderController.adminRejectReturn);
+
+
+router.get("/salesPage",adminController.loadSalesPage);
+
+
+
+router.get('/getTodaySales',adminAuth.isLogin,adminController.getSalesToday)
+router.get('/getWeekSales',adminAuth.isLogin,adminController.getWeekSales)
+router.get('/getMonthlySales',adminAuth.isLogin,adminController.getMonthSales)
+router.get('/getYearlySales',adminAuth.isLogin,adminController.getYearlySales)
+router.post('/salesWithDate',adminController.salesWithDate)
+
+router.get('/salesReport',adminAuth.isLogin,adminController.downloadSalesReport)
+
+
+
+
+router.get('/add-coupon',adminAuth.isLogin, couponController.addNewCouponGET);
+router.post('/add-coupon', couponController.addNewCouponPOST);
+router.get('/manage-coupons',adminAuth.isLogin, couponController.manageCoupon);
+router.get('/inactive-coupons',adminAuth.isLogin,couponController.inactiveCouponsGET);
+router.get('/edit-coupon',adminAuth.isLogin, couponController.editCouponGET);
+router.post('/update-coupon',couponController.updateCouponPOST)
+router.post('/change-coupon-status',couponController.changeCouponStatusPOST)
+
+router.get('/add-banner',bannerContoller.getBannerPageLoad)
+
+router.post("/add-banner",upload.single('bannerImage'),bannerContoller.bannerDetailsAdd);
+
+
+ 
 
 
 
 
 
-
-
-
+router.get("/bannerlistUnlist/:id", bannerContoller.listUnlistBanner);
    
 
 // router.get('*', function(req, res) {
