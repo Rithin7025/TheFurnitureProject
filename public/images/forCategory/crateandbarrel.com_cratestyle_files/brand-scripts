@@ -1,0 +1,946 @@
+Crate.Svgs.RegisterSvg('svg-icon-close');
+Crate.Svgs.RegisterSvg('svg-icon-arrow-cta');
+Crate.Svgs.RegisterSvg('svg-icon-chevron-left');
+Crate.Svgs.RegisterSvg('svg-icon-chevron-right');
+Crate.Svgs.RegisterSvg("svg-icon-video-play");
+Crate.Svgs.RegisterSvg("svg-icon-video-pause");
+Crate.Svgs.RegisterSvg("svg-icon-video-play-solid");
+Crate.Svgs.RegisterSvg("svg-icon-video-pause-solid");
+Crate.Svgs.RegisterSvg("svg-icon-video-replay-solid");
+Crate.Svgs.RegisterSvg("svg-icon-star-set-solid");
+Crate.Svgs.RegisterSvg("svg-icon-arrow-primary-left");
+Crate.Svgs.RegisterSvg("svg-icon-arrow-primary-right");
+
+/// Video ///
+if(document.querySelector(".video-element")) {
+    const videoElements = document.querySelectorAll(".video-element");
+  
+    const videoAutoplayObserverCallback= function(entries, observer) {
+        entries.forEach(entry => {
+          let videoControl = entry.target.closest('.video-element').querySelector('.videoControl');
+          
+            if(entry.isIntersecting) {
+              entry.target.play();
+              if(videoControl) {
+                  videoControl.innerHTML = `<svg class="svg-icon-video-pause-solid"><use xlink:href="#svg-icon-video-pause-solid"></use></svg>`;
+                  videoControl.ariaLabel = "pause";
+              }
+            } else {
+              entry.target.pause();
+              if(videoControl) {
+                  videoControl.innerHTML = `<svg class="svg-icon-video-play-solid"><use xlink:href="#svg-icon-video-play-solid"></use></svg>`;
+                  videoControl.ariaLabel = "play";
+              }
+            }
+        });
+    };
+    
+    const videoAutoplayObserver = new IntersectionObserver(videoAutoplayObserverCallback, {rootMargin: '0px',threshold: 0.5});
+  
+    videoElements.forEach((videoEl) => {
+      let video = videoEl.querySelector('video'),
+          videoControl = videoEl.querySelector(".videoControl");
+         
+      if(videoControl) {
+          videoControl.addEventListener("click", function () {
+            if (video.paused) {
+              videoControl.innerHTML = `<svg class="svg-icon-video-pause-solid"><use xlink:href="#svg-icon-video-pause-solid"></use></svg>`;
+              video.play();
+              videoControl.ariaLabel = "pause";
+              videoAutoplayObserver.observe(video);
+            } else {
+              video.pause();
+              videoControl.innerHTML = `<svg class="svg-icon-video-play-solid"><use xlink:href="#svg-icon-video-play-solid"></use></svg>`;
+              videoControl.ariaLabel = "play";
+              videoAutoplayObserver.unobserve(video);
+            }
+          });
+      } 
+      
+  
+      video.addEventListener("ended", function () {
+        videoControl.innerHTML = '<svg class="svg-icon-video-replay-solid"><use xlink:href="#svg-icon-video-replay-solid"></use></svg>';
+        videoControl.id = "play-replay";
+        videoControl.ariaLabel = "replay";
+      });
+  
+      videoAutoplayObserver.observe(video);
+    });
+  
+  }
+  
+  
+//// Triptych Slider - UGC ////
+if(document.querySelector('.triptych-slider__wrapper')) {
+  const triptychSliders = document.querySelectorAll('.triptych-slider__wrapper');
+
+  triptychSliders.forEach(tripSlider => {
+      let slider = tripSlider.querySelector('.triptych-slider'),
+      sliderTrack = slider.querySelector('.triptych-slider__track'),
+      sliderHeader = tripSlider.querySelector('.triptych-header'),
+      slides = sliderTrack.querySelectorAll('.triptych-slide'),
+      controls = sliderHeader.querySelector('.triptych-controls');
+  
+      const buildUGCSlider = () => {
+          const slideCount = sliderTrack.querySelectorAll('.triptych-slide').length;
+          let group = 1;
+          slides.forEach(function(slide,index){
+              if(index % 3 === 0 && index !== 0) {
+                  group++;
+              }
+  
+              slide.setAttribute('data-group', group);
+              slide.setAttribute('aria-label', `${index + 1} / ${slideCount}`);
+          });
+  
+          if(slideCount <= 3) {
+              sliderTrack.classList.add('static-track');
+              controls.style.display = "none";
+          }
+  
+          controlFunctionality(slideCount);
+      };
+  
+      const controlFunctionality = (slideCount) => {
+          let prevButton = sliderHeader.querySelector('.triptych-prev'),
+              nextButton = sliderHeader.querySelector('.triptych-next'),
+              slideDistance = 0,
+              groupCount = slideCount / 3,
+              groupCurrent = 1,
+              slides = sliderTrack.querySelectorAll('.triptych-slide');
+  
+          function setActiveSlides(slides) {
+              slides.forEach(function(slide){
+                  if(slide.querySelector('a')) {
+                      slide.querySelector('a').setAttribute('tabindex', '-1');
+                  }
+                  
+                  if(parseInt(slide.getAttribute('data-group')) === groupCurrent) {
+                      if(slide.querySelector('a')) {
+                          slide.querySelector('a').setAttribute('tabindex', '0');
+                      }
+                  }
+              });
+          }
+  
+          nextButton.addEventListener('click', function(){
+              let sliderTrack = slider.querySelector('.triptych-slider__track');
+              sliderTrack.setAttribute('data-direction', 'next');
+              groupCurrent++;
+              if(Math.ceil(groupCount) === groupCurrent) {
+                  this.classList.remove('active-toggle');
+                  switch(slideCount % 3) {
+                      case 1:
+                          slideDistance += 100;
+                          break;
+                      case 2:
+                          slideDistance += 200;
+                          break;
+                      default: 
+                          slideDistance += 300;
+                          break;
+                  }
+                  
+              } else {
+                  slideDistance += 300;
+              }
+  
+  
+              slides.forEach(function(slide){
+                  slide.style.transform = `translateX(-${slideDistance}%)`;
+              });
+              
+              prevButton.classList.add('active-toggle');
+              
+              
+              setActiveSlides(slides);
+          });
+  
+          prevButton.addEventListener('click', function(){
+              let sliderTrack = slider.querySelector('.triptych-slider__track');
+              sliderTrack.setAttribute('data-direction', 'prev');
+              if(groupCount < groupCurrent) {
+                  switch(slideCount % 3) {
+                      case 1:
+                          slideDistance -= 100;
+                          break;
+                      case 2:
+                          slideDistance -= 200;
+                          break;
+                      default: 
+                          slideDistance -= 0;
+                          break;
+                  }
+              } else {
+                  slideDistance -= 300;
+              }
+              groupCurrent--;
+              
+              if(groupCurrent === 1) {
+                  this.classList.remove('active-toggle');
+              } 
+              
+              slides.forEach(function(slide){
+                  slide.style.transform = `translateX(-${slideDistance}%)`;
+              });
+              nextButton.classList.add('active-toggle');
+              
+              setActiveSlides(slides);
+          });
+      };
+  
+      buildUGCSlider();
+  });
+}
+
+
+/////// Shoppable ///////
+if (document.querySelector(".shopTheRoomBtn")) {
+  let shopRoomDrawer = `
+    <div id="shopTheRoomDrawer" class="str-drawer">
+      <div class="str-drawer__header" tabindex="0">
+        <h2 class="cmsBlack crate-bold">get the look</h2>
+        <div class="str-drawer__header__controls">
+          <button class="str-drawer__header__close" aria-label="Close Drawer" tabindex="0">
+            <svg class="svg-icon-close" style="height: 36px; width: 36px;"><use xlink:href="#svg-icon-close"></use></svg>
+          </button>
+          <button class="str-drawer__header__control active" data-view-toggle="grid" aria-label="Toggle grid view" tabindex="0">
+            <svg class="svg-icon-layout-grid" role="presentation"><use xlink:href="#svg-icon-layout-grid"></use></svg>
+          </button>
+          <button class="str-drawer__header__control" data-view-toggle="column" aria-label="Toggle column view" tabindex="0">
+            <svg class="svg-icon-layout-column" role="presentation"><use xlink:href="#svg-icon-layout-column"></use></svg>
+          </button>
+        </div>
+      </div>
+      <div class="str-items grid">
+      </div>
+    </div>`,
+    shopItem = `<div class="str-item">
+      <a href="" class="str-item__link">
+        <img class="fullImg str-item__img" src="//cb.scene7.com/is/image/Crate/grayBackground?wid=354&qlt=50" alt="" width="354" height="354">
+        <p class="crate-bold str-item__name"></p>
+        <p class="crate-roman str-item__price"></p>
+      </a>
+    </div>`,
+    shopBagSVG = `<svg version="1.1" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
+          <title>Bag</title>
+          <g fill="none" fill-rule="evenodd">
+            <g transform="translate(-1363 -692)" fill="#000" stroke="#000">
+              <g transform="translate(1363.7 692.5)">
+                <path d="m4.7477 4.9604h7.0388v-0.57871c0-2.6207-1.818-3.555-3.5198-3.555-1.701 0-3.519 0.93421-3.519 3.555v0.57871zm-3.9291 14.88h14.896v-14.053h-3.1097v2.5629h-0.81856v-2.5629h-7.0388v2.5629h-0.81856v-2.5629h-3.1105v14.053zm15.715 0.82673h-16.533v-15.706h3.9291v-0.57871c0-2.6613 1.7026-4.3817 4.3376-4.3817 2.6358 0 4.3384 1.7204 4.3384 4.3817v0.57871h3.9283v15.706z"></path>
+              </g>
+            </g>
+          </g>
+        </svg>`,
+    shopButtonDesktop = `
+    <div class="circleIcon circleBegin">
+        <div class="shopButton-svg">
+          ${shopBagSVG}
+        </div>
+    </div>
+    <div class="circleIcon circleMiddle">
+       <p class="crate-bold">shop the room</p>
+    </div>
+    <div class="circleIcon circleEnd">
+       <div class="shopButton-svg">
+          ${shopBagSVG}
+        </div>
+    </div>`,
+    adaptiveWrap = document.querySelector(".adaptive-layout"),
+    responsiveWrap = document.querySelector(".responsive-layout"),
+    shopBtns = document.querySelectorAll(".shopTheRoomBtn"),
+    resultLength,
+    returnFocus,
+    curShopBtn;
+
+  //Add header to drawer based on layout
+  const addDrawerHeader = () => {
+    if (adaptiveWrap) {
+      adaptiveWrap.insertAdjacentHTML("beforeend", shopRoomDrawer);
+    } else {
+      responsiveWrap.insertAdjacentHTML("beforeend", shopRoomDrawer);
+    }
+  };
+  addDrawerHeader();
+
+  const buildShopBtns = () => {
+    shopBtns.forEach(function (button) {
+      if (adaptiveWrap) {
+        button.insertAdjacentHTML("afterbegin", `${shopButtonDesktop}`);
+      } else {
+        button.insertAdjacentHTML("afterbegin", `${shopBagSVG}`);
+      }
+    });
+  };
+  buildShopBtns();
+
+  //Add overlay to body
+  document.querySelector("body").insertAdjacentHTML("afterbegin", `<div class="str-overlay"></div>`);
+
+  let drawerControls = document.querySelectorAll(
+    ".str-drawer__header__control"
+  );
+  let shopItemWrap = document.querySelector(".str-items");
+
+  //toggle grid/column view
+  const toggleView = (control) => {
+    if (!control.classList.contains("active")) {
+      drawerControls.forEach((control) => control.classList.remove("active"));
+      control.classList.add("active");
+
+      if (shopItemWrap.classList.contains("grid")) {
+        shopItemWrap.classList.add("fadeOut");
+        setTimeout(() => shopItemWrap.classList.replace("grid", "column"), 200);
+        setTimeout(() => shopItemWrap.classList.remove("fadeOut"), 210);
+      } else {
+        shopItemWrap.classList.add("fadeOut");
+        setTimeout(() => shopItemWrap.classList.replace("column", "grid"), 200);
+        setTimeout(() => shopItemWrap.classList.remove("fadeOut"), 210);
+      }
+    }
+  };
+
+  drawerControls.forEach((control) => {
+    control.addEventListener("click", () => {
+      toggleView(control);
+    });
+    control.addEventListener("keydown", (e) => {
+      if (e.keyCode === 13) {
+        toggleView(control);
+      }
+    });
+  });
+
+  const waitForElement = function (selector) {
+    return new Promise(function (resolve, reject) {
+      let element = document.querySelector(selector);
+      if (element) {
+        resolve(element);
+        return;
+      }
+      let observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+          let nodes = Array.from(mutation.addedNodes);
+          for (let node of nodes) {
+            if (node.matches && node.matches(selector)) {
+              observer.disconnect();
+              resolve(node);
+              return;
+            }
+          }
+        });
+      });
+      observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true,
+      });
+    });
+  };
+
+  const openDrawer = (e) => {
+    //set returnFocus to shop button that triggered drawer
+    returnFocus = e.target.classList.contains("shopTheRoomBtn")
+      ? e.target
+      : e.target.closest(".shopTheRoomBtn");
+
+    getSkus();
+    setTimeout(function () {
+      document.querySelector(".str-drawer").classList.add("activated");
+      document.querySelector(".str-drawer__header").focus();
+      document.querySelector("body").classList.add("shopable-lockBody");
+    }, 100);
+
+    trapFocus(document.querySelector(".str-drawer"));
+  };
+
+  const closeDrawer = () => {
+    document.querySelector(".str-drawer").classList.remove("activated");
+
+    //focus back to element that triggered drawer
+    returnFocus.focus();
+    returnFocus = "";
+
+    document.querySelector("body").classList.remove("shopable-lockBody");
+
+    setTimeout(function () {
+      document.querySelector(".str-items").innerHTML = "";
+      drawerControls.forEach((control) => control.classList.remove("active"));
+      drawerControls[0].classList.add("active");
+      if (shopItemWrap.classList.contains("column")) {
+        shopItemWrap.classList.replace("column", "grid");
+      }
+    }, 750);
+  };
+
+  //keeps focus in drawer while active
+  const trapFocus = function (element) {
+    let focusableEls = element.querySelectorAll(
+      "a[href]:not([disabled]), button:not([disabled]), div:not([disabled]), svg:not([disabled])"
+    );
+    let firstFocusableEl = focusableEls[0];
+    let lastFocusableEl = focusableEls[focusableEls.length - 1];
+    const KEYCODE_TAB = 9;
+
+    element.addEventListener("keydown", function (e) {
+      let isTabPressed = e.key === "Tab" || e.keyCode === KEYCODE_TAB;
+
+      if (!isTabPressed) {
+        return;
+      }
+
+      if (e.shiftKey) {
+        /* shift + tab */ if (document.activeElement === firstFocusableEl) {
+          lastFocusableEl.focus();
+          e.preventDefault();
+        }
+      } /* tab */ else {
+        if (document.activeElement === lastFocusableEl) {
+          firstFocusableEl.focus();
+          e.preventDefault();
+        }
+      }
+    });
+  };
+
+  for (let shopBtn of shopBtns) {
+    shopBtn.addEventListener("click", function (event) {
+      curShopBtn = this;
+      if (document.querySelector(".str-drawer")) {
+        openDrawer(event);
+      } else {
+        addDrawer();
+      }
+    });
+  }
+
+  const addDrawer = () => {
+    addDrawerHeader();
+    waitForElement(".str-drawer").then(function () {
+      openDrawer(event);
+    });
+  };
+
+  waitForElement(".str-drawer").then(function () {
+    body.addEventListener("click", (e) => {
+        if(e.target === document.querySelector(".str-drawer__header__close .svg-icon-close") || e.target === document.querySelector(".str-overlay")) {
+          if (document.querySelector(".str-drawer").classList.contains("activated")) {
+            closeDrawer();
+          } else {
+            return;
+          }
+        }
+      });
+      
+    document.querySelector(".str-drawer__header__close").addEventListener("keyup", (event) => {
+        if (
+          document.querySelector(".str-drawer").classList.contains("activated")
+        ) {
+          if (event.keyCode === 13) {
+            closeDrawer();
+          }
+        } else {
+          return;
+        }
+      });
+  });
+
+  const runGrabber = (skuID) => {
+    Crate.Services.HttpService.post(
+      "/Browse/ProductDynamicComponent/GetProductNavigateDetailJson",
+      {
+        skus: skuID,
+      }
+    ).then(function (result) {
+      resultLength = result.length;
+      for (let i = 0; i < resultLength; i++) {
+        if (result[i] === null || result[i].NavigateUrl === null) {
+        } else {
+          waitForElement(".str-drawer").then(function () {
+            let shopItemWrap = document.querySelector(".str-items");
+            
+            let itemHTML = `<div class="str-item">
+                  <a href="${result[i].NavigateUrl}" class="str-item__link">
+                    <img class="fullImg str-item__img" src="//cb.scene7.com/is/image/Crate/${result[i].ImagePath}?wid=354&qlt=50&op_sharpen=1" alt="" width="354" height="354">
+                    <p class="crate-bold str-item__name">${result[i].Name}</p>
+                    <p class="crate-roman str-item__price">${result[i].FormattedPrice}</p>
+                  </a>
+                </div>`;
+                
+            shopItemWrap.insertAdjacentHTML('beforeend', itemHTML);
+          });
+        }
+      }
+    });
+  };
+
+  const getSkus = () => {
+    //get sku string and trim whitespace/trailing comma
+    let thisSkus = curShopBtn
+      .getAttribute("data-skus")
+      .replace(/(^\s*,)|(,\s*$)/g, "");
+    skuLength = thisSkus.split(",").length;
+
+    //set to single column if sku count is less than 4
+    if (skuLength <= 3) {
+      drawerControls.forEach((control) => control.classList.remove("active"));
+      drawerControls[1].classList.add("active");
+      shopItemWrap.classList.replace("grid", "column");
+    }
+
+
+    setTimeout(function () {
+      runGrabber(thisSkus);
+    }, 250);
+  };
+
+  if (adaptiveWrap) {
+    let shopBtnObserverOptions = {
+      rootMargin: "0px",
+      threshold: 0.5,
+    };
+
+    const shopBtnObserverCallback = function (entries, observer) {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("buttonOpened");
+        } else {
+          entry.target.classList.remove("buttonOpened");
+        }
+      });
+    };
+
+    let shopBtnObserver = new IntersectionObserver(
+      shopBtnObserverCallback,
+      shopBtnObserverOptions
+    );
+
+    document.querySelectorAll(".shopTheRoomBtn").forEach((i) => {
+      if (i) {
+        shopBtnObserver.observe(i);
+      }
+    });
+  }
+
+  Crate.Svgs.RegisterSvg("svg-icon-close");
+  Crate.Svgs.RegisterSvg("svg-icon-layout-grid");
+  Crate.Svgs.RegisterSvg("svg-icon-layout-column");
+}
+
+
+///// Nav: Auto-Carousel /////
+if(document.querySelector('.tabbed_beforeRenderAfter')) {
+    (function(){
+        const autoTabWraps = document.querySelectorAll('.tabbed_beforeRenderAfter');
+
+        autoTabWraps.forEach(tabWrap => { 
+            const tabNav = tabWrap.querySelector('.tabbed-nav__toggles--auto');
+            const copyBlocks = tabWrap.querySelectorAll('.tabbed-nav__auto--copy');
+            const tabNavItems = tabNav.querySelectorAll("button");
+            const tabs = tabWrap.querySelectorAll('.tabbed-nav__auto--content > div');
+            const activeBar = tabWrap.querySelector('.tabbed-nav__toggles--auto hr');
+            const cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+            let activeIndex = 0;
+            let interval;
+            let activeWidth = tabNavItems[activeIndex].offsetWidth / tabNav.offsetWidth * 100,
+                activeLeft = tabNavItems[activeIndex].offsetLeft / tabNav.offsetWidth * 100;
+                  
+            const updateDiptychCopyBlockWidth = () => {
+                copyBlocks.forEach(block => block.style.width = `${(tabNav.offsetWidth / (tabWrap.offsetWidth / 2)) * 100}%`)
+            }
+            const updateDiptychTogglePlacement = () => {
+                    let posLeft = ((copyBlocks[0].offsetLeft / (tabWrap.offsetWidth / 2)) * 100),
+                    posTop = ((copyBlocks[0].offsetTop - (tabNav.offsetHeight * 1.5)) / tabWrap.offsetHeight * 100);
+                tabNav.style.left = `${posLeft / 2}%`;
+                tabNav.style.top = `${posTop}%`;
+            }
+
+            if(tabWrap.classList.contains('beforeRenderAfter--diptych')) {
+                if(document.querySelector('.adaptive-layout')) {
+                    activeLeft = 0;
+                    updateDiptychCopyBlockWidth();
+                    updateDiptychTogglePlacement();
+                }
+
+                if(document.querySelector('.responsive-layout')) {
+                    let labels = tabWrap.querySelector('.tabbed-nav__toggles--auto');
+                    let copyCol = document.querySelector('.content-item__column .tabbed-nav__auto--copy');
+                    let labelPercentFromTop = (copyCol.offsetTop - (labels.offsetHeight * 1.5)) / tabWrap.offsetHeight * 100;
+
+                    labels.style.top = `${labelPercentFromTop}%`;
+                }
+            }
+
+            const changeActiveTab = () => {
+                for (let i = 0; i < tabNavItems.length; i++) {
+                    tabNavItems[i].classList.remove("tabbed-nav__auto--active");
+                    tabs[i].classList.add("tabbed-nav__auto--hide");
+                    tabs[i].classList.remove("tabbed-nav__auto--block");
+                    if(tabs[i].querySelector('a')){
+                        tabs[i].querySelectorAll('a').forEach(link => link.tabIndex = -1) 
+                    }
+                }
+
+                activeWidth = tabNavItems[activeIndex].offsetWidth / tabNav.offsetWidth * 100;
+
+                if(tabNavItems[activeIndex].offsetLeft !== 0) {
+                    activeLeft = tabNavItems[activeIndex].offsetLeft / tabNav.offsetWidth * 100;
+                } else {
+                    activeLeft = 0
+                }
+                    
+                activeBar.style.width = `${activeWidth}%`;
+                activeBar.style.left = `${activeLeft}%`;
+
+                tabNavItems[activeIndex].classList.add("tabbed-nav__auto--active");
+                tabs[activeIndex].classList.remove("tabbed-nav__auto--hide");
+                tabs[activeIndex].classList.add("tabbed-nav__auto--block");
+                if(tabs[activeIndex].querySelector('a')) {
+                    tabs[activeIndex].querySelectorAll('a').forEach(link => link.tabIndex = 0) 
+                }
+
+                activeIndex++;
+
+                if(activeIndex === tabNavItems.length) {
+                    activeIndex = 0;
+                }
+            }
+
+
+                  
+                  
+            const braAutoplayObserverCallback= function(entries, observer) {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                            
+                        let start;
+
+                        function changeActiveTabAuto() {
+                            if(!start) {
+                                start = Date.now();
+                                changeActiveTab();
+                            } else if(Date.now() - start > 5000){
+                                changeActiveTab();
+
+                                start = Date.now();
+                            }
+                            window['tabbedAnimation' + tabWrap.id] = requestAnimationFrame(changeActiveTabAuto);
+                        }
+                        changeActiveTabAuto()
+                    } else {
+                        cancelAnimationFrame(window['tabbedAnimation' + tabWrap.id]);
+                    }
+                });
+            };
+
+            const braAutoplayObserver = new IntersectionObserver(braAutoplayObserverCallback, {rootMargin: '0px',threshold: 0.5});
+
+                activeBar.style.width = `${activeWidth}%`;
+                activeBar.style.left = `${activeLeft}%`;
+
+                window.addEventListener('load', function(){
+                    activeBar.style.opacity = 1;
+                    setTimeout(function(){
+                      activeBar.style.transition = '1s ease-in-out';
+                    }, 500)
+                    if(!tabWrap.classList.contains('static-tabs')) {
+                        braAutoplayObserver.observe(tabWrap);
+                    }
+                })
+
+                window.addEventListener('resize', function(){
+                    if(tabWrap.classList.contains('beforeRenderAfter--diptych')) {
+                        if(document.querySelector('.adaptive-layout')) {
+                            updateDiptychCopyBlockWidth();
+                            updateDiptychTogglePlacement();
+                        }
+                    }
+                })
+
+                for(let i = 0; i < tabNavItems.length; i++) {
+                    tabNavItems[i].addEventListener('click', () => {
+                        if(!tabWrap.classList.contains('static-tabs')) {
+                            braAutoplayObserver.unobserve(tabWrap);
+                        }
+                      
+                        cancelAnimationFrame(window['tabbedAnimation' + tabWrap.id]);
+                        activeIndex = i;
+                        changeActiveTab()
+                    })
+                }
+            })
+        })();
+
+      }
+
+
+////// Featured Content Video //////
+if(document.querySelector('.fc-imageVideoHero')) {
+  const fcVideoControls = document.querySelectorAll(".fc-imageVideoHero .videoControl"),
+  fcVideos = document.querySelectorAll(".fc-imageVideoHero video");
+
+  fcVideoControls.forEach(videoControl => {
+      videoControl.addEventListener('click', function () {
+          let video = this.parentElement.querySelector("video");
+          
+          if (video.paused) {
+              this.innerHTML = `<svg class="svg-icon-video-pause-solid"><use xlink:href="#svg-icon-video-pause-solid"></use></svg>`;
+              this.ariaLabel = "pause";
+              video.play();
+          } else {
+              this.innerHTML = `<svg class="svg-icon-video-play-solid"><use xlink:href="#svg-icon-video-play-solid"></use></svg>`;
+              this.ariaLabel = "play";
+              video.pause();
+          }
+      });
+  });
+
+  const fcVideoObserverOptions = {
+      rootMargin: '0px',
+      threshold: 0.5
+  };
+
+  const fcVideoObserverCallback = function(entries, observer) {
+      entries.forEach(entry => {
+          let button = entry.target.closest('.fc-imageVideoHero').querySelector('.videoControl');
+          if(entry.isIntersecting) {
+              entry.target.play();
+              button.innerHTML = `<svg class="svg-icon-video-pause-solid"><use xlink:href="#svg-icon-video-pause-solid"></use></svg>`;
+              button.ariaLabel = "pause";
+          } else {
+              entry.target.pause();
+              button.innerHTML = `<svg class="svg-icon-video-play-solid"><use xlink:href="#svg-icon-video-play-solid"></use></svg>`;
+              button.ariaLabel = "play";
+          }
+      });
+  };
+  
+  const fcVideoObserver = new IntersectionObserver(fcVideoObserverCallback, fcVideoObserverOptions);
+
+  fcVideos.forEach(video => {
+      let button = video.closest('.fc-imageVideoHero').querySelector('.videoControl');
+      
+      video.onended = function () {
+          button.innerHTML = '<svg class="svg-icon-video-replay-solid"><use xlink:href="#svg-icon-video-replay-solid"></use></svg>';
+          button.ariaLabel = "replay";
+      };
+
+      if (video) {
+          fcVideoObserver.observe(video);
+      }
+  });
+
+}
+
+
+///// Kids/Baby Collection Toggle //////
+if(document.querySelector('.collection-toggle')) {
+  const collectionToggles = document.querySelectorAll('.collection-toggle');
+
+  collectionToggles.forEach((toggle) => {
+      let collections = toggle.querySelectorAll('.collection'),
+          controls = toggle.querySelectorAll('.collection__controls [data-toggle-collection]'),
+          rotateId;
+          
+      window.addEventListener("load", function () {
+          toggle.addEventListener('mouseenter', pauseRotating);
+          toggle.addEventListener('mouseleave', startRotating);
+          startRotating();
+      });
+
+      controls.forEach((control) => {
+          control.addEventListener('click', function(){
+              updateActiveControl(control.getAttribute('data-toggle-collection'));
+              toggleCollection(`${control.textContent.toLowerCase()}`);
+          });
+      });
+
+      function startRotating() {
+          rotateId = setInterval(rotate, 6000);
+      }
+  
+      function pauseRotating() {
+          clearInterval(rotateId);
+      }
+  
+      function rotate() {
+          update();
+      }
+  
+      function toggleCollection(audience) {
+          pauseRotating();
+          update(audience);
+      }
+
+      function updateActiveControl(audience) {
+          if(audience == "kids") {
+              toggle.querySelector('[data-toggle-collection=kids]').classList.add('active');
+              toggle.querySelector('[data-toggle-collection=baby]').classList.remove('active');
+          } else {
+              toggle.querySelector('[data-toggle-collection=kids]').classList.remove('active');
+              toggle.querySelector('[data-toggle-collection=baby]').classList.add('active');
+          }
+      }
+
+      function updateActiveCollection(audience) {
+          if(audience == "kids") {
+              toggle.querySelector('[data-collection=kids]').classList.add('active');
+              toggle.querySelector('[data-collection=baby]').classList.remove('active');
+          } else {
+              toggle.querySelector('[data-collection=kids]').classList.remove('active');
+              toggle.querySelector('[data-collection=baby]').classList.add('active');
+          }
+      }
+  
+      function update(audience) {
+         if(audience) {
+          updateActiveCollection(audience);
+         } else {
+             let newActive;
+             collections.forEach(collection => {
+                  if(collection.classList.contains('active')) {
+                      newActive = collection.getAttribute('data-collection') === "kids" ? "baby" : "kids";
+                  }
+             });
+             updateActiveControl(newActive);
+             updateActiveCollection(newActive);
+         }
+      }
+  });
+}
+
+
+//FAQS - Kids Buying Guides
+if(document.querySelector('.faq-accordion-item')) {
+    window.addEventListener("DOMContentLoaded",function(){
+        function accordionClick(e) {
+          let accordionItem = e.target.closest(".faq-accordion-item");
+          if (!accordionItem) return;
+          const svg = accordionItem.querySelector("svg");
+          let expanded = accordionItem.getAttribute('aria-expanded') === 'true' || false;
+          accordionItem.setAttribute('aria-expanded', !expanded);
+          svg.setAttribute('aria-expanded', !expanded);
+          let accordionPanel = accordionItem.querySelector('.accordion-panel');
+          accordionPanel.hidden = expanded;
+        }
+        document.addEventListener('click', accordionClick);
+    })
+}
+
+//// Center Mobile UGC slider ////
+if(document.querySelector('.responsive-layout') && document.querySelector('.brand__slider.center-start')) {
+    const centerMobileSliders = () => {
+        setTimeout(function(){
+            const centerSliders = document.querySelectorAll('.brand__slider.center-start');
+            centerSliders.forEach(slider => {
+                let elWidth = slider.querySelector('.brand__slider--item').offsetWidth;
+                let containerWidth = slider.scrollWidth;
+                slider.scrollLeft = (containerWidth / 2) - (elWidth / 1.5)
+            });
+        }, 500)
+    }
+    
+    window.addEventListener("DOMContentLoaded", () => {
+        centerMobileSliders();
+    });
+    
+    document.querySelector('.bt-switch').addEventListener('click', function(){
+        centerMobileSliders();
+    })
+}
+
+if(document.querySelector('#TopBnrHdrRviw')) {
+
+function customRewardsTxt() {
+
+  try {
+
+    var isCbccCardHolder = digitalData &&
+      digitalData.user[0] &&
+      digitalData.user[0].profile[0] &&
+      digitalData.user[0].profile[0].attributes &&
+      digitalData.user[0].profile[0].attributes.cbcc &&
+      digitalData.user[0].profile[0].attributes.cbcc.isCbccCardHolder;
+
+    var remainingRewardTotal = digitalData &&
+      digitalData.user[0] &&
+      digitalData.user[0].profile[0] &&
+      digitalData.user[0].profile[0].attributes &&
+      digitalData.user[0].profile[0].attributes.cbcc &&
+      digitalData.user[0].profile[0].attributes.cbcc.remainingRewardTotal;
+
+  } catch (err) {
+    console.log("CBCC custom rewards text failed");
+    console.log(err);
+  }
+
+  const hasHighPriorityRewards = digitalData.user[0].profile[0].attributes.cbcc.remainingRewardTotal;
+
+  var rewardsTxt = document.querySelector("#TopBnrHdrRviw");
+
+  if (hasHighPriorityRewards > 0) {
+
+    var expirationDate = digitalData &&
+      digitalData.user[0] &&
+      digitalData.user[0].profile[0] &&
+      digitalData.user[0].profile[0].attributes &&
+      digitalData.user[0].profile[0].attributes.cbcc &&
+      digitalData.user[0].profile[0].attributes.cbcc.closestExpiringReward.expirationDate;
+
+    const expirationInSeconds = (new Date(digitalData.user[0].profile[0].attributes.cbcc.closestExpiringReward.expirationDate).getTime());
+    console.log(expirationInSeconds);
+
+    let now = new Date().getTime();
+
+    var daysLeftToExpiry = expirationInSeconds - now;
+
+    const seconds = 1000; // milliseconds in 1 second
+    const minutes = seconds * 60;
+    const hours = minutes * 60;
+    const days = hours * 24;
+
+  }
+
+  setTimeout(function () {
+
+    for (const [i, value] of isCbccCardHolder) {
+
+      if (isCbccCardHolder == 'Y') {
+
+        const hasRewards = digitalData.user[0].profile[0].attributes.cbcc.remainingRewardTotal;
+
+        if (hasHighPriorityRewards > 0 && daysLeftToExpiry <= 1818000000) {
+
+          rewardsTxt.innerHTML = `<a href="/account/rewards/"><strong>Hurry! You have $${remainingRewardTotal} in reward certificate(s)<sup>*</sup> expiring soon</strong> View Rewards <svg class="svg-icon-arrow-cta" aria-hidden="true" focusable="false"><use xlink:href="#svg-icon-arrow-cta"></use></svg></a>`;
+
+          //console.log(daysLeftToExpiry);
+
+        } else if (hasRewards > 0) {
+
+          rewardsTxt.innerHTML = `<a href="/account/rewards/"><strong>Don&rsquo;t Forget: You&rsquo;ve earned $${remainingRewardTotal} in reward certificate(s)<sup>*</sup>.</strong> Learn how <svg class="svg-icon-arrow-cta" aria-hidden="true" focusable="false"><use xlink:href="#svg-icon-arrow-cta"></use></svg></a>`;
+
+        } else if (hasRewards === 0) {
+
+          const nameReference = document.querySelector('[data-testid="anchor-link"].account-link').innerText;
+
+          rewardsTxt.innerHTML = `<a href="/rewards"><strong> ${nameReference.split(", ").pop()}, you could earn 10% back in Reward Dollars<sup>*</sup></strong> Learn how <svg class="svg-icon-arrow-cta" aria-hidden="true" focusable="false"><use xlink:href="#svg-icon-arrow-cta"></use></svg></a>`;
+
+        }
+
+
+      } else if (isCbccCardHolder == 'N') {
+
+        rewardsTxt.innerHTML = ` <a href="/rewards"><strong>Earn 10% back in Reward Dollars<sup>*</sup></strong> Learn How <svg class="svg-icon-arrow-cta" aria-hidden="true" focusable="false"><use xlink:href="#svg-icon-arrow-cta"></use></svg></a>`;
+
+      }
+
+    }
+
+  }, 3000);
+
+}
+
+setTimeout(function () {
+  customRewardsTxt();
+}, 1500);
+
+}
