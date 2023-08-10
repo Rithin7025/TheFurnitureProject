@@ -1,50 +1,49 @@
-const User = require("../models/userModel");
-const randomstring = require("randomstring");
-const handlebars = require("handlebars");
-const bcrypt = require("bcrypt");
-const nodemailer = require("nodemailer");
-const SMTPConnection = require("nodemailer/lib/smtp-connection");
-const Category = require("../models/categoryModel");
-const Product = require("../models/productModel");
-require("dotenv").config;
-const dbUsername = process.env.DB_USERNAME;
-const dbPassword = process.env.DB_PASSWORD;
-const secretKey = process.env.SECRET_KEY;
-const { RAZORPAY_ID_KEY, RAZORPAY_SECRET_KEY } = process.env;
-const Address = require("../models/addressModel");
-const Cart = require("../models/cartModel");
-const mongoose = require("mongoose");
-const productHelper = require("../helpers/productHelper");
-const userHelpers = require("../helpers/userHelpers");
-const Order = require("../models/orderModel");
-const Razorpay = require("razorpay");
-const moment = require("moment-timezone");
-const { ObjectId } = require("mongodb");
-const couponHelpersHelper = require('../helpers/couponHelpers-Helper');
-
+const User = require("../models/userModel")
+const randomstring = require("randomstring")
+const handlebars = require("handlebars")
+const bcrypt = require("bcrypt")
+const nodemailer = require("nodemailer")
+const SMTPConnection = require("nodemailer/lib/smtp-connection")
+const Category = require("../models/categoryModel")
+const Product = require("../models/productModel")
+require("dotenv").config
+const dbUsername = process.env.DB_USERNAME
+const dbPassword = process.env.DB_PASSWORD
+const secretKey = process.env.SECRET_KEY
+const { RAZORPAY_ID_KEY, RAZORPAY_SECRET_KEY } = process.env
+const Address = require("../models/addressModel")
+const Cart = require("../models/cartModel")
+const mongoose = require("mongoose")
+const productHelper = require("../helpers/productHelper")
+const userHelpers = require("../helpers/userHelpers")
+const Order = require("../models/orderModel")
+const Razorpay = require("razorpay")
+const moment = require("moment-timezone")
+const { ObjectId } = require("mongodb")
+const couponHelpersHelper = require("../helpers/couponHelpers-Helper")
 
 const addAdress = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const formDetails = req.body;
+    const userId = req.params.id
+    const formDetails = req.body
     let address = await Address.create({
       user_id: userId,
       name: formDetails.name,
       streetAddress: formDetails.streetAddress,
       pincode: formDetails.pincode,
       phone: formDetails.phone,
-    });
+    })
 
-    res.redirect(`/userAccount`);
+    res.redirect(`/userAccount`)
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message)
   }
-};
+}
 
 const makeDefaultAddress = async (req, res) => {
   try {
-    const userId = req.session.user_id;
-    const addressId = req.params.Id;
+    const userId = req.session.user_id
+    const addressId = req.params.Id
 
     const NewAdress = await Address.updateMany(
       { user_id: userId },
@@ -53,24 +52,22 @@ const makeDefaultAddress = async (req, res) => {
       return Address.updateOne(
         { user_id: userId, _id: addressId },
         { $set: { isShippingAddress: true } }
-      ).catch((error) => console.log("error updating documents : ", error));
-    });
+      ).catch((error) => console.log("error updating documents : ", error))
+    })
 
-    res.redirect("/userAccount");
+    res.redirect("/userAccount")
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message)
   }
-};
-
+}
 
 //fetch the address from the address collection and load form with the address
 const useAddressCheckout = async (req, res) => {
   try {
-    const userId = req.session.user_id;
-    const addressId = req.params.Id;
-    const isUserLoggedIn = req.session.user_id !== undefined;
-    const address = await Address.find({ _id: addressId });
-
+    const userId = req.session.user_id
+    const addressId = req.params.Id
+    const isUserLoggedIn = req.session.user_id !== undefined
+    const address = await Address.find({ _id: addressId })
 
     // const cart = await Cart.findOne({ user_id: userId });
 
@@ -81,7 +78,6 @@ const useAddressCheckout = async (req, res) => {
     // }
 
     // const productIds = cart.products.map((product) => product.productId);
-
 
     // const products = await Product.find({ _id: { $in: productIds } }).lean();
 
@@ -101,199 +97,185 @@ const useAddressCheckout = async (req, res) => {
     //   return total + product.total;
     // }, 0);
 
-
     // console.log("aaaaadressssssssssssss", address);
 
     // res.render("users/checkout", {
     //   address,
     //   user: true,
     //   isUserLoggedIn,
-      
+
     // });
     /*================================================================================================================================================================================ */
 
-     const cart = await Cart.findOne({ user_id: userId })
-       .populate({
-         path: "products.productId",
-         populate: { path: "category", select: "categoryOffer" },
-       })
-       .lean()
-       .exec();
+    const cart = await Cart.findOne({ user_id: userId })
+      .populate({
+        path: "products.productId",
+        populate: { path: "category", select: "categoryOffer" },
+      })
+      .lean()
+      .exec()
 
-     if (cart) {
-       const products = cart.products.map((product) => {
-         //finding the total of all products
-         const total =
-           Number(product.quantity) * Number(product.productId.price);
+    if (cart) {
+      const products = cart.products.map((product) => {
+        //finding the total of all products
+        const total = Number(product.quantity) * Number(product.productId.price)
 
-         //calculating the offer for product and category
+        //calculating the offer for product and category
 
-         const categoryOfferPercentage =
-           product.productId.category.categoryOffer;
-         const productOfferPercentage = product.productId.productOffer;
+        const categoryOfferPercentage = product.productId.category.categoryOffer
+        const productOfferPercentage = product.productId.productOffer
 
-         const categoryDiscountAmount = (total * categoryOfferPercentage) / 100;
+        const categoryDiscountAmount = (total * categoryOfferPercentage) / 100
 
-         const productDiscountAmount = (total * productOfferPercentage) / 100;
-         
+        const productDiscountAmount = (total * productOfferPercentage) / 100
+
         console.log(
           "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-        );
+        )
 
-        console.log("total =", total);
-        console.log("categoryOfferPercentage=", categoryOfferPercentage);
-        console.log("productOfferPercentage", productOfferPercentage);
-        console.log("categoryDiscountAmount", categoryDiscountAmount);
-        console.log("productDiscountAmount", productDiscountAmount);
+        console.log("total =", total)
+        console.log("categoryOfferPercentage=", categoryOfferPercentage)
+        console.log("productOfferPercentage", productOfferPercentage)
+        console.log("categoryDiscountAmount", categoryDiscountAmount)
+        console.log("productDiscountAmount", productDiscountAmount)
 
         const finalAmount =
-          total - productDiscountAmount - categoryDiscountAmount;
-        console.log("finalAmount===", finalAmount);
+          total - productDiscountAmount - categoryDiscountAmount
+        console.log("finalAmount===", finalAmount)
 
         console.log(
           "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
-        );
+        )
 
+        return {
+          _id: product.productId._id.toString(),
+          name: product.productId.name,
+          categoryOffer: product.productId.category.categoryOffer, // Access the category field directly
+          image: product.productId.image,
+          price: product.productId.price,
+          description: product.productId.description,
+          finalAmount: finalAmount,
+          discountAmount: categoryDiscountAmount + productDiscountAmount,
+          productOffer: product.productId.productOffer,
+          quantity: product.quantity,
+          total: total,
+          user_id: req.session.user_id,
+          totalDiscountPercentage:
+            productOfferPercentage + categoryOfferPercentage,
+        }
+      })
 
-         return {
-           _id: product.productId._id.toString(),
-           name: product.productId.name,
-           categoryOffer: product.productId.category.categoryOffer, // Access the category field directly
-           image: product.productId.image,
-           price: product.productId.price,
-           description: product.productId.description,
-           finalAmount: finalAmount,
-           discountAmount: categoryDiscountAmount + productDiscountAmount,
-           productOffer: product.productId.productOffer,
-           quantity: product.quantity,
-           total: total,
-           user_id: req.session.user_id,
-           totalDiscountPercentage:
-             productOfferPercentage + categoryOfferPercentage,
-         };
-       });
+      console.log("----------------------------------------------------------")
 
-       console.log(
-         "----------------------------------------------------------"
-       );
+      console.log("here is the product detail", products)
 
-       console.log("here is the product detail", products);
+      console.log("----------------------------------------------------------")
 
-       console.log(
-         "----------------------------------------------------------"
-       );
+      //total value of all products in the cart
 
-       //total value of all products in the cart
+      const total = products.reduce(
+        (sum, product) => sum + Number(product.total),
+        0
+      )
 
-       const total = products.reduce(
-         (sum, product) => sum + Number(product.total),
-         0
-       );
+      //calculating total product offer discount amount
 
-       //calculating total product offer discount amount
+      let totalProductDiscountAmount = 0
 
-       let totalProductDiscountAmount = 0;
+      const productDiscounts = cart.products.forEach((item) => {
+        const quantity = item.quantity
+        const price = item.productId.price
+        const productOffer = item.productId.productOffer
 
-       const productDiscounts = cart.products.forEach((item) => {
-         const quantity = item.quantity;
-         const price = item.productId.price;
-         const productOffer = item.productId.productOffer;
+        const discountAmount = (quantity * price * productOffer) / 100
+        totalProductDiscountAmount += discountAmount
+      })
 
-         const discountAmount = (quantity * price * productOffer) / 100;
-         totalProductDiscountAmount += discountAmount;
-       });
+      //calculating total discount for category
 
-       //calculating total discount for category
+      let totalCategoryDiscountAmount = 0
 
-       let totalCategoryDiscountAmount = 0;
+      const categoryDiscounts = cart.products.forEach((item) => {
+        const actualProductAmount = item.productId.price * item.quantity
+        const categoryOffer = item.productId.category.categoryOffer
 
-       const categoryDiscounts = cart.products.forEach((item) => {
-         const actualProductAmount = item.productId.price * item.quantity;
-         const categoryOffer = item.productId.category.categoryOffer;
+        const categoryDiscountAmount =
+          (actualProductAmount * categoryOffer) / 100
+        totalCategoryDiscountAmount += categoryDiscountAmount
+      })
 
-         const categoryDiscountAmount =
-           (actualProductAmount * categoryOffer) / 100;
-         totalCategoryDiscountAmount += categoryDiscountAmount;
-       });
+      console.log("-------------------------------------------------------")
 
-       console.log("-------------------------------------------------------");
+      console.log(totalCategoryDiscountAmount)
+      console.log(totalProductDiscountAmount)
 
-       console.log(totalCategoryDiscountAmount);
-       console.log(totalProductDiscountAmount);
+      console.log("-------------------------------------------------------")
 
-       console.log("-------------------------------------------------------");
+      //coupon request configuaration
 
-       //coupon request configuaration
+      let couponError = false
+      let couponApplied = false
 
-       let couponError = false;
-       let couponApplied = false;
+      if (req.session.couponInvalidError) {
+        couponError = req.session.couponInvalidError
+      } else if (req.session.couponApplied) {
+        couponApplied = req.session.couponApplied
+      }
 
-       if (req.session.couponInvalidError) {
-         couponError = req.session.couponInvalidError;
-       } else if (req.session.couponApplied) {
-         couponApplied = req.session.couponApplied;
-       }
+      // Existing Coupon Status Validation & Discount amount calculation using couponHelper
+      let couponDiscount = 0
 
-       // Existing Coupon Status Validation & Discount amount calculation using couponHelper
-       let couponDiscount = 0;
+      console.log("until here its all fine------------------------------->>>>")
 
-       console.log(
-         "until here its all fine------------------------------->>>>"
-       );
+      const eligibleCoupon =
+        await couponHelpersHelper.checkCurrentCouponValidityStatus(
+          userId,
+          total
+        )
 
-       const eligibleCoupon =
-         await couponHelpersHelper.checkCurrentCouponValidityStatus(
-           userId,
-           total
-         );
+      if (eligibleCoupon.status) {
+        couponDiscount = eligibleCoupon.couponDiscount
+      } else {
+        couponDiscount = 0
+      }
 
-       if (eligibleCoupon.status) {
-         couponDiscount = eligibleCoupon.couponDiscount;
-       } else {
-         couponDiscount = 0;
-       }
+      //total amount by reducing offer price
 
-       //total amount by reducing offer price
+      let TotalAmount =
+        total -
+        couponDiscount -
+        totalProductDiscountAmount -
+        totalCategoryDiscountAmount
 
-       let TotalAmount =
-         total -
-         couponDiscount -
-         totalProductDiscountAmount -
-         totalCategoryDiscountAmount;
+      // To display the wallet amount blance in checkout page
 
-       // To display the wallet amount blance in checkout page
+      //   const walletDetails = await Wallet.findOne({ userId: userId }).lean();
 
-       //   const walletDetails = await Wallet.findOne({ userId: userId }).lean();
+      res.render("users/checkout", {
+        isUserLoggedIn,
+        address: address,
+        products,
+        total,
+        couponApplied,
+        couponError,
+        couponDiscount,
+        TotalAmount: TotalAmount,
+        //walletDetails,
+        user: true,
+      })
+      delete req.session.couponApplied
 
-       res.render("users/checkout", {
-         isUserLoggedIn,
-         address: address,
-         products,
-         total,
-         couponApplied,
-         couponError,
-         couponDiscount,
-         TotalAmount: TotalAmount,
-         //walletDetails,
-         user:true  
-
-       });
-       delete req.session.couponApplied;
-
-       delete req.session.couponInvalidError;
-     } else {
-       res.redirect("/cartpageLoad");
-     }
-    
-
+      delete req.session.couponInvalidError
+    } else {
+      res.redirect("/cartpageLoad")
+    }
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message)
   }
-};
-
+}
 
 module.exports = {
   addAdress,
   makeDefaultAddress,
   useAddressCheckout,
-};
+}

@@ -7,9 +7,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
+    <title>Homescape - Bootstrap eCommerce Template</title>
     <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="description" content="Homescape - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
@@ -18,8 +18,8 @@
     <link rel="manifest" href="/images/icons/site.html">
     <link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#666666">
     <link rel="shortcut icon" href="/images/icons/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
+    <meta name="apple-mobile-web-app-title" content="Homescape">
+    <meta name="application-name" content="Homescape">
     <meta name="msapplication-TileColor" content="#cc9966">
     <meta name="msapplication-config" content="/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
@@ -45,7 +45,7 @@
                         <li class="breadcrumb-item active" aria-current="page">Default</li>
                     </ol>
 
-                    <nav class="product-pager ml-auto" aria-label="Product">
+                    {{!-- <nav class="product-pager ml-auto" aria-label="Product">
                         <a class="product-pager-link product-pager-prev" href="#" aria-label="Previous" tabindex="-1">
                             <i class="icon-angle-left"></i>
                             <span>Prev</span>
@@ -55,7 +55,7 @@
                             <span>Next</span>
                             <i class="icon-angle-right"></i>
                         </a>
-                    </nav><!-- End .pager-nav -->
+                    </nav><!-- End .pager-nav --> --}}
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
@@ -67,6 +67,11 @@
                                 <div class="product-gallery product-gallery-vertical">
                                     <div class="row">
                                         <figure class="product-main-image">
+                                            {{#if (gt product.productOffer 0)}}
+                                            <span class="product-label label-sale">{{product.productOffer}}% OFF</span>
+                                            {{/if}}
+
+                                            
                                             <img id="product-zoom" src="{{product.image.[0]}}" data-zoom-image="{{product.image.[0]}}" alt="product image">
 
                                             <a href="#" id="btn-product-gallery" class="btn-product-gallery">
@@ -106,38 +111,42 @@
                                         </div><!-- End .ratings -->
                                         <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
                                     </div><!-- End .rating-container -->
+ 
+
+
+
 
                                     <div class="product-price">
-                                       ₹ {{product.price}}
+                                        {{#if (gt product.productOffer 0)}}
+                                        <span class="new-price"> ₹&nbsp{{ product.discountedPrice}}</span><br>
+                                        <span class="old-price"><s>{{product.price}}</s></span>
+                                        {{else}}
+                                        <span class="new-price"> ₹&nbsp{{product.price}}</span><br>
+                                        {{/if}}
+
+
+                                       {{!-- ₹ {{product.price}} --}}
                                     </div><!-- End .product-price -->
 
-                                    <div class="product-content">
-                                   {{product.description}}                                   
-                                    </div><!-- End .product-content -->
+
+
+                                   
 
                                     
 
 
-                                    <div class="details-filter-row details-row-size">
-                                        <label for="qty">Qty:</label>
-                                        <div class="product-details-quantity">
-                                            <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                                        </div><!-- End .product-details-quantity -->
-                                    </div><!-- End .details-filter-row -->
+                                    
 
                                     <div class="product-details-action">
-                                        <a href="/addToCart/{{this._id}}" class="btn-product btn-cart"><span>add to cart</span></a>
-
-                                        <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
-                                        </div><!-- End .details-action-wrapper -->
-                                    </div><!-- End .product-details-action -->
+                                        <a href="#" class="btn-product btn-cart" onclick="addToCart('{{product._id}}', event);">
+                                            <span>add to cart</span>
+                                        </a>
+                                    </div>
 
                                     <div class="product-details-footer">
                                         <div class="product-cat">
-                                            <span>Category:</span>
-                                            <a href="#">{{product.category}}</a>,
+                                            <span>product Description:</span>
+                                            <a href="#">{{product.description}}</a>,
                                             
                                         </div><!-- End .product-cat -->
 
@@ -159,112 +168,37 @@
                             <li class="nav-item">
                                 <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="product-info-link" data-toggle="tab" href="#product-info-tab" role="tab" aria-controls="product-info-tab" aria-selected="false">Additional information</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="product-shipping-link" data-toggle="tab" href="#product-shipping-tab" role="tab" aria-controls="product-shipping-tab" aria-selected="false">Shipping & Returns</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews (2)</a>
-                            </li>
+                            
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
                                 <div class="product-desc-content">
-                                    <h3>Product Information</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. </p>
+                                    <h3>Homescape Furniture</h3>
+                                    <p>At Homescape, we curate and craft exquisite furniture pieces that transform your living spaces into captivating havens
+                                    of style and relaxation. Our passion for design and dedication to quality shine through in every meticulously selected
+                                    item, promising you an unparalleled shopping experience.
+                                    
+                                    Discover a world of timeless sophistication as you browse through our diverse collection of furniture masterpieces. From
+                                    luxurious sofas that embrace you in plush comfort to elegant dining sets that bring loved ones together, each piece is a
+                                    testament to our commitment to creating furniture that resonates with your unique tastes and lifestyle.
+                                    
+                                    Craftsmanship is at the heart of everything we do. Our skilled artisans blend traditional techniques with modern
+                                    innovation to produce furniture that not only adds charm to your home but also stands the test of time. Carefully chosen
+                                    materials and attention to detail ensure that every item embodies the essence of durability and grace</p>
+                                    <br>
+                                    <br>
                                     <ul>
-                                        <li>Nunc nec porttitor turpis. In eu risus enim. In vitae mollis elit. </li>
-                                        <li>Vivamus finibus vel mauris ut vehicula.</li>
-                                        <li>Nullam a magna porttitor, dictum risus nec, faucibus sapien.</li>
+                                        <li>Exquisite Curation: Our website showcases a meticulously curated collection of furniture that embodies elegance and
+                                        quality</li>
+                                    <br>
+                                        <li>Craftsmanship Spotlight: At Homescape, we take pride in the artistry behind our furniture</li>
+                                        <br>
+                                        <li>Enhanced Shopping Experience: Navigating our website is an intuitive and enjoyable experience</li>
                                     </ul>
 
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. </p>
                                 </div><!-- End .product-desc-content -->
                             </div><!-- .End .tab-pane -->
-                            <div class="tab-pane fade" id="product-info-tab" role="tabpanel" aria-labelledby="product-info-link">
-                                <div class="product-desc-content">
-                                    <h3>Information</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. </p>
-
-                                    <h3>Fabric & care</h3>
-                                    <ul>
-                                        <li>Faux suede fabric</li>
-                                        <li>Gold tone metal hoop handles.</li>
-                                        <li>RI branding</li>
-                                        <li>Snake print trim interior </li>
-                                        <li>Adjustable cross body strap</li>
-                                        <li> Height: 31cm; Width: 32cm; Depth: 12cm; Handle Drop: 61cm</li>
-                                    </ul>
-
-                                    <h3>Size</h3>
-                                    <p>one size</p>
-                                </div><!-- End .product-desc-content -->
-                            </div><!-- .End .tab-pane -->
-                            <div class="tab-pane fade" id="product-shipping-tab" role="tabpanel" aria-labelledby="product-shipping-link">
-                                <div class="product-desc-content">
-                                    <h3>Delivery & returns</h3>
-                                    <p>We deliver to over 100 countries around the world. For full details of the delivery options we offer, please view our <a href="#">Delivery information</a><br>
-                                    We hope you’ll love every purchase, but if you ever need to return an item you can do so within a month of receipt. For full details of how to make a return, please view our <a href="#">Returns information</a></p>
-                                </div><!-- End .product-desc-content -->
-                            </div><!-- .End .tab-pane -->
-                            <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
-                                <div class="reviews">
-                                    <h3>Reviews (2)</h3>
-                                    <div class="review">
-                                        <div class="row no-gutters">
-                                            <div class="col-auto">
-                                                <h4><a href="#">Samanta J.</a></h4>
-                                                <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
-                                                </div><!-- End .rating-container -->
-                                                <span class="review-date">6 days ago</span>
-                                            </div><!-- End .col -->
-                                            <div class="col">
-                                                <h4>Good, perfect size</h4>
-
-                                                <div class="review-content">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus cum dolores assumenda asperiores facilis porro reprehenderit animi culpa atque blanditiis commodi perspiciatis doloremque, possimus, explicabo, autem fugit beatae quae voluptas!</p>
-                                                </div><!-- End .review-content -->
-
-                                                <div class="review-action">
-                                                    <a href="#"><i class="icon-thumbs-up"></i>Helpful (2)</a>
-                                                    <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
-                                                </div><!-- End .review-action -->
-                                            </div><!-- End .col-auto -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .review -->
-
-                                    <div class="review">
-                                        <div class="row no-gutters">
-                                            <div class="col-auto">
-                                                <h4><a href="#">John Doe</a></h4>
-                                                <div class="ratings-container">
-                                                    <div class="ratings">
-                                                        <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
-                                                    </div><!-- End .ratings -->
-                                                </div><!-- End .rating-container -->
-                                                <span class="review-date">5 days ago</span>
-                                            </div><!-- End .col -->
-                                            <div class="col">
-                                                <h4>Very good</h4>
-
-                                                <div class="review-content">
-                                                    <p>Sed, molestias, tempore? Ex dolor esse iure hic veniam laborum blanditiis laudantium iste amet. Cum non voluptate eos enim, ab cumque nam, modi, quas iure illum repellendus, blanditiis perspiciatis beatae!</p>
-                                                </div><!-- End .review-content -->
-
-                                                <div class="review-action">
-                                                    <a href="#"><i class="icon-thumbs-up"></i>Helpful (0)</a>
-                                                    <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
-                                                </div><!-- End .review-action -->
-                                            </div><!-- End .col-auto -->
-                                        </div><!-- End .row -->
-                                    </div><!-- End .review -->
-                                </div><!-- End .reviews -->
-                            </div><!-- .End .tab-pane -->
+                            
                         </div><!-- End .tab-content -->
                     </div><!-- End .product-details-tab -->
 
@@ -279,8 +213,8 @@
 	            	<div class="row">
 	            		<div class="col-sm-6 col-lg-3">
 	            			<div class="widget widget-about">
-	            				<img src="/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
-	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+	            				<img src="/images/homescape-logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+	            				<p></p>
 
 	            				<div class="social-icons">
 	            					<a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
@@ -297,8 +231,8 @@
 	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
 	            				<ul class="widget-list">
-	            					<li><a href="about.html">About Molla</a></li>
-	            					<li><a href="#">How to shop on Molla</a></li>
+	            					<li><a href="about.html">About Homescape</a></li>
+	            					<li><a href="#">How to shop on Homescape</a></li>
 	            					<li><a href="#">FAQ</a></li>
 	            					<li><a href="contact.html">Contact us</a></li>
 	            					<li><a href="login.html">Log in</a></li>
@@ -340,7 +274,7 @@
 
 	        <div class="footer-bottom">
 	        	<div class="container">
-	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+	        		<p class="footer-copyright">Copyright © 2019 Homescape Store. All Rights Reserved.</p><!-- End .footer-copyright -->
 	        		<figure class="footer-payments">
 	        			<img src="/images/payments.png" alt="Payment methods" width="272" height="20">
 	        		</figure><!-- End .footer-payments -->
@@ -351,34 +285,7 @@
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
     <!-- Sticky Bar -->
-    <div class="sticky-bar">
-        <div class="container">
-            <div class="row">
-                <div class="col-6">
-                    <figure class="product-media">
-                        <a href="product.html">
-                            <img src="{{product.image.[0]}}" alt="Product image">
-                        </a>
-                    </figure><!-- End .product-media -->
-                    <h4 class="product-title"><a href="product.html">{{product.name}}</a></h4><!-- End .product-title -->
-                </div><!-- End .col-6 -->
-
-                <div class="col-6 justify-content-end">
-                    <div class="product-price">
-                        {{product.price}}
-                    </div><!-- End .product-price -->
-                    <div class="product-details-quantity">
-                        <input type="number" id="sticky-cart-qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
-                    </div><!-- End .product-details-quantity -->
-
-                    <div class="product-details-action">
-                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                        <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                    </div><!-- End .product-details-action -->
-                </div><!-- End .col-6 -->
-            </div><!-- End .row -->
-        </div><!-- End .container -->
-    </div><!-- End .sticky-bar -->
+    
 
     <!-- Mobile Menu -->
     <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
@@ -677,8 +584,58 @@
     <script src="/js/jquery.elevateZoom.min.js"></script>
     <script src="/js/bootstrap-input-spinner.js"></script>
     <script src="/js/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Main JS File -->
     <script src="/js/main.js"></script>
+    <script>
+        function addToCart(productId, event) {
+            event.preventDefault();
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/addToCart', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.response);
+                        if (response.status === true) {
+                            // Success response, product added to cart
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'Product added to cart!',
+                                icon: 'success',
+                                confirmButtonColor: '#ffbf00',
+                                confirmButtonText: 'OK',
+                                customClass: {
+                                    container: 'swal-container',
+                                    title: 'swal-title',
+                                    content: 'swal-text',
+                                    confirmButton: 'swal-button',
+                                },
+                                onOpen: () => {
+                                    const swalContainer = document.querySelector('.swal-container');
+                                    swalContainer.style.color = 'white';
+
+                                    const okButton = document.querySelector('.swal-button');
+                                    okButton.style.border = 'none';
+                                },
+                            });
+                        } else {
+                            // Cart out of stock
+                            Swal.fire('Sorry', response.message, 'error');
+                        }
+                    } else {
+                        Swal.fire('Sorry', 'Stock limit reached', 'error');
+                    }
+                }
+            };
+
+            xhr.send(JSON.stringify({ productId: productId }));
+        }
+    </script>
+
 </body>
 
 

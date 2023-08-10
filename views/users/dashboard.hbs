@@ -3,13 +3,14 @@
 
 
 <!-- molla/dashboard.html  22 Nov 2019 10:03:13 GMT -->
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
+    <title>Homescape - Bootstrap eCommerce Template</title>
     <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="description" content="Homescape - Bootstrap eCommerce Template">
     <meta name="author" content="p-themes">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
@@ -18,8 +19,8 @@
     <link rel="manifest" href="/images/icons/site.html">
     <link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#666666">
     <link rel="shortcut icon" href="/images/icons/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
+    <meta name="apple-mobile-web-app-title" content="Homescape">
+    <meta name="application-name" content="Homescape">
     <meta name="msapplication-TileColor" content="#cc9966">
     <meta name="msapplication-config" content="/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
@@ -28,514 +29,558 @@
     <!-- Main CSS File -->
     <link rel="stylesheet" href="/css/style.css">
     <style>
-    .card-body:hover{
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.6) !important;
-    }
-    .account-details {
-      margin-bottom: 20px;
-    }
+        .card-body:hover {
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6) !important;
+        }
 
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
+        .account-details {
+            margin-bottom: 20px;
+        }
 
-    table td {
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-    }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-    #edit-button {
-      display: inline-block;
-      padding: 8px 16px;
-      background-color: #337ab7;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
 
-    #edit-button:hover {
-      background-color: #23527c;
-    }
+        #edit-button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #337ab7;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-    .form-group {
-      width: 80%;
-      margin: 1rem auto;
-    }
+        #edit-button:hover {
+            background-color: #23527c;
+        }
 
-    .btn btn-primary {
-      margin-left: 1rem;
-    }
-</style>
+        .form-group {
+            width: 80%;
+            margin: 1rem auto;
+        }
+
+        .btn btn-primary {
+            margin-left: 1rem;
+        }
+    </style>
 
 
-<style>
-    .table-responsive {
-  overflow-x: auto;
-}
+    <style>
+        .table-responsive {
+            overflow-x: auto;
+        }
 
-.orders-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-.orders-table th,
-.orders-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-}
+        .orders-table th,
+        .orders-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
 
-.orders-table th {
-  background-color: #f8f8f8;
-  font-weight: bold;
-}
+        .orders-table th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
 
-/* Add media query for responsive styles */
-@media screen and (max-width: 600px) {
-  .orders-table th,
-  .orders-table td {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-  }
+        /* Add media query for responsive styles */
+        @media screen and (max-width: 600px) {
 
-  .orders-table td {
-    border: 0;
-    border-bottom: 1px solid #ddd;
-    padding: 8px 10px;
-    text-align: left;
-  }
-}
+            .orders-table th,
+            .orders-table td {
+                display: block;
+                width: 100%;
+                box-sizing: border-box;
+            }
 
-</style>
-   
+            .orders-table td {
+                border: 0;
+                border-bottom: 1px solid #ddd;
+                padding: 8px 10px;
+                text-align: left;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
     <div class="page-wrapper">
-        
+
 
         <main class="main">
-        	
+
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
                 <div class="container">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">My Account</li>
                     </ol>
                 </div><!-- End .container -->
             </nav><!-- End .breadcrumb-nav -->
 
             <div class="page-content">
-            	<div class="dashboard">
-	                <div class="container">
-	                	<div class="row">
-	                		<aside class="col-md-4 col-lg-3">
-	                			<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
-								    <li class="nav-item">
-								        <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="true">My Account</a>
-								    </li>
-								    <li class="nav-item">
-								        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
-								    </li>
-								    
-								    <li class="nav-item">
-								        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
-								    </li>
-								    <li class="nav-item">
-								        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
-								    </li>
-								    <li class="nav-item">
-								        <a class="nav-link" href="#">Sign Out</a>
-								    </li>
-								</ul>
-	                		</aside><!-- End .col-lg-3 -->
+                <div class="dashboard">
+                    <div class="container">
+                        <div class="row">
+                            <aside class="col-md-4 col-lg-3">
+                                <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="tab-dashboard-link" data-toggle="tab"
+                                            href="#tab-dashboard" role="tab" aria-controls="tab-dashboard"
+                                            aria-selected="true">My Account</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-orders-link" data-toggle="tab" href="#tab-orders"
+                                            role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+                                    </li>
 
-	                		<div class="col-md-8 col-lg-9">
-	                			<div class="tab-content">
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address"
+                                            role="tab" aria-controls="tab-address" aria-selected="false">Adresses</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account"
+                                            role="tab" aria-controls="tab-account" aria-selected="false">Account
+                                            Details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Sign Out</a>
+                                    </li>
+                                </ul>
+                            </aside><!-- End .col-lg-3 -->
+
+                            <div class="col-md-8 col-lg-9">
+                                <div class="tab-content">
                                     <!--the user profile content goes here-->
 
-								    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
-								    	
+                                    <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel"
+                                        aria-labelledby="tab-dashboard-link">
 
-                                            <div class="account-details">
-                                                <h4>Personal Information</h4>
-                                                <table>
-                                                    <tr>
-                                                        <td>Name:</td>
-                                                        <td id="name">{{userData.name}}</td>
-                                            
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Phone:</td>
-                                                        <td id="phone">{{userData.mobile}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Email:</td>
-                                                        <td id="email">{{userData.email}}</td>
-                                                    </tr>
-                                                    <td>Address</td>
-                                                    <td id="address">
-                                                        {{shipping.name}}<br>
-                                                        {{shipping.streetAddress}}<br>
-                                                        {{shipping.phone}}<br>
-                                                        {{shipping.pincode}}<br>
-                                                    </td>
-                                                    </tr>
-                                                </table>
-                                                <div class="pt-3">
-                                            
-                                                    <button id="edit-button">Edit</button>
-                                                </div>
+
+                                        <div class="account-details">
+                                            <h4>Personal Information</h4>
+                                            <table>
+                                                <tr>
+                                                    <td>Name:</td>
+                                                    <td id="name">{{userData.name}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td>Phone:</td>
+                                                    <td id="phone">{{userData.mobile}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email:</td>
+                                                    <td id="email">{{userData.email}}</td>
+                                                </tr>
+                                                <td>Address</td>
+                                                <td id="address">
+                                                    {{shipping.name}}<br>
+                                                    {{shipping.streetAddress}}<br>
+                                                    {{shipping.phone}}<br>
+                                                    {{shipping.pincode}}<br>
+                                                </td>
+                                                </tr>
+                                            </table>
+                                            <div class="pt-3">
+
+                                                {{!-- <button id="edit-button">Edit</button> --}}
                                             </div>
+                                        </div>
 
 
 
 
-								    	From your account dashboard you can view your <a href="#tab-orders" class="tab-trigger-link link-underline">recent orders</a>, manage your <a href="#tab-address" class="tab-trigger-link">shipping and billing addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your password and account details</a>.</p>
-								    </div><!-- .End .tab-pane -->
-                                        
-
-                                
-
-		<!--orders content goes here-->  <div class="tab-pane fade" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
-
-
-                                      
-                                           
-                                           
-                                                {{!-- <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Image</th>
-                                                            <th>Product name</th>
-                                                            <th>Quantity</th>
-                                                            <th>Price</th>
-                                                            <th>Total</th>
-                                                            <th>Address</th>
-                                                            <th>Order Note</th>
-                                                            <th>Status</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {{#each orders}}
-                                                        {{#each this.products}}
-                                                        <tr>
-                                                            <td><img src="{{image}}" alt="Product Image" class="product-image" style="height:50px;width: 50px;">
-                                                            </td>
-                                                            <td class="product-name" style="font-size: small;">{{name}} </td>
-                                                            <td>{{quantity}}</td>
-                                                            <td>{{price}}</td>
-                                        
-                                                            <td>{{../streetAddress}}, <br>{{../pincode}}</td>
-                                                            <td>{{../ordernote}}</td>
-                                                            <td>{{../status}}</td>
-                                                        </tr>
-                                                        {{/each}}
-                                                        {{/each}}
-                                                    </tbody>
-                                                </table> --}}
+                                        From your account dashboard you can view your <a href="#tab-orders"
+                                            class="tab-trigger-link link-underline">recent orders</a>, manage your <a
+                                            href="#tab-address" class="tab-trigger-link">shipping and billing
+                                            addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your
+                                            password and account details</a>.</p>
+                                    </div><!-- .End .tab-pane -->
 
 
 
-                                                {{!-- <table class="table table-hover">
-                                                    <thead>
-                                                      
-                                                        <tr>
-                                                            <th scope="col">NO.</th>
-                                                            <th scope="col">Order id</th>
-                                                            <th scope="col">Date</th>
-                                                            
-                                                          
-                                                            
 
-                                                            <th scope="col">Order-Status</th>
+                                    <!--orders content goes here-->
+                                    <div class="tab-pane fade" id="tab-orders" role="tabpanel"
+                                        aria-labelledby="tab-orders-link">
 
 
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                            {{#each orders}}
 
-                                                        <tr>
 
-                                                            <th scope="row">{{@index}}</th>
-                                                            <td>{{this._id}}</td>
-                                                             <td>{{date}}</td>
 
-                                                            {{#each this.products}}
-                                                            
-                                                            <td>{{../status}} </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            {{/each}}
+                                        {{!-- <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <th>Product name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Price</th>
+                                                    <th>Total</th>
+                                                    <th>Address</th>
+                                                    <th>Order Note</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#each orders}}
+                                                {{#each this.products}}
+                                                <tr>
+                                                    <td><img src="{{image}}" alt="Product Image" class="product-image"
+                                                            style="height:50px;width: 50px;">
+                                                    </td>
+                                                    <td class="product-name" style="font-size: small;">{{name}} </td>
+                                                    <td>{{quantity}}</td>
+                                                    <td>{{price}}</td>
 
-                                                        </tr>
+                                                    <td>{{../streetAddress}}, <br>{{../pincode}}</td>
+                                                    <td>{{../ordernote}}</td>
+                                                    <td>{{../status}}</td>
+                                                </tr>
+                                                {{/each}}
+                                                {{/each}}
+                                            </tbody>
+                                        </table> --}}
 
-                                                        {{/each}}
-                                                    </tbody>
-                                                </table> --}}
+
+
+                                        {{!-- <table class="table table-hover">
+                                            <thead>
+
+                                                <tr>
+                                                    <th scope="col">NO.</th>
+                                                    <th scope="col">Order id</th>
+                                                    <th scope="col">Date</th>
+
+
+
+
+                                                    <th scope="col">Order-Status</th>
+
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#each orders}}
+
+                                                <tr>
+
+                                                    <th scope="row">{{@index}}</th>
+                                                    <td>{{this._id}}</td>
+                                                    <td>{{date}}</td>
+
+                                                    {{#each this.products}}
+
+                                                    <td>{{../status}} </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    {{/each}}
+
+                                                </tr>
+
+                                                {{/each}}
+                                            </tbody>
+                                        </table> --}}
 
                                         <div class="table-responsive" style="overflow-x: auto;">
                                             <div class="table-users">
                                                 <div class="header">Your orders</div>
-                                            
+
                                                 <table cellspacing="0">
                                                     <tr>
                                                         <th>Order id</th>
                                                         <th>Ordered Date</th>
                                                         <th>Status</th>
                                                         <th></th>
-                                                       
-                                                    </tr>
-                                            
-                                                {{#each orders}}
-                                                <tr style="height: 100px;background-color: rgb(242, 235, 235);">
-                                                    <td style="width:30px">{{this._id}}</td>
-                                                    <td>{{date}}</td>
-                                                
-                                                    <td>{{status}}</td>
-                                                    <td><a href="/orderDetailView1/{{this._id}}">view</a></td>
-                                                </tr>
-                                                {{/each}}
 
-                                                    
+                                                    </tr>
+
+                                                    {{#each orders}}
+                                                    <tr style="height: 100px;background-color: rgb(242, 235, 235);">
+                                                        <td style="width:30px">{{this._id}}</td>
+                                                        <td>{{date}}</td>
+
+                                                        <td>{{status}}</td>
+                                                        <td><a href="/orderDetailView1/{{this._id}}">view</a></td>
+                                                    </tr>
+                                                    {{/each}}
+
+
                                                 </table>
                                             </div>
 
                                         </div>
-                                       
-                                        
-                                            
-
-								    	<a href="/home" class="btn btn-outline-primary-2 mt-5"><span>GO SHOP</span><i class="icon-long-arrow-right"></i></a>
 
 
-								    </div><!-- .End .tab-pane -->
 
-								   
 
-<!--order content Goes here-->    <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
-								    	<p>The following addresses will be used on the checkout page by default.</p>
+                                        <a href="/home" class="btn btn-outline-primary-2 mt-5"><span>GO SHOP</span><i
+                                                class="icon-long-arrow-right"></i></a>
+
+
+                                    </div><!-- .End .tab-pane -->
+
+
+
+                                    <!--order content Goes here-->
+                                    <div class="tab-pane fade" id="tab-address" role="tabpanel"
+                                        aria-labelledby="tab-address-link">
+                                        <p>The following addresses will be used on the checkout page by default.</p>
 
                                         <div>
-                                            <div class="row h-2 mt-5 col-lg-10" style="max-height:1rem,overflow:hidden;">
+                                            <div class="row h-2 mt-5 col-lg-10"
+                                                style="max-height:1rem,overflow:hidden;">
                                                 <div class="col-lg-6">
-                                                    <div style="display:grid;background-color:white;grid-template-columns:auto auto;gap:1rem">
+                                                    <div
+                                                        style="display:grid;background-color:white;grid-template-columns:auto auto;gap:1rem">
                                                         {{#each addr}}
-                                                        <div class="card-body" style="display: block; border:1px solid rgb(212, 196, 122);border-radius:12px;padding:2rem;box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);transition: box-shadow 0.3s ease-in-out;">
-                                                            <h3 class="card-title">User Addresses</h3><!-- End .card-title -->
-                                        
+                                                        <div class="card-body"
+                                                            style="display: block; border:1px solid rgb(212, 196, 122);border-radius:12px;padding:2rem;box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);transition: box-shadow 0.3s ease-in-out;">
+                                                            <h3 class="card-title">User Addresses</h3>
+                                                            <!-- End .card-title -->
+
                                                             <p>{{this.name}}<br>
                                                                 {{this.streetAddress}}<br>
                                                                 {{this.phone}}<br>
                                                                 {{this.pincode}}<br>
-                                        
-                                                                <a href="#">Edit <i class="icon-edit"></i></a>
+
+                                                                {{!-- <a href="#">Edit <i class="icon-edit"></i></a>
+                                                                --}}
                                                             </p>
-                                                            <button id="makeDefaultBtn-{{this._id}}" class="btn btn-danger"
-                                                                onclick="makeDefaultAddress('{{this._id}}')">Make Default Address</button>
-                                        
+                                                            <button id="makeDefaultBtn-{{this._id}}"
+                                                                class="btn btn-danger"
+                                                                onclick="makeDefaultAddress('{{this._id}}')">Make
+                                                                Default Address</button>
+
                                                         </div><!-- End .card-body -->
                                                         {{/each}}
-                                        
+
                                                     </div>
                                                 </div><!-- End .col-lg-6 -->
                                             </div>
                                             <div class="row mt-5 col-lg-10">
-                                                
-                                                     
-                                                        <div class="card-body"  style="border:1px solid rgb(212, 196, 122);border-radius:12px;padding:2rem;box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);transition: box-shadow 0.3s ease-in-out;">
-                                                            <h3 class="card-title">Shipping Address</h3><!-- End .card-title -->
-                                        
-                                                            <p>{{shipping.name}}<br>
-                                                                {{shipping.streetAddress}}<br>
-                                                                {{shipping.phone}}<br>
-                                                                {{shipping.pincode}}<br>
-                                                                {{!-- <a href="#">Edit <i class="icon-edit"></i></a></p> --}}
-                                                        </div><!-- End .card-body -->
-                                                     
- 
+
+
+                                                <div class="card-body"
+                                                    style="border:1px solid rgb(212, 196, 122);border-radius:12px;padding:2rem;box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);transition: box-shadow 0.3s ease-in-out;">
+                                                    <h3 class="card-title">Shipping Address</h3><!-- End .card-title -->
+
+                                                    <p>{{shipping.name}}<br>
+                                                        {{shipping.streetAddress}}<br>
+                                                        {{shipping.phone}}<br>
+                                                        {{shipping.pincode}}<br>
+                                                        {{!-- <a href="#">Edit <i class="icon-edit"></i></a></p> --}}
+                                                </div><!-- End .card-body -->
+
+
                                             </div>
                                             <!-- Button to trigger the modal -->
-                                            <button type="button" class="btn btn-primary" style="margin-left: 1rem;margin-top: 2rem;" data-toggle="modal"
-                                                data-target="#addAddressModal" class="ml-5" >
+                                            <button type="button" class="btn btn-primary"
+                                                style="margin-left: 1rem;margin-top: 2rem;" data-toggle="modal"
+                                                data-target="#addAddressModal" class="ml-5">
                                                 Add Address
                                             </button>
                                         </div><!-- End .row -->
 
 
 
-								    </div><!-- .End .tab-pane -->
+                                    </div><!-- .End .tab-pane -->
 
-{{!----------------------------------------------------------------------------}}
-                        <!-- address-form.html -->
+                                    {{!----------------------------------------------------------------------------}}
+                                    <!-- address-form.html -->
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="addAddressModal" tabindex="-1" aria-labelledby="addAddressModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="addAddressModalLabel">Add Address</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="/add-address/{{userData._id}}" method="post" id="address-form"
-                                                class="d-flex flex-column align-items-center">
-                            
-                                                <div class="form-group">
-                                                    <label for="name">Name:</label>
-                                                    <input type="text" class="form-control" id="name" name="name" required>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="addAddressModal" tabindex="-1"
+                                        aria-labelledby="addAddressModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addAddressModalLabel">Add Address</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="streetAddress">Street Address:</label>
-                                                    <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
+                                                <div class="modal-body">
+                                                    <form action="/add-address/{{userData._id}}" method="post"
+                                                        id="address-form" class="d-flex flex-column align-items-center">
+
+                                                        <div class="form-group">
+                                                            <label for="name">Name:</label>
+                                                            <input type="text" class="form-control" id="name"
+                                                                name="name" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="streetAddress">Street Address:</label>
+                                                            <input type="text" class="form-control" id="streetAddress"
+                                                                name="streetAddress" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="pincode">Pincode:</label>
+                                                            <input type="number" class="form-control" id="pincode"
+                                                                name="pincode" required>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="phone">Phone:</label>
+                                                            <input type="number" class="form-control" id="phone"
+                                                                name="phone" required>
+                                                        </div>
+
+                                                        <button type="submit" class="btn btn-primary m-4">Save
+                                                            Address</button>
+                                                    </form>
                                                 </div>
-                            
-                                                <div class="form-group">
-                                                    <label for="pincode">Pincode:</label>
-                                                    <input type="number" class="form-control" id="pincode" name="pincode" required>
-                                                </div>
-                            
-                                                <div class="form-group">
-                                                    <label for="phone">Phone:</label>
-                                                    <input type="number" class="form-control" id="phone" name="phone" required>
-                                                </div>
-                            
-                                                <button type="submit" class="btn btn-primary m-4">Save Address</button>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
+
+
+                                    {{!---------------------------------------------------------------------------------------------------------}}
+
+
+
+
+
+                                    <div class="tab-pane fade" id="tab-account" role="tabpanel"
+                                        aria-labelledby="tab-account-link">
+                                        <form action="#">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>First Name *</label>
+                                                    <input type="text" class="form-control" required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label>Last Name *</label>
+                                                    <input type="text" class="form-control" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <label>Display Name *</label>
+                                            <input type="text" class="form-control" required>
+                                            <small class="form-text">This will be how your name will be displayed in the
+                                                account section and in reviews</small>
+
+                                            <label>Email address *</label>
+                                            <input type="email" class="form-control" required>
+
+                                            <label>Current password (leave blank to leave unchanged)</label>
+                                            <input type="password" class="form-control">
+
+                                            <label>New password (leave blank to leave unchanged)</label>
+                                            <input type="password" class="form-control">
+
+                                            <label>Confirm new password</label>
+                                            <input type="password" class="form-control mb-2">
+
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>SAVE CHANGES</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                        </form>
+                                    </div><!-- .End .tab-pane -->
                                 </div>
-                            </div>
-                            
-                            
-                            {{!----------------------------------------------------------------------------}}
-
-
-
-
-
-								    <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
-								    	<form action="#">
-			                				<div class="row">
-			                					<div class="col-sm-6">
-			                						<label>First Name *</label>
-			                						<input type="text" class="form-control" required>
-			                					</div><!-- End .col-sm-6 -->
-
-			                					<div class="col-sm-6">
-			                						<label>Last Name *</label>
-			                						<input type="text" class="form-control" required>
-			                					</div><!-- End .col-sm-6 -->
-			                				</div><!-- End .row -->
-
-		            						<label>Display Name *</label>
-		            						<input type="text" class="form-control" required>
-		            						<small class="form-text">This will be how your name will be displayed in the account section and in reviews</small>
-
-		                					<label>Email address *</label>
-		        							<input type="email" class="form-control" required>
-
-		            						<label>Current password (leave blank to leave unchanged)</label>
-		            						<input type="password" class="form-control">
-
-		            						<label>New password (leave blank to leave unchanged)</label>
-		            						<input type="password" class="form-control">
-
-		            						<label>Confirm new password</label>
-		            						<input type="password" class="form-control mb-2">
-
-		                					<button type="submit" class="btn btn-outline-primary-2">
-			                					<span>SAVE CHANGES</span>
-			            						<i class="icon-long-arrow-right"></i>
-			                				</button>
-			                			</form>
-								    </div><!-- .End .tab-pane -->
-								</div>
-	                		</div><!-- End .col-lg-9 -->
-	                	</div><!-- End .row -->
-	                </div><!-- End .container -->
+                            </div><!-- End .col-lg-9 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .container -->
                 </div><!-- End .dashboard -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->
 
         <footer class="footer">
-        	<div class="footer-middle">
-	            <div class="container">
-	            	<div class="row">
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget widget-about">
-	            				<img src="/images/homescape-logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
-	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget widget-about">
+                                <img src="/images/homescape-logo.png" class="footer-logo" alt="Footer Logo" width="105"
+                                    height="25">
+                                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate
+                                    magna eros eu erat. </p>
 
-	            				<div class="social-icons">
-	            					<a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
-	            				</div><!-- End .soial-icons -->
-	            			</div><!-- End .widget about-widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                                <div class="social-icons">
+                                    <a href="#" class="social-icon" target="_blank" title="Facebook"><i
+                                            class="icon-facebook-f"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Twitter"><i
+                                            class="icon-twitter"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Instagram"><i
+                                            class="icon-instagram"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Youtube"><i
+                                            class="icon-youtube"></i></a>
+                                    <a href="#" class="social-icon" target="_blank" title="Pinterest"><i
+                                            class="icon-pinterest"></i></a>
+                                </div><!-- End .soial-icons -->
+                            </div><!-- End .widget about-widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="about.html">About Molla</a></li>
-	            					<li><a href="#">How to shop on Molla</a></li>
-	            					<li><a href="#">FAQ</a></li>
-	            					<li><a href="contact.html">Contact us</a></li>
-	            					<li><a href="login.html">Log in</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                                <ul class="widget-list">
+                                    <li><a href="about.html">About Homescape</a></li>
+                                    <li><a href="#">How to shop on Homescape</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="contact.html">Contact us</a></li>
+                                    <li><a href="login.html">Log in</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="#">Payment Methods</a></li>
-	            					<li><a href="#">Money-back guarantee!</a></li>
-	            					<li><a href="#">Returns</a></li>
-	            					<li><a href="#">Shipping</a></li>
-	            					<li><a href="#">Terms and conditions</a></li>
-	            					<li><a href="#">Privacy Policy</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
+                                <ul class="widget-list">
+                                    <li><a href="#">Payment Methods</a></li>
+                                    <li><a href="#">Money-back guarantee!</a></li>
+                                    <li><a href="#">Returns</a></li>
+                                    <li><a href="#">Shipping</a></li>
+                                    <li><a href="#">Terms and conditions</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
 
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="widget">
+                                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
 
-	            				<ul class="widget-list">
-	            					<li><a href="#">Sign In</a></li>
-	            					<li><a href="cart.html">View Cart</a></li>
-	            					<li><a href="#">My Wishlist</a></li>
-	            					<li><a href="#">Track My Order</a></li>
-	            					<li><a href="#">Help</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
-	            	</div><!-- End .row -->
-	            </div><!-- End .container -->
-	        </div><!-- End .footer-middle -->
+                                <ul class="widget-list">
+                                    <li><a href="#">Sign In</a></li>
+                                    <li><a href="cart.html">View Cart</a></li>
+                                    <li><a href="#">My Wishlist</a></li>
+                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul><!-- End .widget-list -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .col-sm-6 col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-middle -->
 
-	        <div class="footer-bottom">
-	        	<div class="container">
-	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
-	        		<figure class="footer-payments">
-	        			<img src="/images/payments.png" alt="Payment methods" width="272" height="20">
-	        		</figure><!-- End .footer-payments -->
-	        	</div><!-- End .container -->
-	        </div><!-- End .footer-bottom -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <p class="footer-copyright">Copyright © 2019 Homescape Store. All Rights Reserved.</p>
+                    <!-- End .footer-copyright -->
+                    <figure class="footer-payments">
+                        <img src="/images/payments.png" alt="Payment methods" width="272" height="20">
+                    </figure><!-- End .footer-payments -->
+                </div><!-- End .container -->
+            </div><!-- End .footer-bottom -->
         </footer><!-- End .footer -->
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
@@ -549,11 +594,12 @@
 
             <form action="#" method="get" class="mobile-search">
                 <label for="mobile-search" class="sr-only">Search</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..." required>
+                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
+                    placeholder="Search in..." required>
                 <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
             </form>
-            
-            
+
+
 
             <div class="social-icons">
                 <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
@@ -565,10 +611,10 @@
     </div><!-- End .mobile-menu-container -->
 
     <!-- Sign in / Register Modal -->
-    
+
 
     <!-- Plugins JS File -->
-   
+
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/jquery.hoverIntent.min.js"></script>
@@ -622,4 +668,5 @@
 
 
 <!-- molla/dashboard.html  22 Nov 2019 10:03:13 GMT -->
+
 </html>

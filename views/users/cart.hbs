@@ -3,447 +3,596 @@
 
 
 <!-- molla/cart.html  22 Nov 2019 09:55:06 GMT -->
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Molla - Bootstrap eCommerce Template</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
-    <meta name="author" content="p-themes">
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="/images/icons/site.html">
-    <link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#666666">
-    <link rel="shortcut icon" href="/images/icons/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
-    <meta name="msapplication-TileColor" content="#cc9966">
-    <meta name="msapplication-config" content="/images/icons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Plugins CSS File -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <!-- Main CSS File -->
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Molla - Bootstrap eCommerce Template</title>
+  <meta name="keywords" content="HTML5 Template">
+  <meta name="description" content="Molla - Bootstrap eCommerce Template">
+  <meta name="author" content="p-themes">
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
+  <link rel="manifest" href="/images/icons/site.html">
+  <link rel="mask-icon" href="/images/icons/safari-pinned-tab.svg" color="#666666">
+  <link rel="shortcut icon" href="/images/icons/favicon.ico">
+  <meta name="apple-mobile-web-app-title" content="Molla">
+  <meta name="application-name" content="Molla">
+  <meta name="msapplication-TileColor" content="#cc9966">
+  <meta name="msapplication-config" content="/images/icons/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Plugins CSS File -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Main CSS File -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
 
-    <style>
-        button:focus,
-input:focus{
-  outline: none;
-  box-shadow: none;
-}
-a,
-a:hover{
-  text-decoration: none;
-}
+  <style>
+    button:focus,
+    input:focus {
+      outline: none;
+      box-shadow: none;
+    }
 
-/*--------------------------*/
-.qty-container{
-    padding-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.qty-container .input-qty{
-  text-align: center;
-  padding: 6px 10px;
-  border: 1px solid #d4d4d4;
-  max-width: 70px;
-}
-.qty-container .qty-btn-minus,
-.qty-container .qty-btn-plus{
-  border: 1px solid #d4d4d4;
-  padding: 10px 13px;
-  font-size: 10px;
-  height: 38px;
-  width: 38px;
-  transition: 0.3s;
-}
-.qty-container .qty-btn-plus{
-  margin-left: -1px;
-}
-.qty-container .qty-btn-minus{
-  margin-right: -1px;
-}
+    a,
+    a:hover {
+      text-decoration: none;
+    }
 
+    /*--------------------------*/
+    .qty-container {
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-/*---------------------------*/
-.btn-cornered,
-.input-cornered{
-  border-radius: 4px;
-}
-.btn-rounded{
-  border-radius: 50%;
-}
-.input-rounded{
-  border-radius: 50px;
-}
-.quantity-display {
-  display: inline-block;
-  padding: 10px px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f0f0f0;
-  color: #d50000;
-  font-size: 14px;
-  text-align: center;
-  min-width: 30px;
-}
+    .qty-container .input-qty {
+      text-align: center;
+      padding: 6px 10px;
+      border: 1px solid #d4d4d4;
+      max-width: 70px;
+    }
 
-/* Add some margin or space between quantity displays if needed */
-.quantity-display + .quantity-display {
-  margin-left: 10px;
-}
+    .qty-container .qty-btn-minus,
+    .qty-container .qty-btn-plus {
+      border: 1px solid #d4d4d4;
+      padding: 10px 13px;
+      font-size: 10px;
+      height: 38px;
+      width: 38px;
+      transition: 0.3s;
+    }
+
+    .qty-container .qty-btn-plus {
+      margin-left: -1px;
+    }
+
+    .qty-container .qty-btn-minus {
+      margin-right: -1px;
+    }
 
 
+    /*---------------------------*/
+    .btn-cornered,
+    .input-cornered {
+      border-radius: 4px;
+    }
 
-</style>
+    .btn-rounded {
+      border-radius: 50%;
+    }
+
+    .input-rounded {
+      border-radius: 50px;
+    }
+
+    .quantity-display {
+      display: inline-block;
+      padding: 10px px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+      color: #d50000;
+      font-size: 14px;
+      text-align: center;
+      min-width: 30px;
+    }
+
+    /* Add some margin or space between quantity displays if needed */
+    .quantity-display+.quantity-display {
+      margin-left: 10px;
+    }
+  </style>
 
 </head>
 
 <body>
-    <div class="page-wrapper">
-        
-
-        <main class="main">
-        	<div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
-        		<div class="container">
-        			<h1 class="page-title">Shopping Cart<span>Shop</span></h1>
-        		</div><!-- End .container -->
-        	</div><!-- End .page-header -->
-            <nav aria-label="breadcrumb" class="breadcrumb-nav">
-                <div class="container">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
-                    </ol>
-                </div><!-- End .container -->
-            </nav><!-- End .breadcrumb-nav -->
-
-            <div class="page-content">
-            	<div class="cart">
-	                <div class="container">
-	                	<div class="row">
-	                		<div class="col-lg-9">
-                                <div id="cart-table-container">
-	                			<table class="table table-cart table-mobile">
-									<thead>
-										<tr>
-											<th>Product</th>
-											<th>Price</th>
-											<th>Quantity</th>
-											<th>Discount</th>
-											<th>Total</th>
-										</tr>
-									</thead>
-
-									<tbody>
-                                      
-                  {{#each products}}
+  <div class="page-wrapper">
 
 
+    <main class="main">
+      <div class="page-header text-center" style="background-image: url('/images/page-header-bg.jpg')">
+        <div class="container">
+          <h1 class="page-title">Shopping Cart<span>Shop</span></h1>
+        </div><!-- End .container -->
+      </div><!-- End .page-header -->
+      <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+          </ol>
+        </div><!-- End .container -->
+      </nav><!-- End .breadcrumb-nav -->
 
-										<tr>
-                                            
-											<td class="product-col">
-												<div class="product">
-													<figure class="product-media">
-														<a href="#">
-															<img src="{{this.image.[0]}}" alt="Product image">
+      <div class="page-content">
+        <div class="cart">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-9">
+                <div id="cart-table-container">
+                  <table class="table table-cart table-mobile">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                      </tr>
+                    </thead>
 
-														</a>
-													</figure>
+                    <tbody>
 
-													<h3 class="product-title">
-
-														<a href="#">{{this.name}}</a>
-
-
-													</h3><!-- End .product-title -->
-												</div><!-- End .product -->
-											</td>
-											<td class="price-col">{{this.price}}</td>
-
-                      
-											<td class="quantity-col">
-                                            
-                                            <div class="col-md-4 mb-3">
-                                              <div class="qty-container" style="width: 2rem;">   
-                                                <button class="qty-btn-minus btn-primary btn-rounded mr-1" id="buttonMinus"  onclick="changeQuantity('{{this._id}}', -1, '{{this.user_id}}', {{this.quantity}})"><i
-                                                    class="fa fa-chevron-left"></i></button>
-                                               <a id="quantityInput_{{this._id}}" class="border quantity quantity-display">{{this.quantity}}</a>
-
-                                                <button class="qty-btn-plus btn-primary btn-rounded ml-1"  onclick="changeQuantity('{{this._id}}', 1, '{{this.user_id}}', {{this.quantity}})"><i
-                                                    class="fa fa-chevron-right"></i></button>
-                                              </div>
-                                              
-                                            </div>
-
-                                            </td>
- 
-                                            </td>
+                      {{#each products}}
 
 
-                      {{#if (gt this.productOffer 0)}}
-                      <td >
-                        <div class="col">Product&nbsp:&nbsp <span
-                         style="color: rgb(37, 245, 19);"><b>{{this.productOffer}}%</b></span></div>
-                        {{/if}}
-                        {{#if (gt this.categoryOffer 0)}}
-                          <div class="col">Category&nbsp:&nbsp<span style="color: rgb(37, 245, 19);"><b>{{this.categoryOffer}}%</b></span></div>
-                        {{/if}}
-                      
-                      </td>
-
-                     
-                       
-											<td class="total-col" data-productId="{{this._id}}" style="width: 3rem;">
 
 
-                          {{#if (gt this.categoryOffer 0)}}
-                           <div class="old-price"><s>{{this.total}}</s></div>
-                          {{else}}
-                        {{this.finalAmount}}
+                      <tr>
+
+                        <td class="product-col">
+                          <div class="product">
+                            <figure class="product-media">
+                              <a href="#">
+                                <img src="{{this.image.[0]}}" alt="Product image">
+
+                              </a>
+                            </figure>
+
+                            <h3 class="product-title">
+
+                              <a href="#">{{this.name}}</a>
+
+
+                            </h3><!-- End .product-title -->
+                          </div><!-- End .product -->
+                        </td>
+                        <td class="price-col">{{this.price}}</td>
+
+                        <td class="quantity-col">
+
+                          <div class="col-md-4 mb-3">
+                            {{#if (gt this.stock 0 )}}
+                            <div class="qty-container" style="width: 2rem;">
+                              
+                            
+                              <button class="qty-btn-minus btn-primary btn-rounded mr-1" id="buttonMinus"
+                                onclick="changeQuantity('{{this._id}}', -1, '{{this.user_id}}', {{this.quantity}})"><i
+                                  class="fa fa-chevron-left"></i></button>
+                              <a id="quantityInput_{{this._id}}"
+                                class="border quantity quantity-display">{{this.quantity}}</a>
+
+                              <button class="qty-btn-plus btn-primary btn-rounded ml-1"
+                                onclick="changeQuantity('{{this._id}}', 1, '{{this.user_id}}', {{this.quantity}})"><i
+                                  class="fa fa-chevron-right"></i></button>
+
+                              {{else}}
+                              <span id="outOfStock" class="text-danger">Stock Out!!</span>
+
+                              {{/if}}
+                            </div>
+
+                          </div>
+
+
+
+
+                        </td>
+                          {{#if (or (gt this.productOffer 0) (gt this.categoryOffer 0))}}
+                        <td>
+                          <div class="col">Product&nbsp:&nbsp <span
+                              style="color: rgb(37, 245, 19);"><b>{{this.productOffer}} %</b></span></div>
+
+                          <div class="col">Category&nbsp:&nbsp<span
+                              style="color: rgb(37, 245, 19);"><b>{{this.categoryOffer}}%</b></span></div>
+
                           {{/if}}
-                        
-                        
-                        
+
                         </td>
 
 
-                      
-                           <td class="remove-col">
+
+
+
+
+
+                        <td class="remove-col">
                           <button class="btn-remove" onclick="confirmDelete('{{this._id}}')">
                             <i class="fas fa-trash-alt"></i>
                           </button>
                         </td>
- 
-										
-										</tr>
-
-                 {{/each}}
-										
-                    
-									</tbody>
-								</table><!-- End .table table-wishlist -->
-                                </div>
-
-	                			<div class="cart-bottom">
-			            			<div class="cart-discount">
-			            				<form action="#">
-			            					<div class="input-group">
-				        						<input type="text" class="form-control" required placeholder="Back to Home!!" >
-				        						<div class="input-group-append">
-       <button class="btn btn-outline-primary-2" id="homeButton"><i class="icon-long-arrow-left"></i></button>
-												</div><!-- .End .input-group-append -->
-			        						</div><!-- End .input-group -->
-			            				</form>
-			            			</div><!-- End .cart-discount -->
-
-			            			<a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
-		            			</div><!-- End .cart-bottom -->
-	                		</div><!-- End .col-lg-9 -->
-	                		<aside class="col-lg-3">
-	                			<div class="summary summary-cart">
-	                				<h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
-
-	                				<table class="table table-summary">
-	                					<tbody>
-	                						<tr class="summary-subtotal">
-	                							 <tr class="summary-subtotal">
-                                <td>Subtotal:</td>
-                                    <td id="subtotal-amount-placeholder">{{this.TotalAmount}}</td>
-	                						</tr><!-- End .summary-subtotal -->
-	                						<tr class="summary-shipping">
-	                							<td>Shipping:</td>
-	                							<td>&nbsp;</td>
-	                						</tr>
-
-	                						<tr class="summary-shipping-row">
-	                							<td>
-													<div class="custom-control custom-radio">
-														<input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
-														<label class="custom-control-label" for="free-shipping">Free Shipping</label>
-													</div><!-- End .custom-control -->
-	                							</td>
-	                							<td>$0.00</td>
-	                						</tr><!-- End .summary-shipping-row -->
-
-	                						
-
-	                						<tr class="summary-shipping-estimate">
-	                							<td>Estimate for Your Country<br> <a href="dashboard.html">Change address</a></td>
-	                							<td>&nbsp;</td>
-	                						</tr><!-- End .summary-shipping-estimate -->
-
-	                						<tr class="summary-total">
-	                							<td>Total&nbsp; : </td>
-	                							<td id="summary-subtotal" style="text-align:center;">{{this.TotalAmount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-	                						</tr><!-- End .summary-total -->
-	                					</tbody>
-	                				</table><!-- End .table table-summary -->
-
-	                				<a href="/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
-	                			</div><!-- End .summary -->
-
-		            			<a href="/home" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
-	                		</aside><!-- End .col-lg-3 -->
-	                	</div><!-- End .row -->
-	                </div><!-- End .container -->
-                </div><!-- End .cart -->
-            </div><!-- End .page-content -->
-        </main><!-- End .main -->
-
-        <footer class="footer">
-        	<div class="footer-middle">
-	            <div class="container">
-	            	<div class="row">
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget widget-about">
-	            				<img src="/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
-	            				<p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
-
-	            				<div class="social-icons">
-	            					<a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
-	            					<a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
-	            				</div><!-- End .soial-icons -->
-	            			</div><!-- End .widget about-widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
-
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
-
-	            				<ul class="widget-list">
-	            					<li><a href="about.html">About Molla</a></li>
-	            					<li><a href="#">How to shop on Molla</a></li>
-	            					<li><a href="#">FAQ</a></li>
-	            					<li><a href="contact.html">Contact us</a></li>
-	            					<li><a href="login.html">Log in</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
-
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
-
-	            				<ul class="widget-list">
-	            					<li><a href="#">Payment Methods</a></li>
-	            					<li><a href="#">Money-back guarantee!</a></li>
-	            					<li><a href="#">Returns</a></li>
-	            					<li><a href="#">Shipping</a></li>
-	            					<li><a href="#">Terms and conditions</a></li>
-	            					<li><a href="#">Privacy Policy</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
-
-	            		<div class="col-sm-6 col-lg-3">
-	            			<div class="widget">
-	            				<h4 class="widget-title">My Account</h4><!-- End .widget-title -->
-
-	            				<ul class="widget-list">
-	            					<li><a href="#">Sign In</a></li>
-	            					<li><a href="cart.html">View Cart</a></li>
-	            					<li><a href="#">My Wishlist</a></li>
-	            					<li><a href="#">Track My Order</a></li>
-	            					<li><a href="#">Help</a></li>
-	            				</ul><!-- End .widget-list -->
-	            			</div><!-- End .widget -->
-	            		</div><!-- End .col-sm-6 col-lg-3 -->
-	            	</div><!-- End .row -->
-	            </div><!-- End .container -->
-	        </div><!-- End .footer-middle -->
-
-	        <div class="footer-bottom">
-	        	<div class="container">
-	        		<p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
-	        		<figure class="footer-payments">
-	        			<img src="/images/payments.png" alt="Payment methods" width="272" height="20">
-	        		</figure><!-- End .footer-payments -->
-	        	</div><!-- End .container -->
-	        </div><!-- End .footer-bottom -->
-        </footer><!-- End .footer -->
-    </div><!-- End .page-wrapper -->
-    <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
-
-    
-
-    
-
-    <!-- Plugins JS File -->
-    <script>
-      document.getElementById('homeButton').addEventListener('click', function () {
-        // Replace 'home.html' with the actual URL of your home page
-        window.location.href = '/home';
-      });
-    </script>
-
-     <script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/jquery.hoverIntent.min.js"></script>
-<script src="/js/jquery.waypoints.min.js"></script>
-<script src="/js/superfish.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/bootstrap-input-spinner.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
-<!-- Main JS File -->
-<script src="/js/main.js"></script>
+                      </tr>
+
+                      {{/each}}
 
 
- 
+                    </tbody>
+                  </table><!-- End .table table-wishlist -->
+                </div>
+
+                <div class="cart-bottom">
+                  <div class="cart-discount">
+                    <form action="#">
+                      <div class="input-group">
+                        <input type="text" class="form-control" required placeholder="Back to Home!!">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-primary-2" id="homeButton"><i
+                              class="icon-long-arrow-left"></i></button>
+                        </div><!-- .End .input-group-append -->
+                      </div><!-- End .input-group -->
+                    </form>
+                  </div><!-- End .cart-discount -->
+
+                  <a href="#" class="btn btn-outline-dark-2"><span>UPDATE CART</span><i class="icon-refresh"></i></a>
+                </div><!-- End .cart-bottom -->
+              </div><!-- End .col-lg-9 -->
+              {{#if products}}
+
+
+              <aside class="col-lg-3">
+                <div class="summary summary-cart">
+                  <h3 class="summary-title">Cart Total</h3><!-- End .summary-title -->
+
+                  <table class="table table-summary">
+                    <tbody>
+                      <tr class="summary-subtotal">
+                      <tr class="summary-subtotal">
+                        {{!-- <td>Subtotal:</td>
+                        <td id="subtotal-amount-placeholder">{{this.TotalAmount}}</td> --}}
+                      </tr><!-- End .summary-subtotal -->
+                      <tr class="summary-shipping">
+                        <td>Shipping:</td>
+                        <td>&nbsp;</td>
+                      </tr>
+
+                      <tr class="summary-shipping-row">
+                        <td>
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
+                            <label class="custom-control-label" for="free-shipping">Free Shipping</label>
+                          </div><!-- End .custom-control -->
+                        </td>
+                        <td>$0.00</td>
+                      </tr><!-- End .summary-shipping-row -->
 
 
 
+                      <tr class="summary-shipping-estimate">
+                        <td>Estimate for Your Country<br> <a href="dashboard.html">Change address</a></td>
+                        <td>&nbsp;</td>
+                      </tr><!-- End .summary-shipping-estimate -->
+
+                      <tr class="summary-total">
+                        <td>Total&nbsp; : </td>
+                        <td id="summary-subtotal" style="text-align:center;">
+                          {{this.TotalAmount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                      </tr><!-- End .summary-total -->
+                    </tbody>
+                  </table><!-- End .table table-summary -->
+
+                  <a href="/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
+                </div><!-- End .summary -->
+
+                <a href="/home" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i
+                    class="icon-refresh"></i></a>
+              </aside><!-- End .col-lg-3 -->
 
 
+              {{else}}
+
+              <aside class="col-lg-3">
+                <div class="summary summary-cart">
+                  <h3 class="summary-title">Cart Empty</h3><!-- End .summary-title -->
+
+                  <table class="table table-summary">
+                    <tbody>
+                      <tr class="summary-subtotal">
+                      <tr class="summary-subtotal">
+                        <td>Subtotal:</td>
+                        <td id="subtotal-amount-placeholder"></td>
+                      </tr><!-- End .summary-subtotal -->
+                      <tr class="summary-shipping">
+                        <td>Shipping:</td>
+                        <td>&nbsp;</td>
+                      </tr>
+
+                      <tr class="summary-shipping-row">
+                        <td>
+                          <div class="custom-control custom-radio">
+                            <input type="radio" id="free-shipping" name="shipping" class="custom-control-input">
+                            <label class="custom-control-label" for="free-shipping">Free Shipping</label>
+                          </div><!-- End .custom-control -->
+                        </td>
+                        <td>$0.00</td>
+                      </tr><!-- End .summary-shipping-row -->
+
+
+
+                      <tr class="summary-shipping-estimate">
+                        <td>Estimate for Your Country<br> <a href="dashboard.html">Change address</a></td>
+                        <td>&nbsp;</td>
+                      </tr><!-- End .summary-shipping-estimate -->
+
+                      <tr class="summary-total">
+                        <td>Total&nbsp; : </td>
+                        <td id="summary-subtotal" style="text-align:center;">
+                          {{this.TotalAmount}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                      </tr><!-- End .summary-total -->
+                    </tbody>
+                  </table><!-- End .table table-summary -->
+
+                  <a href="/home" class="btn btn-outline-primary-2 btn-order btn-block">Shop</a>
+                </div><!-- End .summary -->
+
+                <a href="/home" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i
+                    class="icon-refresh"></i></a>
+              </aside><!-- End .col-lg-3 -->
+
+              {{/if}}
+            </div><!-- End .row -->
+          </div><!-- End .container -->
+        </div><!-- End .cart -->
+      </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+    <footer class="footer">
+      <div class="footer-middle">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-6 col-lg-3">
+              <div class="widget widget-about">
+                <img src="/images/logo.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu
+                  erat. </p>
+
+                <div class="social-icons">
+                  <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+                  <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+                  <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+                  <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+                  <a href="#" class="social-icon" target="_blank" title="Pinterest"><i class="icon-pinterest"></i></a>
+                </div><!-- End .soial-icons -->
+              </div><!-- End .widget about-widget -->
+            </div><!-- End .col-sm-6 col-lg-3 -->
+
+            <div class="col-sm-6 col-lg-3">
+              <div class="widget">
+                <h4 class="widget-title">Useful Links</h4><!-- End .widget-title -->
+
+                <ul class="widget-list">
+                  <li><a href="about.html">About Molla</a></li>
+                  <li><a href="#">How to shop on Molla</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="contact.html">Contact us</a></li>
+                  <li><a href="login.html">Log in</a></li>
+                </ul><!-- End .widget-list -->
+              </div><!-- End .widget -->
+            </div><!-- End .col-sm-6 col-lg-3 -->
+
+            <div class="col-sm-6 col-lg-3">
+              <div class="widget">
+                <h4 class="widget-title">Customer Service</h4><!-- End .widget-title -->
+
+                <ul class="widget-list">
+                  <li><a href="#">Payment Methods</a></li>
+                  <li><a href="#">Money-back guarantee!</a></li>
+                  <li><a href="#">Returns</a></li>
+                  <li><a href="#">Shipping</a></li>
+                  <li><a href="#">Terms and conditions</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul><!-- End .widget-list -->
+              </div><!-- End .widget -->
+            </div><!-- End .col-sm-6 col-lg-3 -->
+
+            <div class="col-sm-6 col-lg-3">
+              <div class="widget">
+                <h4 class="widget-title">My Account</h4><!-- End .widget-title -->
+
+                <ul class="widget-list">
+                  <li><a href="#">Sign In</a></li>
+                  <li><a href="cart.html">View Cart</a></li>
+                  <li><a href="#">My Wishlist</a></li>
+                  <li><a href="#">Track My Order</a></li>
+                  <li><a href="#">Help</a></li>
+                </ul><!-- End .widget-list -->
+              </div><!-- End .widget -->
+            </div><!-- End .col-sm-6 col-lg-3 -->
+          </div><!-- End .row -->
+        </div><!-- End .container -->
+      </div><!-- End .footer-middle -->
+
+      <div class="footer-bottom">
+        <div class="container">
+          <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+          <!-- End .footer-copyright -->
+          <figure class="footer-payments">
+            <img src="/images/payments.png" alt="Payment methods" width="272" height="20">
+          </figure><!-- End .footer-payments -->
+        </div><!-- End .container -->
+      </div><!-- End .footer-bottom -->
+    </footer><!-- End .footer -->
+  </div><!-- End .page-wrapper -->
+  <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
+  <div class="mobile-menu-container">
+    <div class="mobile-menu-wrapper">
+      <span class="mobile-menu-close"><i class="icon-close"></i></span>
+  
+      {{!-- <form action="#" method="get" class="mobile-search">
+        <label for="mobile-search" class="sr-only">Search</label>
+        <input type="search" class="form-control" name="mobile-search" id="mobile-search" placeholder="Search in..."
+          required>
+        <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+      </form> --}}
+  
+      <nav class="mobile-nav">
+        <ul class="mobile-menu">
+          <li class="active">
+            <a href="/home">Home</a>
+  
+          </li>
+          <li>
+            <a href="/referAndEarn">refer & Earn</a>
+  
+          </li>
+          <li>
+            <a href="/cartPageLoad" class="sf-with-ul">cart</a>
+  
+          </li>
+  
+        </ul>
+      </nav><!-- End .mobile-nav -->
+  
+  
+      <div class="social-icons">
+        <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
+        <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
+        <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
+        <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+      </div><!-- End .social-icons -->
+    </div><!-- End .mobile-menu-wrapper -->
+  </div><!-- End .mobile-menu-container -->
+
+
+
+
+  <!-- Plugins JS File -->
+  <script>
+    document.getElementById('homeButton').addEventListener('click', function () {
+      // Replace 'home.html' with the actual URL of your home page
+      window.location.href = '/home';
+    });
+  </script>
+
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/jquery.hoverIntent.min.js"></script>
+  <script src="/js/jquery.waypoints.min.js"></script>
+  <script src="/js/superfish.min.js"></script>
+  <script src="/js/owl.carousel.min.js"></script>
+  <script src="/js/bootstrap-input-spinner.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+  <!-- Main JS File -->
+  <script src="/js/main.js"></script>
 
 <script>
-  
+  const outOfStockSpan = document.getElementById('outOfStock');
+  const checkoutButton = document.querySelector('.btn.btn-outline-primary-2.btn-order.btn-block'); // Correct class selector format
 
-  function changeQuantity(proId, count,userId, quantity){
-
-    $.ajax ({
-      url: '/change-product-quantity',
-      method: "post",
-      data: {
-        productId : proId,
-        count : count,
-        userId : userId,
-        quantity: quantity,
-      },
-
-      success: (response)=>{
-
-        console.log(response,'the response frm ajax')
-        const quantityInput = document.getElementById(`quantityInput_${proId}`);
-        quantityInput.textContent = response.quantity;
-
-         const summarySubtotal = document.getElementById(`summary-subtotal`);
-
-          summarySubtotal.textContent = response.TotalAmount
-
-
-      }
-    })
-
+  if (outOfStockSpan) {
+    checkoutButton.removeAttribute('href');
+    checkoutButton.style.opacity = '0.5';
   }
 
-   function confirmDelete(productId) {
+  checkoutButton.addEventListener('click', function () {
+    const cartStockExceeded = {{cartStockExceeded}};
+    if (outOfStockSpan) {
+      if (cartStockExceeded) {
+        Toastify({
+          text: 'Cart stock exceeds available stock!',
+          duration: 3000,
+          backgroundColor: '#ff0000',
+          gravity: 'center',
+          position: 'right',
+          stopOnFocus: true,
+        }).showToast();
+    }else{
+
+      Toastify({
+        text: 'Remove unavailable items!',
+        duration: 3000,
+        backgroundColor: '#ff0000',
+        gravity: 'center',
+        position: 'right',
+        stopOnFocus: true,
+      }).showToast();
+    }
+  });
+</script>
+  
+
+
+
+
+
+
+
+  <script>
+
+
+    function changeQuantity(proId, count, userId, quantity) {
+
+      $.ajax({
+        url: '/change-product-quantity',
+        method: "post",
+        data: {
+          productId: proId,
+          count: count,
+          userId: userId,
+          quantity: quantity,
+        },
+
+        success: (response) => {
+
+          console.log(response, 'the response frm ajax')
+          if (response.deleteProduct) {
+
+            location.reload();
+
+          } else if (response.outOfStock) {
+            console.log('out of stock');
+            showOutOfStockAlert()
+          } else {
+
+            const quantityInput = document.getElementById(`quantityInput_${proId}`);
+            quantityInput.textContent = response.quantity;
+
+            const summarySubtotal = document.getElementById(`summary-subtotal`);
+
+            summarySubtotal.textContent = response.TotalAmount
+
+
+          }
+
+
+        }
+      })
+
+    }
+
+    function confirmDelete(productId) {
       Swal.fire({
         title: 'Are you sure?',
         text: 'Do you want to delete this item from the cart?',
@@ -458,29 +607,59 @@ a:hover{
       });
     }
 
-  
-  
-
-  async function deleteProduct(productId) {
-    try {
-      const response = await axios.post('/delete-product', { productId });
-      const data = response.data;
 
 
-      // Remove the product from the UI without a page refresh
 
-       const productElement = document.querySelector(`[data-productId="${productId}"]`);
-      if (productElement) {
-        productElement.parentElement.remove();
+    async function deleteProduct(productId) {
+      try {
+        const response = await axios.post('/delete-product', { productId });
+        const data = response.data;
+
+
+        // Remove the product from the UI without a page refresh
+
+        const productElement = document.querySelector(`[data-productId="${productId}"]`);
+        if (productElement) {
+          productElement.parentElement.remove();
+        }
+        // Handle any additional actions after deletion if needed
+        console.log('Product deleted successfully!', data.cart);
+
+        location.reload();
+      } catch (error) {
+        console.error(error.message);
       }
-      // Handle any additional actions after deletion if needed
-      console.log('Product deleted successfully!', data.cart);
-
-      location.reload();
-    } catch (error) {
-      console.error(error.message);
     }
-  }
 
-  
-</script>
+
+    function showOutOfStockAlert() {
+      Swal.fire({
+        title: "Stock limit",
+        text: "Reduce the quantity or try again later",
+        icon: "warning",
+        showCancelButton: false,
+        confirmButtonColor: "#000000",
+        confirmButtonText: "OK",
+        customClass: {
+          container: "swal-container",
+          title: "swal-title",
+          text: "swal-text",
+          confirmButton: "swal-button"
+        },
+        onOpen: () => {
+          // Set the text color to white
+          const swalContainer = document.querySelector(".swal-container");
+          swalContainer.style.color = "white";
+
+          // Remove the border from the OK button
+          const okButton = document.querySelector(".swal-button");
+          okButton.style.border = "none";
+        }
+      });
+    }
+
+   
+
+
+
+  </script>

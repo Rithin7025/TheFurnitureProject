@@ -139,7 +139,7 @@
             <div class="container">
     <h2>Category Listing</h2>
     <div class="mb-2">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBannerModal">Add Category</button>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBannerModal">Add New Banner</button>
     </div>
     <table class="table table-bordered table-striped">
     
@@ -170,9 +170,11 @@
             {{/if}}
     
 
+    
 
-           <button class="btn btn-sm btn-warning edit-button" onclick="editAction('/admin/editCategory/{{this._id}}')"
-            style="margin-right: 5px;">Edit</button> 
+
+           {{!-- <button class="btn btn-sm btn-warning edit-button" onclick="editAction('/admin/editBanner/{{this._id}}')"
+            style="margin-right: 5px;">Edit</button>  --}}
 
 
           </td>
@@ -237,6 +239,13 @@
         function redirectTo(url){
             window.location.href = url;
         }
+
+        function editAction(url) {
+      const confirmed = confirm('Are you sure you want to Edit this product ?');
+      if (confirmed) {
+        redirectTo(url);
+      }
+    }
     </script>
 
     <!-- JavaScript Libraries -->

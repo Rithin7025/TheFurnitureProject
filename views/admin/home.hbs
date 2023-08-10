@@ -266,7 +266,7 @@
                         <th scope="col">TOTAL PRICE</th>
                         <th scope="col">PAYMENT METHOD</th>
                         <th scope="col">STATUS</th>
-                        <th scope="col">ORDERS</th>
+                        {{!-- <th scope="col">ORDERS</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -280,11 +280,11 @@
                         <td>{{this.totalprice}}</td>
                         <td>{{this.paymentMethod}}</td>
                         <td>{{this.status}}</td>
-                        <td>
+                        {{!-- <td>
                             <a href="/admin/ordersView?id={{this._id}}"
                                 class="btn btn-primary btn-sm btn-block view-btn" style="color: #ffffff;"
                                 type="button">Details</a>
-                        </td>
+                        </td> --}}
                         
                     </tr>
                     {{/each}}

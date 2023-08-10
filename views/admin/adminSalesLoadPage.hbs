@@ -179,8 +179,11 @@
                     <a href="category" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Category</a>
                     <a href="product" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Products</a>
                     <a href="usersList" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Users</a>
-                    <a href="allOrders" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>All orders</a>
                    <a href="salesPage" class="nav-item nav-link  active"><i class="fa fa-chart-line me-2"></i></i>Sales Report</a>
+                    <a href="allOrders" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>All orders</a>
+                    <a href="/admin/manage-coupons" class="nav-item nav-link"><i class="fa fa-tags me-2"></i>Coupons</a>
+                    <a href="/admin/add-coupon" class="nav-item nav-link"><i class="fa fa-plus-circle me-2"></i>Add Coupon</a>
+                     <a href="/admin/add-banner" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Banners</a>
 
 
                 </div>
@@ -364,10 +367,13 @@
             
                         </div>
                     </div>
-                    <h4 class="mt-2 ms-2">Total:₹{{total.[0].totalAmount}}</h4>
-                    <a href="/admin/salesReport" class="btn btn "
-                        style="background-color: #ffd900;color: #000000; font-size: x-small;">Download Sales Report</a>
+                    <h4 class="mt-2 ms-2" style="margin-bottom: 17px;">Total:₹{{total.[0].totalAmount}}</h4>
+                    <a href="/admin/downloadSalesReportExcel" class="btn btn "
+                        style="background-color: #ecf01c;color: #000000; font-size: x-small;">Download Sales Report</a>
             
+
+                    <a href="/admin/salesProduct" class="btn btn "
+                        style="background-color: #000000;color: #ffffff; font-size: x-small;margin-left:1rem">Product Sales Report</a>
             
                         {{#if order}}
                     <div class="sales-form mt-5">

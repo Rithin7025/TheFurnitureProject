@@ -32,23 +32,24 @@
 
 
                         <div class="checkout-discount">
-                        <form class="card p-2" action="/apply-coupon-request" method="POST">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Coupon code" name="couponCodeFromUser">
-                                {{#if couponApplied}}
-                        
-                                <p style="color: #21b503;"><b>{{couponApplied}}</b></p>
-                        
-                                {{else if couponError}}
-                        
-                                <p style="color: red;"><b>{{couponError}}</b></p>
-                        
-                                {{/if}}
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary" >Redeem</button>
+                            <form class="card p-2" action="/apply-coupon-request" method="POST">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Coupon code"
+                                        name="couponCodeFromUser">
+                                    {{#if couponApplied}}
+
+                                    <p style="color: #21b503;"><b>{{couponApplied}}</b></p>
+
+                                    {{else if couponError}}
+
+                                    <p style="color: red;"><b>{{couponError}}</b></p>
+
+                                    {{/if}}
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">Redeem</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
                         </div><!-- End .checkout-discount -->
 
 
@@ -105,21 +106,24 @@
                                                         <td>{{this.name}}</td>
                                                         <td>₹{{this.price}}<span>&times;</span> {{this.quantity}}</td>
                                                         <td></td>
-                                                        <td> </td>
-                                                        <td><img src="{{this.image}}" alt="{{this.name}}"
-                                                                style="width: 60px;height: 40px;padding-left: 20px;" "product-image" />
+                                                        <td></td>
+                                                        <td>
+                                                            <img src="{{this.image.[0]}}" alt="{{this.name}}"
+                                                                style="width: 60px; height: 40px; padding-left: 20px;"
+                                                                class="product-image">
                                                         </td>
                                                     </tr>
                                                     {{/each}}
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="summary-total">
-                                                        <td colspan="4">Subtotal:</td>
-                                                        <td>₹{{this.finalAmount}}.00</td>
+                                                        {{!-- <td colspan="4">Subtotal:</td>
+                                                        <td>₹{{this.finalAmount}}.00</td> --}}
                                                     </tr>
                                                 </tfoot>
                                             </table>
-                                            <li class="list-group-item d-flex justify-content-between bg-light" style="margin-top: 1rem;">
+                                            <li class="list-group-item d-flex justify-content-between bg-light"
+                                                style="margin-top: 1rem;">
                                                 <div class="text-success">
                                                     <h6 class="my-0">Coupon code</h6>
                                                     <small>EXAMPLECODE</small>
@@ -185,7 +189,30 @@
                                                         </div><!-- End .card-body -->
                                                     </div><!-- End .collapse -->
                                                 </div><!-- End .card -->
+                                                <div class="card">
+                                                    <div class="card-header" id="heading-3">
+                                                        <h2 class="card-title">
+                                                            <label class="collapsed" role="button"
+                                                                data-toggle="collapse" href="" aria-expanded="false"
+                                                                aria-controls="collapse-3">
+                                                                <input type="radio" id="wallet" name="payment-method"
+                                                                    value="WALLET">
+                                                                Wallet
+                                                                <span class="wallet-balance">
+
+                                                                    (Amount in the Wallet:
+                                                                    ₹{{walletDetails.walletAmount}})</span>
+                                                                <p id="error-message" class="text-danger"></p>
+                                                            </label>
+                                                        </h2>
+                                                    </div><!-- End .card-header -->
+
+
+
+                                                </div><!-- End .card -->
                                             </div><!-- End .accordion -->
+
+
 
 
                                             <button type="submit"
@@ -261,35 +288,40 @@
                                                     <tr>
                                                         <td>{{this.name}}</td>
                                                         <td>₹{{this.price}}<span>&times;</span> {{this.quantity}}</td>
-                                                        <td>   </td>
-                                                        <td>   </td>
+                                                        <td></td>
+                                                        <td></td>
                                                         <td>
-                                                            <img src="{{this.image}}" alt="{{this.name}}" style="width: 60px;height: 40px;padding-left: 20px;" "product-image">
+                                                            <img src="{{this.image.[0]}}" alt="{{this.name}}"
+                                                                style="width: 60px; height: 40px; padding-left: 20px;"
+                                                                class="product-image">
                                                         </td>
                                                     </tr>
-                                                  
+
                                                 </tbody>
                                                 <tfoot>
                                                     <tr class="summary-total">
-                                                        <td colspan="4">Subtotal:</td>
-                                                        <td>₹ {{this.finalAmount}}.00</td>
+                                                        {{!-- <td colspan="4">Subtotal:</td>
+                                                        <td>₹ {{this.finalAmount}}.00</td> --}}
                                                     </tr>
 
                                                 </tfoot>
                                                 {{/each}}
 
                                             </table>
-                                                    <li class="list-group-item d-flex justify-content-between bg-light" style="margin-top: 1rem;">
-                                                        <div class="text-success">
-                                                            <h6 class="my-0">Coupon code</h6>
-                                                            <small>EXAMPLECODE</small>
-                                                        </div>
-                                                        <span class="text-success">-₹{{this.couponDiscount}}</span>
-                                                    </li>
-                                                    <li class="list-group-item d-flex justify-content-between">
-                                                        <span>Total(INR)</span>
-                                                        <strong><h4>₹{{this.TotalAmount}}</h4></strong>
-                                                    </li>
+                                            <li class="list-group-item d-flex justify-content-between bg-light"
+                                                style="margin-top: 1rem;">
+                                                <div class="text-success">
+                                                    <h6 class="my-0">Coupon code</h6>
+                                                    <small>EXAMPLECODE</small>
+                                                </div>
+                                                <span class="text-success">-₹{{this.couponDiscount}}</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>Total(INR)</span>
+                                                <strong>
+                                                    <h4>₹{{this.TotalAmount}}</h4>
+                                                </strong>
+                                            </li>
 
 
                                             <div class="accordion-summary" id="accordion-payment">
@@ -343,6 +375,30 @@
                                                         </div><!-- End .card-body -->
                                                     </div><!-- End .collapse -->
                                                 </div><!-- End .card -->
+
+
+                                                <div class="card">
+                                                    <div class="card-header" id="heading-3">
+                                                        <h2 class="card-title">
+                                                            <label class="collapsed" role="button"
+                                                                data-toggle="collapse" href="#collapse-3"
+                                                                aria-expanded="false" aria-controls="collapse-3">
+                                                                <input type="radio" id="wallet" name="payment-method"
+                                                                    value="WALLET">
+                                                                Wallet
+                                                                <span class="wallet-balance">
+
+                                                                    (Amount in the Wallet:
+                                                                    ₹{{walletDetails.walletAmount}})</span>
+                                                                <p id="error-message" class="text-danger"></p>
+                                                            </label>
+                                                        </h2>
+                                                    </div><!-- End .card-header -->
+
+
+
+                                                </div><!-- End .card -->
+
                                             </div><!-- End .accordion -->
 
 
@@ -385,7 +441,7 @@
                                         {{this.phone}}<br>
                                         {{this.pincode}}<br>
 
-                                        <a href="#">Edit <i class="icon-edit"></i></a>
+                                        {{!-- <a href="#">Edit <i class="icon-edit"></i></a> --}}
                                     </p>
                                     {{!-- <button id="makeDefaultBtn-{{this._id}}" class="btn btn-danger"
                                         onclick="makeDefaultAddress('{{this._id}}')">Make Default Address</button> --}}
@@ -393,7 +449,7 @@
                                         address</a>
                                 </div><!-- End .card-body -->
                                 {{/each}}
- 
+
                             </div>
                         </div><!-- End .col-lg-6 -->
 
@@ -412,7 +468,7 @@
                                         {{this.phone}}<br>
                                         {{this.pincode}}<br>
 
-                                        <a href="#">Edit <i class="icon-edit"></i></a>
+                                        {{!-- <a href="#">Edit <i class="icon-edit"></i></a> --}}
                                     </p>
 
                                     <a href="/useAddressCheckout/{{this._id}}" class="btn btn-info">Use address</a>
@@ -532,6 +588,7 @@
 
 
 
+
             <div class="social-icons">
                 <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
                 <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
@@ -630,44 +687,7 @@
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/main.js"></script>
 
-    {{!--
-    <script>
-        $(document).ready(function () {
 
-            $('#checkout-button').submit(function (e) {
-                e.preventDefault();
-
-                $.ajax({
-                    url: '/submit-checkout',
-                    method: 'POST',
-                    data: $('#checkout-form').serialize(),
-
-                    success: function (response) {
-
-                        if (response.COD_CHECKOUT) {
-                            console.log("reached here");
-                            location.href = '/orderPlaced';
-                        } else if (response.ONLINE_CHECKOUT) {
-                            makeRazorpayPayment(response);
-                        } else if (response.WALLET_CHECKOUT) {
-                            console.log(response.orderId);
-                            location.href = '/wallet-placed?id=' + response.orderId;
-                        } else if (response.error) {
-                            $('#error-message').text(response.error);
-                        } else {
-                            location.href = '/orderFailed';
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error); // Log any potential error to the console
-                    }
-                });
-            });
-
-        });
-
-
-    </script> --}}
 
     <script>
 
@@ -750,7 +770,7 @@
         form.addEventListener('submit', (e) => {
 
             e.preventDefault();
-            
+
             const formData = new FormData(form);
             // For debuggin
             // console.log(Array.from(formData.entries()));
@@ -776,11 +796,9 @@
                 body: JSON.stringify(data),
             });
             const resBody = await response.json();
+            console.log(resBody)
 
-            if (!resBody.isOk) {
-                console.log('Some error occurred');
-                return;
-            }
+
 
             console.log('OK');
 
@@ -788,16 +806,29 @@
                 console.log("reached here");
                 location.href = '/orderPlaced';
             } else if (resBody.ONLINE_CHECKOUT) {
+
+
                 console.log('---------------------------------------------------------')
-                console.log(resBody)
-                console.log('---------------------------------------------------------')
-                
+
+                console.log(resBody);
+
+
                 makeRazorpayPayment(resBody);
             } else if (resBody.WALLET_CHECKOUT) {
+                console.log('---------------------------------------------------------')
+
                 console.log(resBody.orderId);
-                location.href = '/wallet-placed?id=' + resBody.orderId;
+                console.log('---------------------------------------------------------')
+
+
+                window.location.href = '/wallet-placedOrder?id=' + resBody.orderId;
+
             } else if (resBody.error) {
+
+                console.log(resBody.error)
+
                 $('#error-message').text(resBody.error);
+
             } else {
                 location.href = '/orderFailed';
             }

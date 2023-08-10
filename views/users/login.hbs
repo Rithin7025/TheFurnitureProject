@@ -1,251 +1,269 @@
-
 {{#if message}}
-  <p style="color: green;" ml="10">{{message}}</p>
-  {{/if}}
+<p style="color: green;" ml="10">{{message}}</p>
+{{/if}}
 <style>
-    body {
-      margin: 0;
-      color: #6a6f8c;
-      background: #c8c8c8;
-      font: 600 16px/18px 'Open Sans', sans-serif;
-    }
+  body {
+    margin: 0;
+    color: #6a6f8c;
+    background: #c8c8c8;
+    font: 600 16px/18px 'Open Sans', sans-serif;
+  }
 
-    *,:after,:before{box-sizing:border-box}
-    .clearfix:after,.clearfix:before{content:'';display:table}
-    .clearfix:after{clear:both;display:block}
-    a{color:inherit;text-decoration:none}
+  *,
+  :after,
+  :before {
+    box-sizing: border-box
+  }
 
-    .login-wrap{
-      width:100%;
-      margin:auto;
-      max-width:525px;
-      min-height:670px;
-      position:relative;
-      background:url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center;
-      box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
-    }
+  .clearfix:after,
+  .clearfix:before {
+    content: '';
+    display: table
+  }
 
-    .login-html{
-      width:100%;
-      height:100%;
-      position:absolute;
-      padding:90px 70px 50px 70px;
-      background:rgba(40,57,101,.9);
-    }
+  .clearfix:after {
+    clear: both;
+    display: block
+  }
 
-    .login-html .tab,
-    .login-form .group .label,
-    .login-form .group .button{
-      text-transform:uppercase;
-    }
+  a {
+    color: inherit;
+    text-decoration: none
+  }
 
-    .login-form{
-      min-height:345px;
-      position:relative;
-      perspective:1000px;
-      transform-style:preserve-3d;
-    }
+  .login-wrap {
+    width: 100%;
+    margin: auto;
+    max-width: 525px;
+    min-height: 670px;
+    position: relative;
+    background: url(https://raw.githubusercontent.com/khadkamhn/day-01-login-form/master/img/bg.jpg) no-repeat center;
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
+  }
 
-    .login-form .group{
-      margin-bottom:15px;
-    }
+  .login-html {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 90px 70px 50px 70px;
+    background: rgba(40, 57, 101, .9);
+  }
 
-    .login-form .group .label,
-    .login-form .group .input,
-    .login-form .group .button{
-      width:100%;
-      color:#fff;
-      display:block;
-    }
+  .login-html .tab,
+  .login-form .group .label,
+  .login-form .group .button {
+    text-transform: uppercase;
+  }
 
-    .login-form .group .input,
-    .login-form .group .button{
-      border:none;
-      padding:15px 20px;
-      border-radius:25px;
-      background:rgba(255,255,255,.1);
-    }
+  .login-form {
+    min-height: 345px;
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
 
-    .login-form .group input[data-type="password"]{
-      text-security:circle;
-      -webkit-text-security:circle;
-    }
+  .login-form .group {
+    margin-bottom: 15px;
+  }
 
-    .login-form .group .label{
-      color:#aaa;
-      font-size:12px;
-    }
+  .login-form .group .label,
+  .login-form .group .input,
+  .login-form .group .button {
+    width: 100%;
+    color: #fff;
+    display: block;
+  }
 
-    .login-form .group .button{
-      background:#1161ee;
-    }
+  .login-form .group .input,
+  .login-form .group .button {
+    border: none;
+    padding: 15px 20px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .1);
+  }
 
-    .login-form .group label .icon{
-      width:15px;
-      height:15px;
-      border-radius:2px;
-      position:relative;
-      display:inline-block;
-      background:rgba(255,255,255,.1);
-    }
+  .login-form .group input[data-type="password"] {
+    text-security: circle;
+    -webkit-text-security: circle;
+  }
 
-    .login-form .group label .icon:before,
-    .login-form .group label .icon:after{
-      content:'';
-      width:10px;
-      height:2px;
-      background:#fff;
-      position:absolute;
-      transition:all .2s ease-in-out 0s;
-    }
+  .login-form .group .label {
+    color: #aaa;
+    font-size: 12px;
+  }
 
-    .login-form .group label .icon:before{
-      left:3px;
-      width:5px;
-      bottom:6px;
-      transform:scale(0) rotate(0);
-    }
+  .login-form .group .button {
+    background: #1161ee;
+  }
 
-    .login-form .group label .icon:after{
-      top:6px;
-      right:0;
-      transform:scale(0) rotate(0);
-    }
+  .login-form .group label .icon {
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    position: relative;
+    display: inline-block;
+    background: rgba(255, 255, 255, .1);
+  }
 
-    .login-form .group .check:checked + label{
-      color:#fff;
-    }
+  .login-form .group label .icon:before,
+  .login-form .group label .icon:after {
+    content: '';
+    width: 10px;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    transition: all .2s ease-in-out 0s;
+  }
 
-    .login-form .group .check:checked + label .icon{
-      background:#1161ee;
-    }
+  .login-form .group label .icon:before {
+    left: 3px;
+    width: 5px;
+    bottom: 6px;
+    transform: scale(0) rotate(0);
+  }
 
-    .login-form .group .check:checked + label .icon:before{
-      transform:scale(1) rotate(45deg);
-    }
+  .login-form .group label .icon:after {
+    top: 6px;
+    right: 0;
+    transform: scale(0) rotate(0);
+  }
 
-    .login-form .group .check:checked + label .icon:after{
-      transform:scale(1) rotate(-45deg);
-    }
+  .login-form .group .check:checked+label {
+    color: #fff;
+  }
 
-    .login-form .group .button{
-      background:#1161ee;
-    }
+  .login-form .group .check:checked+label .icon {
+    background: #1161ee;
+  }
 
-    .login-form .group label .icon:before,
-    .login-form .group label .icon:after{
-      content:'';
-      width:10px;
-      height:2px;
-      background:#fff;
-      position:absolute;
-      transition:all .2s ease-in-out 0s;
-    }
+  .login-form .group .check:checked+label .icon:before {
+    transform: scale(1) rotate(45deg);
+  }
 
-    .login-form .group label .icon:before{
-      left:3px;
-      width:5px;
-      bottom:6px;
-      transform:scale(0) rotate(0);
-    }
+  .login-form .group .check:checked+label .icon:after {
+    transform: scale(1) rotate(-45deg);
+  }
 
-    .login-form .group label .icon:after{
-      top:6px;
-      right:0;
-      transform:scale(0) rotate(0);
-    }
+  .login-form .group .button {
+    background: #1161ee;
+  }
 
-    .login-form .group .check:checked + label{
-      color:#fff;
-    }
+  .login-form .group label .icon:before,
+  .login-form .group label .icon:after {
+    content: '';
+    width: 10px;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    transition: all .2s ease-in-out 0s;
+  }
 
-    .login-form .group .check:checked + label .icon{
-      background:#1161ee;
-    }
+  .login-form .group label .icon:before {
+    left: 3px;
+    width: 5px;
+    bottom: 6px;
+    transform: scale(0) rotate(0);
+  }
 
-    .login-form .group .check:checked + label .icon:before{
-      transform:scale(1) rotate(45deg);
-    }
+  .login-form .group label .icon:after {
+    top: 6px;
+    right: 0;
+    transform: scale(0) rotate(0);
+  }
 
-    .login-form .group .check:checked + label .icon:after{
-      transform:scale(1) rotate(-45deg);
-    }
+  .login-form .group .check:checked+label {
+    color: #fff;
+  }
 
-    .login-html .tab + .sign-up + .login-form .sign-up-htm{
-      transform:rotate(0);
-    }
+  .login-form .group .check:checked+label .icon {
+    background: #1161ee;
+  }
 
-    .hr{
-      height:2px;
-      margin:60px 0 50px 0;
-      background:rgba(255,255,255,.2);
-    }
+  .login-form .group .check:checked+label .icon:before {
+    transform: scale(1) rotate(45deg);
+  }
 
-    .foot-lnk{
-      text-align:center;
-    }
-  </style>
- <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <!-- Main CSS File -->
-    <link rel="stylesheet" href="/css/style.css">
+  .login-form .group .check:checked+label .icon:after {
+    transform: scale(1) rotate(-45deg);
+  }
+
+  .login-html .tab+.sign-up+.login-form .sign-up-htm {
+    transform: rotate(0);
+  }
+
+  .hr {
+    height: 2px;
+    margin: 60px 0 50px 0;
+    background: rgba(255, 255, 255, .2);
+  }
+
+  .foot-lnk {
+    text-align: center;
+  }
+</style>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<!-- Main CSS File -->
+<link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="icon-close"></i></span>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="icon-close"></i></span>
+        </button>
+
+        <div class="form-box">
+          <div class="form-tab">
+            <ul class="nav nav-pills nav-fill" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#" role="tab" aria-controls="signin"
+                  aria-selected="true">Sign In</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="register-tab" data-toggle="tab" href="/register" role="tab"
+                  aria-controls="register" aria-selected="false">Register</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="tab-content-5">
+              <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
+
+
+                <form action="/login" method="post">
+                  <div class="form-group">
+                    <label for="singin-email">Username or email address *</label>
+                    <input type="text" class="form-control" id="singin-email" name="email" required>
+                  </div><!-- End .form-group -->
+
+                  <div class="form-group">
+                    <label for="singin-password">Password *</label>
+                    <input type="password" class="form-control" id="singin-password" name="password" required>
+                  </div><!-- End .form-group -->
+
+                  <div class="form-footer">
+                    <button type="submit" class="btn btn-outline-primary-2">
+                      <span>LOG IN</span>
+                      <i class="icon-long-arrow-right"></i>
                     </button>
 
-                    <div class="form-box">
-                        <div class="form-tab">
-                            <ul class="nav nav-pills nav-fill" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="signin-tab" data-toggle="tab" href="#" role="tab" aria-controls="signin" aria-selected="true">Sign In</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="register-tab" data-toggle="tab" href="/register" role="tab" aria-controls="register" aria-selected="false">Register</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="tab-content-5">
-                                <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
 
 
-                                    <form action="/login" method="post">
-                                        <div class="form-group">
-                                            <label for="singin-email">Username or email address *</label>
-                                            <input type="text" class="form-control" id="singin-email" name="email" required>
-                                        </div><!-- End .form-group -->
+                    <a href="/forget" class="forgot-link"> Forgot Your Password ?</a>
+                  </div><!-- End .form-footer -->
 
-                                        <div class="form-group">
-                                            <label for="singin-password">Password *</label>
-                                            <input type="password" class="form-control" id="singin-password" name="password" required>
-                                        </div><!-- End .form-group -->
+                </form>
 
-                                        <div class="form-footer">
-                                            <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>LOG IN</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </button>
 
-                                            
 
-                                            <a href="/forget" class="forgot-link"> Forgot Your Password ?</a>
-                                        </div><!-- End .form-footer -->
-                                      
-                                    </form>
+              </div><!-- End .form-choice -->
+            </div><!-- .End .tab-pane -->
 
-                  
-                                    
-                                    </div><!-- End .form-choice -->
-                                </div><!-- .End .tab-pane -->
-                               
-                                
-                            </div><!-- End .tab-content -->
-                        </div><!-- End .form-tab -->
-                    </div><!-- End .form-box -->
-                </div><!-- End .modal-body -->
-            </div><!-- End .modal-content -->
-        </div><!-- End .modal-dialog -->
-    </div><!-- End .modal -->
+
+          </div><!-- End .tab-content -->
+        </div><!-- End .form-tab -->
+      </div><!-- End .form-box -->
+    </div><!-- End .modal-body -->
+  </div><!-- End .modal-content -->
+  </div><!-- End .modal-dialog -->
+  </div><!-- End .modal -->

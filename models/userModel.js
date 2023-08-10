@@ -39,6 +39,12 @@ const mongoose =require('mongoose')
     is_blocked : {
         type : Boolean,
         default : false
+    },
+    referalCode : {
+
+        
+        type : String,
+        unique: true
     }
  });
 

@@ -150,7 +150,11 @@
 
 
 
+    
 
+    <div style="margin-left: 7rem;">
+        <a href="/downloadInvoice/{{orderId}}" class="btn btn-info" style="background-color: lime;">Download Invoice</a>
+    </div>
 
 
 
@@ -278,16 +282,16 @@
 
                         <div class="row justify-content-between">
                             <div class="flex-sm-col text-right col">
-                                <p class="mb-1"><b>Delivery Fee</b></p>
+                                <p class="mb-1"><b></b></p>
                             </div>
                             <div class="flex-sm-col col-auto">
-                                <p class="mb-1"><span style="color: red;">&#8377;</span></p>
+                                <p class="mb-1"><span style="color: red;"></span></p>
                             </div>
                         </div>
 
                         <div class="row justify-content-between">
                             <div class="flex-sm-col text-right col">
-                                <p class="mb-1"><b>Grand Total</b></p>
+                                <p class="mb-1"><b>Grand Total After Discounts</b></p>
                             </div>
                             <div class="flex-sm-col col-auto">
                                 <p class="mb-1"><span style="color: red;">&#8377;</span>{{subtotal}}</p>
@@ -369,28 +373,28 @@
     <!-- Modal -->
 
 
-<!-- Modal for Return Confirmation -->
-<div class="modal fade" id="returnConfirmationModal" tabindex="-1" aria-labelledby="returnConfirmationModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="returnConfirmationModalLabel">Return Confirmation</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to return the order?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <form action="/return-order" method="post">
-                    <button type="submit" class="btn btn-danger" id="confirmReturnBtn" name="orderId"
-                        value="{{orderId}}">Yes, Return</button>
-                </form>
+    <!-- Modal for Return Confirmation -->
+    <div class="modal fade" id="returnConfirmationModal" tabindex="-1" aria-labelledby="returnConfirmationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="returnConfirmationModalLabel">Return Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to return the order?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <form action="/return-order" method="post">
+                        <button type="submit" class="btn btn-danger" id="confirmReturnBtn" name="orderId"
+                            value="{{orderId}}">Yes, Return</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
@@ -514,7 +518,7 @@
         modal.show();
     }
 
-  
+
 
 
 

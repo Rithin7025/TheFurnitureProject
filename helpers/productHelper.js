@@ -19,6 +19,8 @@ module.exports = {
       const productDetails = await Cart.findOne({ user_id: userId });
       //prodcut details coming here
 
+
+      console.log('entered into the getProductList in helper',productDetails)
       //   conditon (no cart or no products inside cart)
       if (!productDetails || !productDetails.products) {
         return false;
@@ -29,6 +31,7 @@ module.exports = {
         return acc + product.total;
       }, 0);
 
+      
       const products = productDetails.products.map((product) => ({
         productId: product.productId,
         quantity: product.quantity,
@@ -62,7 +65,7 @@ module.exports = {
 
   placingOrder: async (userId, orderData, orderedProducts, totalOrderValue) => {
     let orderStatus =
-      orderData["payment-method"] === "COD" ? "Pending" : "PENDING";
+      orderData["payment-method"] === "COD" ? "Pending" : "Paid";
 
     console.log(orderData["payment-method"]);
 
@@ -83,6 +86,7 @@ module.exports = {
       date: Date(),
       totalprice: totalOrderValue,
     });
+
     console.log(
       "The order details which is saved to the order collection",
       orderDetails
@@ -108,7 +112,6 @@ module.exports = {
 
   generateRazorPayOrder: async (orderId, totalOrderValue) => {
     console.log(totalOrderValue);
-    console.log("++++++++++++++++++++++++++++++++++++++++++++++++++++");
     orderValue = totalOrderValue * 100;
     console.log(orderValue);
 
@@ -122,7 +125,7 @@ module.exports = {
       currency: "INR",
       receipt: orderId,
     };
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
     const razorpayResultPromise = new Promise((resolve, reject) => {
       instance.orders.create(
         razorpayOrderDetails,
