@@ -35,7 +35,7 @@ const ProductPageLoad = async (req, res) => {
     console.log(products)
     console.log("----------------------------------------------------")
 
-    res.render("admin/productpage", {
+    res.render("admin/productPage", {
       products: products,
       categories: categories,
     })
