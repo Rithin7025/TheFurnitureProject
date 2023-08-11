@@ -875,7 +875,7 @@ const verifyPayment = async (req, res) => {
 const successPageLoad = async (req, res) => {
   const isUserLoggedIn = req.session.user_id !== undefined
 
-  res.render("users/orderSuccesspage", { isUserLoggedIn })
+  res.render("users/orderSuccessPage", { isUserLoggedIn })
 }
 
 const cancelOrder = async (req, res) => {
