@@ -291,7 +291,7 @@ const orderDetailPageLoad = async (req, res) => {
     const cancellationStatus = order.cancellationStatus
     const subTotal = order.totalprice
 
-    res.render("users/orderDetailView1", {
+    res.render("users/orderDetailview1", {
       isUserLoggedIn,
       orderDetails: orderDetails,
       deliveryAddress: deliveryAddress,
