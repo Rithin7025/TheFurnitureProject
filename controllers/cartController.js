@@ -426,7 +426,7 @@ const changeQuantity = async (req, res) => {
 
 const successPage = async (req, res) => {
   try {
-    res.render("users/orderSuccesspage");
+    res.render("users/orderSuccessPage");
   } catch (error) {}
 };
 

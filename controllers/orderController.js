@@ -306,7 +306,7 @@ const orderDetailPageLoad = async (req, res) => {
 const cancelOrder = async (req, res) => {
   try {
     const id = req.body.orderId
-    const url = "/orderDetailView1/" + id
+    const url = "/orderDetailview1/" + id
 
     const updateOrder = await Order.findByIdAndUpdate(
       { _id: new ObjectId(id) },
@@ -327,7 +327,7 @@ const cancelOrder = async (req, res) => {
 
 const returnOrderUser = async (req, res) => {
   const { orderId } = req.body
-  const url = "/orderDetailView1/" + orderId
+  const url = "/orderDetailview1/" + orderId
 
   const orderDetails = await Order.find({ _id: orderId })
 
