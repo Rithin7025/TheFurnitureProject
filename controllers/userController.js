@@ -396,7 +396,7 @@ const resetPassword = async (req, res) => {
 
     res.redirect("/")
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message) 
   }
 }
 //for verification sendLink
@@ -418,7 +418,7 @@ const sentVerificationLink = async (req, res) => {
       sendVerifyMail(userData.name, userData.email, userData._id)
 
       res.render("users/verification", {
-        message: "Verification Mail sent to your email id,please verify",
+        message: "We can't sent the verification Mail at the moment ,use demo user in login to explore our site !! ",
       })
     } else {
       res.render("users/verification", {
